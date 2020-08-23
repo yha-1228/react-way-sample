@@ -8,7 +8,7 @@ function SearchBar(props) {
     <form>
       <input
         type="text"
-        placeholder="Search..."
+        placeholder="Search name..."
         value={props.filterText}
         onChange={(e) => {
           props.onFilterTextChange(e.target.value);
@@ -35,13 +35,23 @@ function ProductTable(props) {
       <thead>
         <tr>
           <th>ID</th>
+          <th>Brand</th>
+          <th>Category</th>
           <th>Name</th>
           <th>Price</th>
+          <th>Summary</th>
         </tr>
       </thead>
       <tbody>
         {props.products
-          .filter((product) => product.name.indexOf(props.filterText) !== -1)
+          // filterText
+          .filter(
+            (product) =>
+              product.name
+                .toUpperCase()
+                .indexOf(props.filterText.toUpperCase()) !== -1
+          )
+          // inStockOnly
           .filter((product) =>
             props.inStockOnly ? product.stocked : !undefined
           )
@@ -51,8 +61,11 @@ function ProductTable(props) {
               className={classNames({ warn: !product.stocked })}
             >
               <td>{product.id}</td>
+              <td>{product.brand}</td>
+              <td>{product.category}</td>
               <td>{product.name}</td>
               <td>{product.price}</td>
+              <td>{product.summary}</td>
             </tr>
           ))}
       </tbody>
