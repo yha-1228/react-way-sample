@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import Axios from 'axios';
 
 function SearchBar(props) {
   return (
@@ -64,11 +65,17 @@ function ProductTable(props) {
 class FilterableProductTable extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { filterText: '', inStockOnly: false };
+    this.state = { products: [], filterText: '', inStockOnly: false };
   }
 
   componentDidMount() {
-    // componentDidMount()
+    Axios.get('https://5e6736691937020016fed762.mockapi.io/products')
+      .then((response) => {
+        this.setState({ products: response.data });
+      })
+      .catch((response) => {
+        console.log(`responce => ${response}`);
+      });
   }
 
   render() {
@@ -87,60 +94,15 @@ class FilterableProductTable extends React.Component {
         <ProductTable
           filterText={this.state.filterText}
           inStockOnly={this.state.inStockOnly}
-          products={this.props.products}
+          products={this.state.products}
         />
       </div>
     );
   }
 }
 
-const products = [
-  {
-    id: 1,
-    category: 'Sporting Goods',
-    price: '$49.99',
-    stocked: true,
-    name: 'Football',
-  },
-  {
-    id: 2,
-    category: 'Sporting Goods',
-    price: '$9.99',
-    stocked: true,
-    name: 'Baseball',
-  },
-  {
-    id: 3,
-    category: 'Sporting Goods',
-    price: '$29.99',
-    stocked: false,
-    name: 'Basketball',
-  },
-  {
-    id: 4,
-    category: 'Electronics',
-    price: '$99.99',
-    stocked: true,
-    name: 'iPod Touch',
-  },
-  {
-    id: 5,
-    category: 'Electronics',
-    price: '$399.99',
-    stocked: false,
-    name: 'iPhone 5',
-  },
-  {
-    id: 6,
-    category: 'Electronics',
-    price: '$199.99',
-    stocked: true,
-    name: 'Nexus 7',
-  },
-];
-
 function App() {
-  return <FilterableProductTable products={products} />;
+  return <FilterableProductTable />;
 }
 
 export default App;
