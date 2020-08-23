@@ -30,8 +30,6 @@ function SearchBar(props) {
 }
 
 function ProductTable(props) {
-  // TODO: 検索フィルター適用
-
   return (
     <table>
       <thead>
@@ -43,6 +41,7 @@ function ProductTable(props) {
       </thead>
       <tbody>
         {props.products
+          .filter((product) => product.name.indexOf(props.filterText) !== -1)
           .filter((product) =>
             props.inStockOnly ? product.stocked : !undefined
           )
