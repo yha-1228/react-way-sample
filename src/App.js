@@ -8,7 +8,7 @@ function SearchBar(props) {
     <form>
       <input
         type="text"
-        placeholder="検索..."
+        placeholder="Search..."
         value={props.filterText}
         onChange={(e) => {
           props.onFilterTextChange(e.target.value);
@@ -23,31 +23,39 @@ function SearchBar(props) {
             props.onInStockOnlyChange(e.target.checked);
           }}
         />{' '}
-        <label htmlFor="checkInStockOnly">在庫ありの商品だけ表示</label>
+        <label htmlFor="checkInStockOnly">Only show products in stock</label>
       </p>
     </form>
   );
 }
 
 function ProductTable(props) {
+  // TODO: 検索フィルター適用
+
   return (
     <table>
       <thead>
         <tr>
-          <th>商品名</th>
-          <th>価格</th>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Price</th>
         </tr>
       </thead>
       <tbody>
-        {props.products.map((product) => (
-          <tr
-            key={product.id}
-            className={classNames({ warn: product.stocked })}
-          >
-            <td>{product.name}</td>
-            <td>{product.price}</td>
-          </tr>
-        ))}
+        {props.products
+          .filter((product) =>
+            props.inStockOnly ? product.stocked : !undefined
+          )
+          .map((product) => (
+            <tr
+              key={product.id}
+              className={classNames({ warn: !product.stocked })}
+            >
+              <td>{product.id}</td>
+              <td>{product.name}</td>
+              <td>{product.price}</td>
+            </tr>
+          ))}
       </tbody>
     </table>
   );
