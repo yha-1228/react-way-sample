@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import Axios from 'axios';
+import classNames from 'classnames';
 
 function SearchBar(props) {
   return (
@@ -39,7 +40,10 @@ function ProductTable(props) {
       </thead>
       <tbody>
         {props.products.map((product) => (
-          <tr key={product.id}>
+          <tr
+            key={product.id}
+            className={classNames({ warn: product.stocked })}
+          >
             <td>{product.name}</td>
             <td>{product.price}</td>
           </tr>

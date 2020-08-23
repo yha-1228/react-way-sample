@@ -4,10 +4,6 @@ body {
   line-height: 1.7;
 }
 
-.normal {
-  color: black;
-}
-
 .warn {
-  color: rgb(154, 165, 56);
+  color: red;
 }
