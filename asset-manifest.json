@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/react-way-sample/static/css/main.75c50f53.chunk.css",
-    "main.js": "/react-way-sample/static/js/main.8b22016e.chunk.js",
-    "main.js.map": "/react-way-sample/static/js/main.8b22016e.chunk.js.map",
+    "main.js": "/react-way-sample/static/js/main.cedf839c.chunk.js",
+    "main.js.map": "/react-way-sample/static/js/main.cedf839c.chunk.js.map",
     "runtime-main.js": "/react-way-sample/static/js/runtime-main.2b1b0a52.js",
     "runtime-main.js.map": "/react-way-sample/static/js/runtime-main.2b1b0a52.js.map",
     "static/js/2.9532552e.chunk.js": "/react-way-sample/static/js/2.9532552e.chunk.js",
     "static/js/2.9532552e.chunk.js.map": "/react-way-sample/static/js/2.9532552e.chunk.js.map",
     "index.html": "/react-way-sample/index.html",
-    "precache-manifest.c8f683c0c0b45f79260eedff42b89381.js": "/react-way-sample/precache-manifest.c8f683c0c0b45f79260eedff42b89381.js",
+    "precache-manifest.7346dc27f0df5c40a5abd091a899280b.js": "/react-way-sample/precache-manifest.7346dc27f0df5c40a5abd091a899280b.js",
     "service-worker.js": "/react-way-sample/service-worker.js",
     "static/css/main.75c50f53.chunk.css.map": "/react-way-sample/static/css/main.75c50f53.chunk.css.map",
     "static/js/2.9532552e.chunk.js.LICENSE.txt": "/react-way-sample/static/js/2.9532552e.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.2b1b0a52.js",
     "static/js/2.9532552e.chunk.js",
     "static/css/main.75c50f53.chunk.css",
-    "static/js/main.8b22016e.chunk.js"
+    "static/js/main.cedf839c.chunk.js"
   ]
 }
