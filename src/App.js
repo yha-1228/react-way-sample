@@ -1,7 +1,8 @@
 import React from 'react';
-import './App.scss';
 import Axios from 'axios';
 import classNames from 'classnames';
+import './Reset.scss';
+import './App.scss';
 
 function SearchBar(props) {
   return (
@@ -33,13 +34,12 @@ function ProductTable(props) {
   return (
     <table>
       <thead>
-        <tr>
-          <th>ID</th>
-          <th>Brand</th>
-          <th>Category</th>
-          <th>Name</th>
-          <th>Price</th>
-          <th>Summary</th>
+        <tr className="table-row">
+          <th className="table-cell">ID</th>
+          <th className="table-cell">Brand</th>
+          <th className="table-cell">Category</th>
+          <th className="table-cell">Name</th>
+          <th className="table-cell">Price</th>
         </tr>
       </thead>
       <tbody>
@@ -58,14 +58,13 @@ function ProductTable(props) {
           .map((product) => (
             <tr
               key={product.id}
-              className={classNames({ warn: !product.stocked })}
+              className={classNames("table-row", { warn: !product.stocked })}
             >
-              <td>{product.id}</td>
-              <td>{product.brand}</td>
-              <td>{product.category}</td>
-              <td>{product.name}</td>
-              <td>{product.price}</td>
-              <td>{product.summary}</td>
+              <td className="table-cell">{product.id}</td>
+              <td className="table-cell">{product.brand}</td>
+              <td className="table-cell">{product.category}</td>
+              <td className="table-cell">{product.name}</td>
+              <td className="table-cell">{product.price}</td>
             </tr>
           ))}
       </tbody>
@@ -113,7 +112,7 @@ class FilterableProductTable extends React.Component {
 }
 
 function App() {
-  return <FilterableProductTable />;
+  return <div className="container"><FilterableProductTable /></div>;
 }
 
 export default App;
