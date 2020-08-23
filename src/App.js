@@ -54,8 +54,8 @@ function ProductTable(props) {
       </thead>
       <tbody>
         {props.products
-          .filter((product) => isFilterTextValid(product))
-          .filter((product) => isInStockOnlyValid(product))
+          .filter(isFilterTextValid)
+          .filter(isInStockOnlyValid)
           .map((product) => (
             <tr
               key={product.id}
