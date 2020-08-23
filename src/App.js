@@ -29,26 +29,6 @@ function SearchBar(props) {
 }
 
 function ProductTable(props) {
-  // TODO: mapを使う
-  const rows = [];
-
-  props.products.forEach((product) => {
-    if (product.name.indexOf(props.filterText) === -1) {
-      return;
-    }
-
-    if (props.inStockOnly && !product.stocked) {
-      return;
-    }
-
-    rows.push(
-      <tr key={product.id} className={product.stocked ? 'normal' : 'warn'}>
-        <td>{product.name}</td>
-        <td>{product.price}</td>
-      </tr>
-    );
-  });
-
   return (
     <table>
       <thead>
@@ -57,7 +37,14 @@ function ProductTable(props) {
           <th>価格</th>
         </tr>
       </thead>
-      <tbody>{rows}</tbody>
+      <tbody>
+        {props.products.map((product) => (
+          <tr key={product.id}>
+            <td>{product.name}</td>
+            <td>{product.price}</td>
+          </tr>
+        ))}
+      </tbody>
     </table>
   );
 }
