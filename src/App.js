@@ -31,12 +31,18 @@ function SearchBar(props) {
 }
 
 function ProductTable(props) {
+  /**
+   * @param {Array} product 
+   */
   const isFilterTextValid = (product) => {
     const capsName = product.name.toUpperCase();
     const capsFilterText = props.filterText.toUpperCase();
     return capsName.indexOf(capsFilterText) !== -1;
   };
 
+  /**
+   * @param {Array} product 
+   */
   const isInStockOnlyValid = (product) => {
     return props.inStockOnly ? product.stocked : !undefined;
   };
