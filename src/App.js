@@ -31,6 +31,16 @@ function SearchBar(props) {
 }
 
 function ProductTable(props) {
+  const isFilterTextValid = (product) => {
+    const capsName = product.name.toUpperCase();
+    const capsFilterText = props.filterText.toUpperCase();
+    return capsName.indexOf(capsFilterText) !== -1;
+  };
+
+  const isInStockOnlyValid = (product) => {
+    return props.inStockOnly ? product.stocked : !undefined;
+  };
+
   return (
     <table>
       <thead>
@@ -44,21 +54,12 @@ function ProductTable(props) {
       </thead>
       <tbody>
         {props.products
-          // filterText
-          .filter(
-            (product) =>
-              product.name
-                .toUpperCase()
-                .indexOf(props.filterText.toUpperCase()) !== -1
-          )
-          // inStockOnly
-          .filter((product) =>
-            props.inStockOnly ? product.stocked : !undefined
-          )
+          .filter((product) => isFilterTextValid(product))
+          .filter((product) => isInStockOnlyValid(product))
           .map((product) => (
             <tr
               key={product.id}
-              className={classNames("table-row", { warn: !product.stocked })}
+              className={classNames('table-row', { warn: !product.stocked })}
             >
               <td className="table-cell">{product.id}</td>
               <td className="table-cell">{product.brand}</td>
@@ -73,6 +74,8 @@ function ProductTable(props) {
 }
 
 class FilterableProductTable extends React.Component {
+  // TODO: add loading
+  // TODO: add error
   constructor(props) {
     super(props);
     this.state = { products: [], filterText: '', inStockOnly: false };
@@ -112,7 +115,11 @@ class FilterableProductTable extends React.Component {
 }
 
 function App() {
-  return <div className="container"><FilterableProductTable /></div>;
+  return (
+    <div className="container">
+      <FilterableProductTable />
+    </div>
+  );
 }
 
 export default App;
