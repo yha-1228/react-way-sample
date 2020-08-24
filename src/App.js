@@ -54,11 +54,11 @@ function ProductTable(props) {
     <table className="product-table">
       <thead>
         <tr className="table-row">
-          <th className="table-cell">ID</th>
-          <th className="table-cell">Brand</th>
-          <th className="table-cell">Category</th>
-          <th className="table-cell">Name</th>
-          <th className="table-cell">Price</th>
+          <th className="table-cell text-right">ID</th>
+          <th className="table-cell text-left">Brand</th>
+          <th className="table-cell text-left">Category</th>
+          <th className="table-cell text-left">Name</th>
+          <th className="table-cell text-right">Price</th>
         </tr>
       </thead>
       <tbody>
@@ -70,11 +70,11 @@ function ProductTable(props) {
               key={product.id}
               className={classNames('table-row', { warn: !product.stocked })}
             >
-              <td className="table-cell">{product.id}</td>
-              <td className="table-cell">{product.brand}</td>
-              <td className="table-cell">{product.category}</td>
-              <td className="table-cell">{product.name}</td>
-              <td className="table-cell">{product.price}</td>
+              <td className="table-cell text-right">{product.id}</td>
+              <td className="table-cell text-left">{product.brand}</td>
+              <td className="table-cell text-left">{product.category}</td>
+              <td className="table-cell text-left">{product.name}</td>
+              <td className="table-cell text-right">{product.price}</td>
             </tr>
           ))}
       </tbody>
