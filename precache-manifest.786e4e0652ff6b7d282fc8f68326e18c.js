@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "8e234941063476200f76e51db74fc559",
+    "revision": "39e598f996e311b330b17cfc660bd65e",
     "url": "/react-way-sample/index.html"
   },
   {
-    "revision": "68d42f44b0b7e1e78bb7",
+    "revision": "217a1558cebf3178c8e1",
     "url": "/react-way-sample/static/css/main.75c50f53.chunk.css"
   },
   {
-    "revision": "dc6493cb1ca5547efd3d",
-    "url": "/react-way-sample/static/js/2.9532552e.chunk.js"
+    "revision": "12330b369be85b83f4ae",
+    "url": "/react-way-sample/static/js/2.bfbb5c51.chunk.js"
   },
   {
     "revision": "5ac48c47bb3912b14c2d8de4f56d5ae8",
-    "url": "/react-way-sample/static/js/2.9532552e.chunk.js.LICENSE.txt"
+    "url": "/react-way-sample/static/js/2.bfbb5c51.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "68d42f44b0b7e1e78bb7",
-    "url": "/react-way-sample/static/js/main.cedf839c.chunk.js"
+    "revision": "217a1558cebf3178c8e1",
+    "url": "/react-way-sample/static/js/main.de1bdb43.chunk.js"
   },
   {
     "revision": "95c9dbd256ebbfeeb0a4",
