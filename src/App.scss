@@ -17,14 +17,16 @@ body {
   padding: 0 15px;
 }
 
+.product-table {
+  width: 100%;
+}
+
 .table-row {
   border-bottom: 1px solid lightgray;
 }
 
 .table-cell {
-  line-height: 40px;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding: 10px;
 }
 
 // utils

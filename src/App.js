@@ -51,7 +51,7 @@ function ProductTable(props) {
   };
 
   return (
-    <table>
+    <table className="product-table">
       <thead>
         <tr className="table-row">
           <th className="table-cell">ID</th>
