@@ -107,7 +107,7 @@ class FilterableProductTable extends React.Component {
   }
 
   componentDidMount() {
-    Axios.get('https://5e6736691937020016fed762.mockapi.io/products')
+    axios.get('https://5e6736691937020016fed762.mockapi.io/products')
       .then((response) => {
         this.setState({ products: response.data });
       })
