@@ -5,24 +5,27 @@ import './Reset.scss';
 import './App.scss';
 
 function SearchBar(props) {
+  const handleFilterTextChange = (e) => {
+    props.onFilterTextChange(e.target.value);
+  };
+  const handleInStockOnlyChange = (e) => {
+    props.onInStockOnlyChange(e.target.checked);
+  };
+
   return (
     <form>
       <input
         type="text"
         placeholder="Search name..."
         value={props.filterText}
-        onChange={(e) => {
-          props.onFilterTextChange(e.target.value);
-        }}
+        onChange={handleFilterTextChange}
       />
       <p>
         <input
           id="checkInStockOnly"
           type="checkbox"
           checked={props.inStockOnly}
-          onChange={(e) => {
-            props.onInStockOnlyChange(e.target.checked);
-          }}
+          onChange={handleInStockOnlyChange}
         />{' '}
         <label htmlFor="checkInStockOnly">Only show products in stock</label>
       </p>
@@ -32,7 +35,7 @@ function SearchBar(props) {
 
 function ProductTable(props) {
   /**
-   * @param {Array} product 
+   * @param {Array} product
    */
   const isFilterTextValid = (product) => {
     const capsName = product.name.toUpperCase();
@@ -41,7 +44,7 @@ function ProductTable(props) {
   };
 
   /**
-   * @param {Array} product 
+   * @param {Array} product
    */
   const isInStockOnlyValid = (product) => {
     return props.inStockOnly ? product.stocked : !undefined;
@@ -85,6 +88,22 @@ class FilterableProductTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = { products: [], filterText: '', inStockOnly: false };
+    this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
+    this.handleInStockOnlyChange = this.handleInStockOnlyChange.bind(this);
+  }
+
+  /**
+   * @param {String} filterText
+   */
+  handleFilterTextChange(filterText) {
+    this.setState({ filterText: filterText });
+  }
+
+  /**
+   * @param {Boolean} inStockOnly
+   */
+  handleInStockOnlyChange(inStockOnly) {
+    this.setState({ inStockOnly: inStockOnly });
   }
 
   componentDidMount() {
@@ -103,12 +122,8 @@ class FilterableProductTable extends React.Component {
         <SearchBar
           filterText={this.state.filterText}
           inStockOnly={this.state.inStockOnly}
-          onFilterTextChange={(filterText) => {
-            this.setState({ filterText: filterText });
-          }}
-          onInStockOnlyChange={(inStockOnly) => {
-            this.setState({ inStockOnly: inStockOnly });
-          }}
+          onFilterTextChange={this.handleFilterTextChange}
+          onInStockOnlyChange={this.handleInStockOnlyChange}
         />
         <ProductTable
           filterText={this.state.filterText}
