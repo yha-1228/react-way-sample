@@ -23,11 +23,6 @@ body {
   text-align: right;
 }
 
-
-.warn {
-  color: red;
-}
-
 // components
 // ==============================================================
 
@@ -37,25 +32,10 @@ body {
   padding: 0 15px;
 }
 
-.product-table {
-  width: 100%;
-}
-
 .table-row {
   border-bottom: 1px solid lightgray;
 }
 
 .table-cell {
   padding: 10px;
-}
-
-// utils
-// ==============================================================
-
-.align-left {
-  text-align: left;
-}
-
-.warn {
-  color: red;
 }
