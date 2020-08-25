@@ -96,7 +96,13 @@ class FilterableProductTable extends React.Component {
   // TODO: add error
   constructor(props) {
     super(props)
-    this.state = { products: [], filterText: '', inStockOnly: false }
+    this.state = {
+      error: null,
+      isLoaded: false,
+      products: [],
+      filterText: '',
+      inStockOnly: false,
+    }
     this.handleFilterTextChange = this.handleFilterTextChange.bind(this)
     this.handleInStockOnlyChange = this.handleInStockOnlyChange.bind(this)
     this.handleDeleteClick = this.handleDeleteClick.bind(this)
