@@ -124,7 +124,7 @@ class FilterableProductTable extends React.Component {
   }
 
   /**
-   * @param {String} targetId 
+   * @param {String} targetId
    */
   handleDeleteClick(targetId) {
     axios.delete(`${this.url}/${targetId}`).then((response) => {
@@ -137,30 +137,37 @@ class FilterableProductTable extends React.Component {
     axios
       .get(this.url)
       .then((response) => {
-        this.setState({ products: response.data })
+        this.setState({ isLoaded: true, products: response.data })
       })
       .catch((response) => {
-        console.log(`response => ${response}`)
+        this.setState({ isLoaded: true, error: response })
+        console.log(`Error! => ${this.state.error}`)
       })
   }
 
   render() {
-    return (
-      <>
-        <TopBar
-          filterText={this.state.filterText}
-          inStockOnly={this.state.inStockOnly}
-          onFilterTextChange={this.handleFilterTextChange}
-          onInStockOnlyChange={this.handleInStockOnlyChange}
-        />
-        <ProductTable
-          filterText={this.state.filterText}
-          inStockOnly={this.state.inStockOnly}
-          products={this.state.products}
-          onDeleteClick={this.handleDeleteClick}
-        />
-      </>
-    )
+    if (this.state.error) {
+      return <div>Error! {this.state.error}</div>
+    } else if (!this.state.isLoaded) {
+      return <div>Loading...</div>
+    } else {
+      return (
+        <>
+          <TopBar
+            filterText={this.state.filterText}
+            inStockOnly={this.state.inStockOnly}
+            onFilterTextChange={this.handleFilterTextChange}
+            onInStockOnlyChange={this.handleInStockOnlyChange}
+          />
+          <ProductTable
+            filterText={this.state.filterText}
+            inStockOnly={this.state.inStockOnly}
+            products={this.state.products}
+            onDeleteClick={this.handleDeleteClick}
+          />
+        </>
+      )
+    }
   }
 }
 
