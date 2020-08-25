@@ -53,6 +53,7 @@ function ProductTable(props) {
     <table className="product-table">
       <thead>
         <tr className="table-row">
+          <th className="table-cell text-center"></th>
           <th className="table-cell text-right">ID</th>
           <th className="table-cell text-left">Brand</th>
           <th className="table-cell text-left">Category</th>
@@ -69,6 +70,9 @@ function ProductTable(props) {
               key={product.id}
               className={classNames('table-row', { warn: !product.stocked })}
             >
+              <td className="table-cell text-center">
+                <button>DELETE</button>
+              </td>
               <td className="table-cell text-right">{product.id}</td>
               <td className="table-cell text-left">{product.brand}</td>
               <td className="table-cell text-left">{product.category}</td>
