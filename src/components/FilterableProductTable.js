@@ -120,9 +120,7 @@ class FilterableProductTable extends React.Component {
   handleDeleteClick(targetId) {
     axios.delete(`${this.url}/${targetId}`).then((response) => {
       alert(`Deleted [id: ${response.data.id}] data.`)
-      // this.componentDidMount()
-      // this.render()
-      window.location.reload()
+      this.componentDidMount()
     })
   }
 
