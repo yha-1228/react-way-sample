@@ -33,6 +33,10 @@ function TopBar(props) {
 }
 
 function ProductTable(props) {
+  const handleDeleteClick = (e) => {
+    props.onDeleteClick(e.currentTarget.dataset.id)
+  }
+
   /**
    * @param {Array} product
    */
@@ -71,7 +75,9 @@ function ProductTable(props) {
               className={classNames('table-row', { warn: !product.stocked })}
             >
               <td className="table-cell text-center">
-                <button>DELETE</button>
+                <button data-id={product.id} onClick={handleDeleteClick}>
+                  DELETE
+                </button>
               </td>
               <td className="table-cell text-right">{product.id}</td>
               <td className="table-cell text-left">{product.brand}</td>
@@ -109,6 +115,19 @@ class FilterableProductTable extends React.Component {
     this.setState({ inStockOnly: inStockOnly })
   }
 
+  handleDelateClick(targetId) {
+    axios
+      .delete(
+        `https://5e6736691937020016fed762.mockapi.io/products/${targetId}`
+      )
+      .then((response) => {
+        alert(`Deleted [id: ${response.data.id}] data.`)
+        // this.componentDidMount()
+        // this.render()
+        window.location.reload()
+      })
+  }
+
   componentDidMount() {
     axios
       .get('https://5e6736691937020016fed762.mockapi.io/products')
@@ -116,7 +135,7 @@ class FilterableProductTable extends React.Component {
         this.setState({ products: response.data })
       })
       .catch((response) => {
-        console.log(`responce => ${response}`)
+        console.log(`response => ${response}`)
       })
   }
 
@@ -133,6 +152,7 @@ class FilterableProductTable extends React.Component {
           filterText={this.state.filterText}
           inStockOnly={this.state.inStockOnly}
           products={this.state.products}
+          onDeleteClick={this.handleDelateClick}
         />
       </>
     )
