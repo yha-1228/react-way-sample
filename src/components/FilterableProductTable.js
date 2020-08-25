@@ -123,6 +123,9 @@ class FilterableProductTable extends React.Component {
     this.setState({ inStockOnly: inStockOnly })
   }
 
+  /**
+   * @param {String} targetId 
+   */
   handleDeleteClick(targetId) {
     axios.delete(`${this.url}/${targetId}`).then((response) => {
       alert(`Deleted [id: ${response.data.id}] data.`)
