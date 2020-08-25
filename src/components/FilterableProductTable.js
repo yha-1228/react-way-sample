@@ -1,15 +1,15 @@
-import React from 'react';
-import axios from 'axios';
-import classNames from 'classnames';
-import './FilterableProductTable.scss';
+import React from 'react'
+import axios from 'axios'
+import classNames from 'classnames'
+import './FilterableProductTable.scss'
 
 function TopBar(props) {
   const handleFilterTextChange = (e) => {
-    props.onFilterTextChange(e.target.value);
-  };
+    props.onFilterTextChange(e.target.value)
+  }
   const handleInStockOnlyChange = (e) => {
-    props.onInStockOnlyChange(e.target.checked);
-  };
+    props.onInStockOnlyChange(e.target.checked)
+  }
 
   return (
     <form>
@@ -29,7 +29,7 @@ function TopBar(props) {
         <label htmlFor="checkInStockOnly">Only show products in stock</label>
       </p>
     </form>
-  );
+  )
 }
 
 function ProductTable(props) {
@@ -37,17 +37,17 @@ function ProductTable(props) {
    * @param {Array} product
    */
   const isFilterTextValid = (product) => {
-    const capsName = product.name.toUpperCase();
-    const capsFilterText = props.filterText.toUpperCase();
-    return capsName.indexOf(capsFilterText) !== -1;
-  };
+    const capsName = product.name.toUpperCase()
+    const capsFilterText = props.filterText.toUpperCase()
+    return capsName.indexOf(capsFilterText) !== -1
+  }
 
   /**
    * @param {Array} product
    */
   const isInStockOnlyValid = (product) => {
-    return props.inStockOnly ? product.stocked : !undefined;
-  };
+    return props.inStockOnly ? product.stocked : !undefined
+  }
 
   return (
     <table className="product-table">
@@ -78,42 +78,42 @@ function ProductTable(props) {
           ))}
       </tbody>
     </table>
-  );
+  )
 }
 
 class FilterableProductTable extends React.Component {
   // TODO: add loading
   // TODO: add error
   constructor(props) {
-    super(props);
-    this.state = { products: [], filterText: '', inStockOnly: false };
-    this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
-    this.handleInStockOnlyChange = this.handleInStockOnlyChange.bind(this);
+    super(props)
+    this.state = { products: [], filterText: '', inStockOnly: false }
+    this.handleFilterTextChange = this.handleFilterTextChange.bind(this)
+    this.handleInStockOnlyChange = this.handleInStockOnlyChange.bind(this)
   }
 
   /**
    * @param {String} filterText
    */
   handleFilterTextChange(filterText) {
-    this.setState({ filterText: filterText });
+    this.setState({ filterText: filterText })
   }
 
   /**
    * @param {Boolean} inStockOnly
    */
   handleInStockOnlyChange(inStockOnly) {
-    this.setState({ inStockOnly: inStockOnly });
+    this.setState({ inStockOnly: inStockOnly })
   }
 
   componentDidMount() {
     axios
       .get('https://5e6736691937020016fed762.mockapi.io/products')
       .then((response) => {
-        this.setState({ products: response.data });
+        this.setState({ products: response.data })
       })
       .catch((response) => {
-        console.log(`responce => ${response}`);
-      });
+        console.log(`responce => ${response}`)
+      })
   }
 
   render() {
@@ -131,8 +131,8 @@ class FilterableProductTable extends React.Component {
           products={this.state.products}
         />
       </>
-    );
+    )
   }
 }
 
-export default FilterableProductTable;
+export default FilterableProductTable
