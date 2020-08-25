@@ -3,7 +3,7 @@ import axios from 'axios';
 import classNames from 'classnames';
 import './FilterableProductTable.scss';
 
-function SearchBar(props) {
+function TopBar(props) {
   const handleFilterTextChange = (e) => {
     props.onFilterTextChange(e.target.value);
   };
@@ -119,7 +119,7 @@ class FilterableProductTable extends React.Component {
   render() {
     return (
       <>
-        <SearchBar
+        <TopBar
           filterText={this.state.filterText}
           inStockOnly={this.state.inStockOnly}
           onFilterTextChange={this.handleFilterTextChange}
