@@ -92,8 +92,6 @@ function ProductTable(props) {
 }
 
 class FilterableProductTable extends React.Component {
-  // TODO: add loading
-  // TODO: add error
   constructor(props) {
     super(props)
     this.state = {
