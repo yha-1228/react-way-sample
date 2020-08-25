@@ -99,6 +99,8 @@ class FilterableProductTable extends React.Component {
     this.state = { products: [], filterText: '', inStockOnly: false }
     this.handleFilterTextChange = this.handleFilterTextChange.bind(this)
     this.handleInStockOnlyChange = this.handleInStockOnlyChange.bind(this)
+    this.handleDeleteClick = this.handleDeleteClick.bind(this)
+    this.url = 'https://5e6736691937020016fed762.mockapi.io/products'
   }
 
   /**
@@ -115,22 +117,18 @@ class FilterableProductTable extends React.Component {
     this.setState({ inStockOnly: inStockOnly })
   }
 
-  handleDelateClick(targetId) {
-    axios
-      .delete(
-        `https://5e6736691937020016fed762.mockapi.io/products/${targetId}`
-      )
-      .then((response) => {
-        alert(`Deleted [id: ${response.data.id}] data.`)
-        // this.componentDidMount()
-        // this.render()
-        window.location.reload()
-      })
+  handleDeleteClick(targetId) {
+    axios.delete(`${this.url}/${targetId}`).then((response) => {
+      alert(`Deleted [id: ${response.data.id}] data.`)
+      // this.componentDidMount()
+      // this.render()
+      window.location.reload()
+    })
   }
 
   componentDidMount() {
     axios
-      .get('https://5e6736691937020016fed762.mockapi.io/products')
+      .get(this.url)
       .then((response) => {
         this.setState({ products: response.data })
       })
@@ -152,7 +150,7 @@ class FilterableProductTable extends React.Component {
           filterText={this.state.filterText}
           inStockOnly={this.state.inStockOnly}
           products={this.state.products}
-          onDeleteClick={this.handleDelateClick}
+          onDeleteClick={this.handleDeleteClick}
         />
       </>
     )
