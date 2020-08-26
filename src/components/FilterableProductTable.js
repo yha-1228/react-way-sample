@@ -1,3 +1,6 @@
+// TODO: Loadingを表だけに
+// TODO: put実装
+
 import React from 'react'
 import axios from 'axios'
 import classNames from 'classnames'
