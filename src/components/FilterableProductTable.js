@@ -1,4 +1,3 @@
-// TODO: Loadingを表だけに
 // TODO: put実装
 
 import React from 'react';
@@ -15,22 +14,20 @@ function TopBar(props) {
   };
 
   return (
-    <form>
+    <form className="top-bar">
       <input
         type="text"
         placeholder="Search name..."
         value={props.filterText}
         onChange={handleFilterTextChange}
       />
-      <p>
-        <input
-          id="checkInStockOnly"
-          type="checkbox"
-          checked={props.inStockOnly}
-          onChange={handleInStockOnlyChange}
-        />{' '}
-        <label htmlFor="checkInStockOnly">Only show products in stock</label>
-      </p>
+      <input
+        id="checkInStockOnly"
+        type="checkbox"
+        checked={props.inStockOnly}
+        onChange={handleInStockOnlyChange}
+      />{' '}
+      <label htmlFor="checkInStockOnly">Only show products in stock</label>
     </form>
   );
 }
@@ -135,10 +132,15 @@ class FilterableProductTable extends React.Component {
   }
 
   componentDidMount() {
+    this.loadProducts(this.url);
+  }
+
+  loadProducts(url) {
     axios
-      .get(this.url)
+      .get(url)
       .then(response => {
         this.setState({ isLoaded: true, products: response.data });
+        // this.setState({ isLoaded: false, products: response.data });
       })
       .catch(response => {
         this.setState({ isLoaded: true, error: response });
