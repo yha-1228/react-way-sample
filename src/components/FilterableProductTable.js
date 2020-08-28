@@ -1,18 +1,18 @@
 // TODO: Loadingを表だけに
 // TODO: put実装
 
-import React from 'react'
-import axios from 'axios'
-import classNames from 'classnames'
-import './FilterableProductTable.scss'
+import React from 'react';
+import axios from 'axios';
+import classNames from 'classnames';
+import './FilterableProductTable.scss';
 
 function TopBar(props) {
-  const handleFilterTextChange = (e) => {
-    props.onFilterTextChange(e.target.value)
-  }
-  const handleInStockOnlyChange = (e) => {
-    props.onInStockOnlyChange(e.target.checked)
-  }
+  const handleFilterTextChange = e => {
+    props.onFilterTextChange(e.target.value);
+  };
+  const handleInStockOnlyChange = e => {
+    props.onInStockOnlyChange(e.target.checked);
+  };
 
   return (
     <form>
@@ -32,29 +32,29 @@ function TopBar(props) {
         <label htmlFor="checkInStockOnly">Only show products in stock</label>
       </p>
     </form>
-  )
+  );
 }
 
 function ProductTable(props) {
-  const handleDeleteClick = (e) => {
-    props.onDeleteClick(e.currentTarget.dataset.id)
-  }
+  const handleDeleteClick = e => {
+    props.onDeleteClick(e.currentTarget.dataset.id);
+  };
 
   /**
    * @param {Array} product
    */
-  const isFilterTextValid = (product) => {
-    const capsName = product.name.toUpperCase()
-    const capsFilterText = props.filterText.toUpperCase()
-    return capsName.indexOf(capsFilterText) !== -1
-  }
+  const isFilterTextValid = product => {
+    const capsName = product.name.toUpperCase();
+    const capsFilterText = props.filterText.toUpperCase();
+    return capsName.indexOf(capsFilterText) !== -1;
+  };
 
   /**
    * @param {Array} product
    */
-  const isInStockOnlyValid = (product) => {
-    return props.inStockOnly ? product.stocked : !undefined
-  }
+  const isInStockOnlyValid = product => {
+    return props.inStockOnly ? product.stocked : !undefined;
+  };
 
   return (
     <table className="product-table">
@@ -72,7 +72,7 @@ function ProductTable(props) {
         {props.products
           .filter(isFilterTextValid)
           .filter(isInStockOnlyValid)
-          .map((product) => (
+          .map(product => (
             <tr
               key={product.id}
               className={classNames('table-row', { warn: !product.stocked })}
@@ -91,66 +91,64 @@ function ProductTable(props) {
           ))}
       </tbody>
     </table>
-  )
+  );
 }
 
 class FilterableProductTable extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       error: null,
       isLoaded: false,
       products: [],
       filterText: '',
       inStockOnly: false,
-    }
-    this.handleFilterTextChange = this.handleFilterTextChange.bind(this)
-    this.handleInStockOnlyChange = this.handleInStockOnlyChange.bind(this)
-    this.handleDeleteClick = this.handleDeleteClick.bind(this)
-    this.url = 'https://5e6736691937020016fed762.mockapi.io/products'
+    };
+    this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
+    this.handleInStockOnlyChange = this.handleInStockOnlyChange.bind(this);
+    this.handleDeleteClick = this.handleDeleteClick.bind(this);
+    this.url = 'https://5e6736691937020016fed762.mockapi.io/products';
   }
 
   /**
    * @param {String} filterText
    */
   handleFilterTextChange(filterText) {
-    this.setState({ filterText: filterText })
+    this.setState({ filterText: filterText });
   }
 
   /**
    * @param {Boolean} inStockOnly
    */
   handleInStockOnlyChange(inStockOnly) {
-    this.setState({ inStockOnly: inStockOnly })
+    this.setState({ inStockOnly: inStockOnly });
   }
 
   /**
    * @param {String} targetId
    */
   handleDeleteClick(targetId) {
-    axios.delete(`${this.url}/${targetId}`).then((response) => {
-      alert(`Deleted [id: ${response.data.id}] data.`)
-      this.componentDidMount()
-    })
+    axios.delete(`${this.url}/${targetId}`).then(response => {
+      alert(`Deleted [id: ${response.data.id}] data.`);
+      this.componentDidMount();
+    });
   }
 
   componentDidMount() {
     axios
       .get(this.url)
-      .then((response) => {
-        this.setState({ isLoaded: true, products: response.data })
+      .then(response => {
+        this.setState({ isLoaded: true, products: response.data });
       })
-      .catch((response) => {
-        this.setState({ isLoaded: true, error: response })
-        console.log(`Error! => ${this.state.error}`)
-      })
+      .catch(response => {
+        this.setState({ isLoaded: true, error: response });
+        console.log(`Error! => ${this.state.error}`);
+      });
   }
 
   render() {
     if (this.state.error) {
-      return <div>Error! {this.state.error}</div>
-    } else if (!this.state.isLoaded) {
-      return <div>Loading...</div>
+      return <div>Error! {this.state.error}</div>;
     } else {
       return (
         <>
@@ -160,16 +158,20 @@ class FilterableProductTable extends React.Component {
             onFilterTextChange={this.handleFilterTextChange}
             onInStockOnlyChange={this.handleInStockOnlyChange}
           />
-          <ProductTable
-            filterText={this.state.filterText}
-            inStockOnly={this.state.inStockOnly}
-            products={this.state.products}
-            onDeleteClick={this.handleDeleteClick}
-          />
+          {!this.state.isLoaded ? (
+            <div>Loading...</div>
+          ) : (
+            <ProductTable
+              filterText={this.state.filterText}
+              inStockOnly={this.state.inStockOnly}
+              products={this.state.products}
+              onDeleteClick={this.handleDeleteClick}
+            />
+          )}
         </>
-      )
+      );
     }
   }
 }
 
-export default FilterableProductTable
+export default FilterableProductTable;
