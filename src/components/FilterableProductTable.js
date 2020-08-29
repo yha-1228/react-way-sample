@@ -142,7 +142,7 @@ class FilterableProductTable extends React.Component {
         this.setState({ isLoaded: true, products: result.data });
       })
       .catch(result => {
-        this.setState({ isLoaded: true, error: 'Error!' });
+        this.se tState({ isLoaded: true, error: 'Error!' });
         console.log({ ...result.response });
       });
   }
