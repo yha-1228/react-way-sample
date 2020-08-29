@@ -125,8 +125,8 @@ class FilterableProductTable extends React.Component {
    * @param {String} targetId
    */
   handleDeleteClick(targetId) {
-    axios.delete(`${this.url}/${targetId}`).then(response => {
-      alert(`Deleted [id: ${response.data.id}] data.`);
+    axios.delete(`${this.url}/${targetId}`).then(result => {
+      alert(`Deleted [id: ${result.data.id}] data.`);
       this.componentDidMount();
     });
   }
@@ -138,41 +138,32 @@ class FilterableProductTable extends React.Component {
   loadProducts(url) {
     axios
       .get(url)
-      .then(response => {
-        this.setState({ isLoaded: true, products: response.data });
-        // this.setState({ isLoaded: false, products: response.data });
+      .then(result => {
+        this.setState({ isLoaded: true, products: result.data });
       })
-      .catch(response => {
-        this.setState({ isLoaded: true, error: response });
-        console.log(`Error! => ${this.state.error}`);
+      .catch(result => {
+        this.setState({ isLoaded: true, error: 'Error!' });
+        console.log({ ...result.response });
       });
   }
 
   render() {
-    if (this.state.error) {
-      return <div>Error! {this.state.error}</div>;
-    } else {
-      return (
-        <>
-          <TopBar
-            filterText={this.state.filterText}
-            inStockOnly={this.state.inStockOnly}
-            onFilterTextChange={this.handleFilterTextChange}
-            onInStockOnlyChange={this.handleInStockOnlyChange}
-          />
-          {!this.state.isLoaded ? (
-            <div>Loading...</div>
-          ) : (
-            <ProductTable
-              filterText={this.state.filterText}
-              inStockOnly={this.state.inStockOnly}
-              products={this.state.products}
-              onDeleteClick={this.handleDeleteClick}
-            />
-          )}
-        </>
-      );
-    }
+    return (
+      <>
+        <TopBar
+          filterText={this.state.filterText}
+          inStockOnly={this.state.inStockOnly}
+          onFilterTextChange={this.handleFilterTextChange}
+          onInStockOnlyChange={this.handleInStockOnlyChange}
+        />
+        <ProductTable
+          filterText={this.state.filterText}
+          inStockOnly={this.state.inStockOnly}
+          products={this.state.products}
+          onDeleteClick={this.handleDeleteClick}
+        />
+      </>
+    );
   }
 }
 
