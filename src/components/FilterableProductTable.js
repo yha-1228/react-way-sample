@@ -148,6 +148,19 @@ class FilterableProductTable extends React.Component {
   }
 
   render() {
+    const ProductTableView = this.state.error ? (
+      <div>Error!</div>
+    ) : !this.state.isLoaded ? (
+      <div>Loading...</div>
+    ) : (
+      <ProductTable
+        filterText={this.state.filterText}
+        inStockOnly={this.state.inStockOnly}
+        products={this.state.products}
+        onDeleteClick={this.handleDeleteClick}
+      />
+    );
+
     return (
       <>
         <TopBar
@@ -156,12 +169,7 @@ class FilterableProductTable extends React.Component {
           onFilterTextChange={this.handleFilterTextChange}
           onInStockOnlyChange={this.handleInStockOnlyChange}
         />
-        <ProductTable
-          filterText={this.state.filterText}
-          inStockOnly={this.state.inStockOnly}
-          products={this.state.products}
-          onDeleteClick={this.handleDeleteClick}
-        />
+        {ProductTableView}
       </>
     );
   }
