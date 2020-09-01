@@ -1,6 +1,6 @@
 ## Homepage
 
-[https://yha-1228.github.io/react-way-sample/](https://yha-1228.github.io/react-way-sample/)
+[https://yha-1228.github.io/table-ui-react/](https://yha-1228.github.io/table-ui-react/)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
