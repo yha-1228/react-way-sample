@@ -38,7 +38,11 @@ input[type='button'] {
 }
 
 .table-row {
-  border-bottom: 1px solid lightgray;
+  border-bottom: 1px solid darkgray;
+  transition: all 0.04s;
+  &:hover {
+    background-color: rgb(238, 238, 238);
+  }
 }
 
 .table-cell {
