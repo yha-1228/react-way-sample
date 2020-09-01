@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/react-way-sample/static/css/main.0e5dcbfd.chunk.css",
-    "main.js": "/react-way-sample/static/js/main.c8fa7885.chunk.js",
-    "main.js.map": "/react-way-sample/static/js/main.c8fa7885.chunk.js.map",
-    "runtime-main.js": "/react-way-sample/static/js/runtime-main.2b1b0a52.js",
-    "runtime-main.js.map": "/react-way-sample/static/js/runtime-main.2b1b0a52.js.map",
-    "static/js/2.065be3b4.chunk.js": "/react-way-sample/static/js/2.065be3b4.chunk.js",
-    "static/js/2.065be3b4.chunk.js.map": "/react-way-sample/static/js/2.065be3b4.chunk.js.map",
-    "index.html": "/react-way-sample/index.html",
-    "precache-manifest.ada75e40dd1bbf6b786d59ce21f7f703.js": "/react-way-sample/precache-manifest.ada75e40dd1bbf6b786d59ce21f7f703.js",
-    "service-worker.js": "/react-way-sample/service-worker.js",
-    "static/css/main.0e5dcbfd.chunk.css.map": "/react-way-sample/static/css/main.0e5dcbfd.chunk.css.map",
-    "static/js/2.065be3b4.chunk.js.LICENSE.txt": "/react-way-sample/static/js/2.065be3b4.chunk.js.LICENSE.txt"
+    "main.css": "/table-ui-react/static/css/main.0a0e38e3.chunk.css",
+    "main.js": "/table-ui-react/static/js/main.af6c7757.chunk.js",
+    "main.js.map": "/table-ui-react/static/js/main.af6c7757.chunk.js.map",
+    "runtime-main.js": "/table-ui-react/static/js/runtime-main.3132b800.js",
+    "runtime-main.js.map": "/table-ui-react/static/js/runtime-main.3132b800.js.map",
+    "static/js/2.065be3b4.chunk.js": "/table-ui-react/static/js/2.065be3b4.chunk.js",
+    "static/js/2.065be3b4.chunk.js.map": "/table-ui-react/static/js/2.065be3b4.chunk.js.map",
+    "index.html": "/table-ui-react/index.html",
+    "precache-manifest.23418cba087d2f7c23af4f520dcfd230.js": "/table-ui-react/precache-manifest.23418cba087d2f7c23af4f520dcfd230.js",
+    "service-worker.js": "/table-ui-react/service-worker.js",
+    "static/css/main.0a0e38e3.chunk.css.map": "/table-ui-react/static/css/main.0a0e38e3.chunk.css.map",
+    "static/js/2.065be3b4.chunk.js.LICENSE.txt": "/table-ui-react/static/js/2.065be3b4.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.2b1b0a52.js",
+    "static/js/runtime-main.3132b800.js",
     "static/js/2.065be3b4.chunk.js",
-    "static/css/main.0e5dcbfd.chunk.css",
-    "static/js/main.c8fa7885.chunk.js"
+    "static/css/main.0a0e38e3.chunk.css",
+    "static/js/main.af6c7757.chunk.js"
   ]
 }
