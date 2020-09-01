@@ -34,7 +34,10 @@ function TopBar(props) {
 
 function ProductTable(props) {
   const handleDeleteClick = (e) => {
-    props.onDeleteClick(e.currentTarget.dataset.id);
+    props.onDeleteClick(
+      e.currentTarget.dataset.id,
+      e.currentTarget.dataset.index
+    );
   };
 
   /**
@@ -69,13 +72,17 @@ function ProductTable(props) {
         {props.products
           .filter(isFilterTextValid)
           .filter(isInStockOnlyValid)
-          .map((product) => (
+          .map((product, index) => (
             <tr
               key={product.id}
               className={classNames('table-row', { warn: !product.stocked })}
             >
               <td className="table-cell text-center">
-                <button data-id={product.id} onClick={handleDeleteClick}>
+                <button
+                  data-id={product.id}
+                  data-index={index}
+                  onClick={handleDeleteClick}
+                >
                   &times;
                 </button>
               </td>
@@ -123,11 +130,13 @@ class FilterableProductTable extends React.Component {
 
   /**
    * @param {String} targetId
+   * @param {Number} targetIndex
    */
-  handleDeleteClick(targetId) {
+  handleDeleteClick(targetId, targetIndex) {
     axios.delete(`${this.url}/${targetId}`).then((result) => {
-      console.log(`Deleted [id: ${result.data.id}] data.`);
-      this.loadProducts(this.url)
+      console.log(`Deleted: id = ${result.data.id}`);
+      this.state.products.splice(targetIndex, 1);
+      this.setState({ products: this.state.products });
     });
   }
 
