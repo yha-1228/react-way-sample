@@ -81,11 +81,12 @@ function ProductTable(props) {
             >
               <td className="table-cell text-center">
                 <button
+                  className="button"
                   data-id={product.id}
                   data-index={index}
                   onClick={handleDeleteClick}
                 >
-                  &times;
+                  DELETE
                 </button>
               </td>
               <td className="table-cell text-right">{product.id}</td>

@@ -140,5 +140,7 @@ body {
 }
 
 button, input[type='button'] {
+  background-color: transparent;
+  border: 0;
   cursor: pointer;
 }
