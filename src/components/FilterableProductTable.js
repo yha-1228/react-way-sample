@@ -6,10 +6,10 @@ import classNames from 'classnames';
 import './FilterableProductTable.scss';
 
 function TopBar(props) {
-  const handleFilterTextChange = e => {
+  const handleFilterTextChange = (e) => {
     props.onFilterTextChange(e.target.value);
   };
-  const handleInStockOnlyChange = e => {
+  const handleInStockOnlyChange = (e) => {
     props.onInStockOnlyChange(e.target.checked);
   };
 
@@ -33,14 +33,14 @@ function TopBar(props) {
 }
 
 function ProductTable(props) {
-  const handleDeleteClick = e => {
+  const handleDeleteClick = (e) => {
     props.onDeleteClick(e.currentTarget.dataset.id);
   };
 
   /**
    * @param {Array} product
    */
-  const isFilterTextValid = product => {
+  const isFilterTextValid = (product) => {
     const capsName = product.name.toUpperCase();
     const capsFilterText = props.filterText.toUpperCase();
     return capsName.indexOf(capsFilterText) !== -1;
@@ -49,7 +49,7 @@ function ProductTable(props) {
   /**
    * @param {Array} product
    */
-  const isInStockOnlyValid = product => {
+  const isInStockOnlyValid = (product) => {
     return props.inStockOnly ? product.stocked : !undefined;
   };
 
@@ -69,14 +69,14 @@ function ProductTable(props) {
         {props.products
           .filter(isFilterTextValid)
           .filter(isInStockOnlyValid)
-          .map(product => (
+          .map((product) => (
             <tr
               key={product.id}
               className={classNames('table-row', { warn: !product.stocked })}
             >
               <td className="table-cell text-center">
                 <button data-id={product.id} onClick={handleDeleteClick}>
-                  DELETE
+                  &times;
                 </button>
               </td>
               <td className="table-cell text-right">{product.id}</td>
@@ -125,9 +125,9 @@ class FilterableProductTable extends React.Component {
    * @param {String} targetId
    */
   handleDeleteClick(targetId) {
-    axios.delete(`${this.url}/${targetId}`).then(result => {
-      alert(`Deleted [id: ${result.data.id}] data.`);
-      this.componentDidMount();
+    axios.delete(`${this.url}/${targetId}`).then((result) => {
+      console.log(`Deleted [id: ${result.data.id}] data.`);
+      this.loadProducts(this.url)
     });
   }
 
@@ -138,29 +138,16 @@ class FilterableProductTable extends React.Component {
   loadProducts(url) {
     axios
       .get(url)
-      .then(result => {
+      .then((result) => {
         this.setState({ isLoaded: true, products: result.data });
       })
-      .catch(result => {
+      .catch((result) => {
         this.setState({ isLoaded: true, error: 'Error!' });
         console.log({ ...result.response });
       });
   }
 
   render() {
-    const ProductTableView = this.state.error ? (
-      <div>Error!</div>
-    ) : !this.state.isLoaded ? (
-      <div>Loading...</div>
-    ) : (
-      <ProductTable
-        filterText={this.state.filterText}
-        inStockOnly={this.state.inStockOnly}
-        products={this.state.products}
-        onDeleteClick={this.handleDeleteClick}
-      />
-    );
-
     return (
       <>
         <TopBar
@@ -169,7 +156,18 @@ class FilterableProductTable extends React.Component {
           onFilterTextChange={this.handleFilterTextChange}
           onInStockOnlyChange={this.handleInStockOnlyChange}
         />
-        {ProductTableView}
+        {this.state.error ? (
+          <div>Error!</div>
+        ) : !this.state.isLoaded ? (
+          <div>Loading...</div>
+        ) : (
+          <ProductTable
+            filterText={this.state.filterText}
+            inStockOnly={this.state.inStockOnly}
+            products={this.state.products}
+            onDeleteClick={this.handleDeleteClick}
+          />
+        )}
       </>
     );
   }
