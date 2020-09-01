@@ -13,7 +13,7 @@
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.3"
   },
-  "homepage": "https://yha-1228.github.io/react-way-sample/",
+  "homepage": "https://yha-1228.github.io/table-ui-react/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
