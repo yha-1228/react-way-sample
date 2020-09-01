@@ -14,21 +14,23 @@ function TopBar(props) {
   };
 
   return (
-    <form className="top-bar">
-      <input
-        type="text"
-        placeholder="Search name..."
-        value={props.filterText}
-        onChange={handleFilterTextChange}
-      />
-      <input
-        id="checkInStockOnly"
-        type="checkbox"
-        checked={props.inStockOnly}
-        onChange={handleInStockOnlyChange}
-      />{' '}
-      <label htmlFor="checkInStockOnly">Only show products in stock</label>
-    </form>
+    <div className="top-bar">
+      <form>
+        <input
+          type="text"
+          placeholder="Search name..."
+          value={props.filterText}
+          onChange={handleFilterTextChange}
+        />
+        <input
+          id="checkInStockOnly"
+          type="checkbox"
+          checked={props.inStockOnly}
+          onChange={handleInStockOnlyChange}
+        />{' '}
+        <label htmlFor="checkInStockOnly">Only show products in stock</label>
+      </form>
+    </div>
   );
 }
 
@@ -136,7 +138,7 @@ class FilterableProductTable extends React.Component {
     axios.delete(`${this.url}/${targetId}`).then((result) => {
       console.log(`Deleted: id = ${result.data.id}`);
       this.state.products.splice(targetIndex, 1);
-      this.setState({ products: this.state.products });
+      this.setState({ isLoaded: true, products: this.state.products });
     });
   }
 
@@ -165,9 +167,7 @@ class FilterableProductTable extends React.Component {
           onFilterTextChange={this.handleFilterTextChange}
           onInStockOnlyChange={this.handleInStockOnlyChange}
         />
-        {this.state.error ? (
-          <div>Error!</div>
-        ) : !this.state.isLoaded ? (
+        {!this.state.isLoaded ? (
           <div>Loading...</div>
         ) : (
           <ProductTable
