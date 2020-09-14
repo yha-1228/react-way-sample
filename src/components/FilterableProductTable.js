@@ -1,17 +1,29 @@
 // TODO: put実装
 
 import React from 'react';
-import Button from '@material-ui/core/Button';
 import axios from 'axios';
 import classNames from 'classnames';
+import Button from '@material-ui/core/Button';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 import './FilterableProductTable.scss';
 
-function TopBar(props) {
+function TopBar({
+  filterText,
+  inStockOnly,
+  onFilterTextChange,
+  onInStockOnlyChange,
+}) {
   const handleFilterTextChange = (e) => {
-    props.onFilterTextChange(e.target.value);
+    onFilterTextChange(e.target.value);
   };
   const handleInStockOnlyChange = (e) => {
-    props.onInStockOnlyChange(e.target.checked);
+    onInStockOnlyChange(e.target.checked);
   };
 
   return (
@@ -20,13 +32,13 @@ function TopBar(props) {
         <input
           type="text"
           placeholder="Search name..."
-          value={props.filterText}
+          value={filterText}
           onChange={handleFilterTextChange}
         />
         <input
           id="checkInStockOnly"
           type="checkbox"
-          checked={props.inStockOnly}
+          checked={inStockOnly}
           onChange={handleInStockOnlyChange}
         />{' '}
         <label htmlFor="checkInStockOnly">Only show products in stock</label>
@@ -35,12 +47,9 @@ function TopBar(props) {
   );
 }
 
-function ProductTable(props) {
+function ProductTable({ filterText, inStockOnly, products, onDeleteClick }) {
   const handleDeleteClick = (e) => {
-    props.onDeleteClick(
-      e.currentTarget.dataset.id,
-      e.currentTarget.dataset.index
-    );
+    onDeleteClick(e.currentTarget.dataset.id, e.currentTarget.dataset.index);
   };
 
   /**
@@ -48,7 +57,7 @@ function ProductTable(props) {
    */
   const isFilterTextValid = (product) => {
     const capsName = product.name.toUpperCase();
-    const capsFilterText = props.filterText.toUpperCase();
+    const capsFilterText = filterText.toUpperCase();
     return capsName.indexOf(capsFilterText) !== -1;
   };
 
@@ -56,7 +65,7 @@ function ProductTable(props) {
    * @param {Array} product
    */
   const isInStockOnlyValid = (product) => {
-    return props.inStockOnly ? product.stocked : !undefined;
+    return inStockOnly ? product.stocked : !undefined;
   };
 
   return (
@@ -72,7 +81,7 @@ function ProductTable(props) {
         </tr>
       </thead>
       <tbody>
-        {props.products
+        {products
           .filter(isFilterTextValid)
           .filter(isInStockOnlyValid)
           .map((product, index) => (
