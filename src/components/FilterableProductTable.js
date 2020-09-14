@@ -1,8 +1,10 @@
-// TODO: put実装
-
 import React from 'react';
 import axios from 'axios';
 import classNames from 'classnames';
+import Box from '@material-ui/core/Box';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import TextField from '@material-ui/core/TextField';
+import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -11,7 +13,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import './FilterableProductTable.scss';
+import { makeStyles } from '@material-ui/styles';
 
 function TopBar({
   filterText,
@@ -26,24 +28,37 @@ function TopBar({
     onInStockOnlyChange(e.target.checked);
   };
 
+  const useStyles = makeStyles({ 'w-250': { width: '250px' } });
+  const classes = useStyles();
+
   return (
-    <div className="top-bar">
+    <Box mb={2}>
       <form>
-        <input
-          type="text"
-          placeholder="Search name..."
-          value={filterText}
-          onChange={handleFilterTextChange}
+        <Box display="inline" pr={2}>
+          <TextField
+            className={classes['w-250']}
+            width="75%"
+            color="primary"
+            type="text"
+            placeholder="Search name..."
+            value={filterText}
+            onChange={handleFilterTextChange}
+          />
+        </Box>
+        <FormControlLabel
+          control={
+            <Checkbox
+              color="primary"
+              id="checkInStockOnly"
+              type="checkbox"
+              checked={inStockOnly}
+              onChange={handleInStockOnlyChange}
+            />
+          }
+          label="Only show products in stock"
         />
-        <input
-          id="checkInStockOnly"
-          type="checkbox"
-          checked={inStockOnly}
-          onChange={handleInStockOnlyChange}
-        />{' '}
-        <label htmlFor="checkInStockOnly">Only show products in stock</label>
       </form>
-    </div>
+    </Box>
   );
 }
 
@@ -68,47 +83,64 @@ function ProductTable({ filterText, inStockOnly, products, onDeleteClick }) {
     return inStockOnly ? product.stocked : !undefined;
   };
 
+  const useStyles = makeStyles({ textDarkgray: { color: 'darkgray' } });
+  const classes = useStyles();
+  const getTableCellStyle = (product) =>
+    !product.stocked ? classes.textDarkgray : '';
+
   return (
-    <table className="product-table">
-      <thead>
-        <tr className="table-row">
-          <th className="table-cell text-center"></th>
-          <th className="table-cell text-right">ID</th>
-          <th className="table-cell text-left">Brand</th>
-          <th className="table-cell text-left">Category</th>
-          <th className="table-cell text-left">Name</th>
-          <th className="table-cell text-right">Price</th>
-        </tr>
-      </thead>
-      <tbody>
-        {products
-          .filter(isFilterTextValid)
-          .filter(isInStockOnlyValid)
-          .map((product, index) => (
-            <tr
-              key={product.id}
-              className={classNames('table-row', { warn: !product.stocked })}
-            >
-              <td className="table-cell text-center">
-                <Button
-                  variant="contained"
-                  color="primary"
-                  data-id={product.id}
-                  data-index={index}
-                  onClick={handleDeleteClick}
+    <TableContainer component={Paper}>
+      <Table>
+        <TableHead>
+          <TableRow className="table-row">
+            <TableCell align="center"></TableCell>
+            <TableCell align="right">ID</TableCell>
+            <TableCell align="left">Brand</TableCell>
+            <TableCell align="left">Category</TableCell>
+            <TableCell align="left">Name</TableCell>
+            <TableCell align="right">Price</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {products
+            .filter(isFilterTextValid)
+            .filter(isInStockOnlyValid)
+            .map((product, index) => (
+              <TableRow key={product.id}>
+                <TableCell
+                  className={getTableCellStyle(product)}
+                  align="center"
                 >
-                  Delete
-                </Button>
-              </td>
-              <td className="table-cell text-right">{product.id}</td>
-              <td className="table-cell text-left">{product.brand}</td>
-              <td className="table-cell text-left">{product.category}</td>
-              <td className="table-cell text-left">{product.name}</td>
-              <td className="table-cell text-right">{product.price}</td>
-            </tr>
-          ))}
-      </tbody>
-    </table>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    data-id={product.id}
+                    data-index={index}
+                    onClick={handleDeleteClick}
+                  >
+                    Delete
+                  </Button>
+                </TableCell>
+                <TableCell className={getTableCellStyle(product)} align="right">
+                  {product.id}
+                </TableCell>
+                <TableCell className={getTableCellStyle(product)} align="left">
+                  {product.brand}
+                </TableCell>
+                <TableCell className={getTableCellStyle(product)} align="left">
+                  {product.category}
+                </TableCell>
+                <TableCell className={getTableCellStyle(product)} align="left">
+                  {product.name}
+                </TableCell>
+                <TableCell className={getTableCellStyle(product)} align="right">
+                  {product.price}
+                </TableCell>
+              </TableRow>
+            ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 }
 

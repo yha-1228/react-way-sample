@@ -1,51 +1,18 @@
-@import './config.scss';
+// base
+// ==============================================================
+
+body {
+  overflow-y: scroll;
+}
 
 // utils
 // ==============================================================
-
-.text-left {
-  text-align: left;
-}
-
-.text-center {
-  text-align: center;
-}
-
-.text-right {
-  text-align: right;
-}
 
 // components
 // ==============================================================
 
 .container {
-  max-width: 1200px;
+  max-width: 1280px;
   margin: 0 auto;
   padding: 0 15px;
-}
-
-.button {
-  padding: 5px 15px;
-  background-color: #fff;
-  border: 1px solid $color-primary;
-  border-radius: 3px;
-  color: $color-primary;
-  transition: all 0.1s;
-  &:hover {
-    background-color: $color-primary;
-    color: #fff;
-  }
-}
-
-.table-row {
-  border-bottom: 1px solid darkgray;
-  transition: all 0.04s;
-  cursor: pointer;
-  &:hover {
-    background-color: rgb(234, 238, 245);
-  }
-}
-
-.table-cell {
-  padding: 7px;
 }

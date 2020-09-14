@@ -1,16 +1,15 @@
-import React from 'react'
-import './Reset.scss'
-import './App.scss'
-import PageTitle from './components/PageTitle'
-import FilterableProductTable from './components/FilterableProductTable'
+import React from 'react';
+import './App.scss';
+import FilterableProductTable from './components/FilterableProductTable';
+import Container from '@material-ui/core/Container';
 
 function App() {
   return (
-    <div className="container">
-      <PageTitle>Product</PageTitle>
+    <Container>
+      <h1>Product</h1>
       <FilterableProductTable />
-    </div>
-  )
+    </Container>
+  );
 }
 
-export default App
+export default App;
