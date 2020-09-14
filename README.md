@@ -1,6 +1,6 @@
 ## Homepage
 
-[https://yha-1228.github.io/table-ui-react/](https://yha-1228.github.io/table-ui-react/)
+[https://table-app-react.netlify.app/](https://table-app-react.netlify.app/)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
