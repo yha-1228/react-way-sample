@@ -1,6 +1,7 @@
 // TODO: put実装
 
 import React from 'react';
+import Button from '@material-ui/core/Button';
 import axios from 'axios';
 import classNames from 'classnames';
 import './FilterableProductTable.scss';
@@ -80,14 +81,15 @@ function ProductTable(props) {
               className={classNames('table-row', { warn: !product.stocked })}
             >
               <td className="table-cell text-center">
-                <button
-                  className="button"
+                <Button
+                  variant="contained"
+                  color="primary"
                   data-id={product.id}
                   data-index={index}
                   onClick={handleDeleteClick}
                 >
-                  DELETE
-                </button>
+                  Delete
+                </Button>
               </td>
               <td className="table-cell text-right">{product.id}</td>
               <td className="table-cell text-left">{product.brand}</td>
