@@ -1,4 +1,5 @@
 import React from 'react';
+import { Products, Product } from './data';
 import axios from 'axios';
 import Box from '@material-ui/core/Box';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -14,16 +15,23 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/styles';
 
+type TopBarProps = {
+  filterText: string;
+  inStockOnly: boolean;
+  onFilterTextChange: (filterText: string) => void;
+  onInStockOnlyChange: (checked: boolean) => void;
+};
+
 function TopBar({
   filterText,
   inStockOnly,
   onFilterTextChange,
   onInStockOnlyChange,
-}) {
-  const handleFilterTextChange = (e) => {
+}: TopBarProps) {
+  const handleFilterTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onFilterTextChange(e.target.value);
   };
-  const handleInStockOnlyChange = (e) => {
+  const handleInStockOnlyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onInStockOnlyChange(e.target.checked);
   };
 
@@ -36,7 +44,6 @@ function TopBar({
         <Box display="inline" pr={2}>
           <TextField
             className={classes['w-250']}
-            width="75%"
             color="primary"
             type="text"
             placeholder="Search name..."
@@ -49,7 +56,6 @@ function TopBar({
             <Checkbox
               color="primary"
               id="checkInStockOnly"
-              type="checkbox"
               checked={inStockOnly}
               onChange={handleInStockOnlyChange}
             />
@@ -61,30 +67,40 @@ function TopBar({
   );
 }
 
-function ProductTable({ filterText, inStockOnly, products, onDeleteClick }) {
-  const handleDeleteClick = (e) => {
-    onDeleteClick(e.currentTarget.dataset.id, e.currentTarget.dataset.index);
+type ProductTableProps = {
+  filterText: string;
+  inStockOnly: boolean;
+  products: Products;
+  onDeleteClick: (id: string, index: number) => void;
+};
+
+function ProductTable({
+  filterText,
+  inStockOnly,
+  products,
+  onDeleteClick,
+}: ProductTableProps) {
+  const handleDeleteClick = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    const id = e.currentTarget.dataset.id;
+    const index = e.currentTarget.dataset.index;
+    // onDeleteClick(id, index);
   };
 
-  /**
-   * @param {Array} product
-   */
-  const isFilterTextValid = (product) => {
+  const isFilterTextValid = (product: Product) => {
     const capsName = product.name.toUpperCase();
     const capsFilterText = filterText.toUpperCase();
     return capsName.indexOf(capsFilterText) !== -1;
   };
 
-  /**
-   * @param {Array} product
-   */
-  const isInStockOnlyValid = (product) => {
+  const isInStockOnlyValid = (product: Product) => {
     return inStockOnly ? product.stocked : !undefined;
   };
 
   const useStyles = makeStyles({ textDarkgray: { color: 'darkgray' } });
   const classes = useStyles();
-  const getTableCellStyle = (product) =>
+  const getTableCellStyle = (product: Product) =>
     !product.stocked ? classes.textDarkgray : '';
 
   return (
@@ -143,8 +159,21 @@ function ProductTable({ filterText, inStockOnly, products, onDeleteClick }) {
   );
 }
 
-class FilterableProductTable extends React.Component {
-  constructor(props) {
+type FilterableProductTableState = {
+  error: null | string;
+  isLoaded: boolean;
+  products: Products;
+  filterText: string;
+  inStockOnly: boolean;
+};
+
+class FilterableProductTable extends React.Component<
+  {},
+  FilterableProductTableState
+> {
+  url: string;
+
+  constructor(props: Readonly<{}>) {
     super(props);
     this.state = {
       error: null,
@@ -159,28 +188,18 @@ class FilterableProductTable extends React.Component {
     this.url = 'https://5e6736691937020016fed762.mockapi.io/products';
   }
 
-  /**
-   * @param {String} filterText
-   */
-  handleFilterTextChange(filterText) {
+  handleFilterTextChange(filterText: string) {
     this.setState({ filterText: filterText });
   }
 
-  /**
-   * @param {Boolean} inStockOnly
-   */
-  handleInStockOnlyChange(inStockOnly) {
+  handleInStockOnlyChange(inStockOnly: boolean) {
     this.setState({ inStockOnly: inStockOnly });
   }
 
-  /**
-   * @param {String} targetId
-   * @param {Number} targetIndex
-   */
-  handleDeleteClick(targetId, targetIndex) {
-    axios.delete(`${this.url}/${targetId}`).then((result) => {
+  handleDeleteClick(id: string, index: number) {
+    axios.delete(`${this.url}/${id}`).then((result) => {
       console.log(`Deleted: id = ${result.data.id}`);
-      this.state.products.splice(targetIndex, 1);
+      this.state.products.splice(index, 1);
       this.setState({ isLoaded: true, products: this.state.products });
     });
   }
@@ -189,7 +208,7 @@ class FilterableProductTable extends React.Component {
     this.loadProducts(this.url);
   }
 
-  loadProducts(url) {
+  loadProducts(url: string) {
     axios
       .get(url)
       .then((result) => {
