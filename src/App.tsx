@@ -1,5 +1,7 @@
 import React from 'react';
+import './Reset.scss';
 import './App.scss';
+import Heading from './components/Heading';
 import FilterableProductTable from './components/FilterableProductTable';
 import { theme } from './mui-theme';
 import { ThemeProvider } from '@material-ui/core';
@@ -8,10 +10,12 @@ import Container from '@material-ui/core/Container';
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Container>
-        <h1>Product</h1>
-        <FilterableProductTable />
-      </Container>
+      <div className="main">
+        <Container>
+          <Heading>Product</Heading>
+          <FilterableProductTable />
+        </Container>
+      </div>
     </ThemeProvider>
   );
 }
