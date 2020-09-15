@@ -42,10 +42,19 @@ export default function ProductTable({
     return inStockOnly ? product.stocked : !undefined;
   };
 
-  const useStyles = makeStyles({ textDarkgray: { color: 'darkgray' } });
+  const useStyles = makeStyles({
+    lh26: { lineHeight: '26px' },
+    textMiddleSize: { fontSize: '16px' },
+    textDarkgray: { color: 'darkgray' },
+  });
+
   const classes = useStyles();
-  const getTableCellStyle = (product: Product) =>
-    !product.stocked ? classes.textDarkgray : '';
+
+  const getTableCellStyle = (product: Product) => {
+    return classNames(classes.lh26, classes.textMiddleSize, {
+      [classes.textDarkgray]: !product.stocked,
+    });
+  };
 
   return (
     <TableContainer component={Paper}>
