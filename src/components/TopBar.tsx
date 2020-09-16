@@ -25,7 +25,8 @@ export default function TopBar({
   onDeleteClick,
 }: TopBarProps) {
   const handleFilterTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onFilterTextChange(e.target.value);
+    const filterText: string = e.target.value;
+    onFilterTextChange(filterText);
   };
 
   const handleInStockOnlyChange = (e: React.ChangeEvent<HTMLInputElement>) => {

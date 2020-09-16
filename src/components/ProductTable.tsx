@@ -26,9 +26,9 @@ export default function ProductTable({
   onCheckedChange,
 }: ProductTableProps) {
   const isFilterTextValid = (product: Product) => {
-    const capsName = product.name.toUpperCase();
-    const capsFilterText = filterText.toUpperCase();
-    return capsName.indexOf(capsFilterText) !== -1;
+    const nameToUpperCase = product.name.toUpperCase();
+    const filterTextToUpperCase = filterText.toUpperCase().trim();
+    return nameToUpperCase.indexOf(filterTextToUpperCase) !== -1;
   };
 
   const isInStockOnlyValid = (product: Product) => {
