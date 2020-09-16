@@ -30,6 +30,7 @@ class FilterableProductTable extends React.Component<
     this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
     this.handleInStockOnlyChange = this.handleInStockOnlyChange.bind(this);
     this.handleDeleteClick = this.handleDeleteClick.bind(this);
+    this.handleDeleteAllClick = this.handleDeleteAllClick.bind(this);
     this.url = 'https://5e6736691937020016fed762.mockapi.io/products';
   }
 
@@ -49,6 +50,10 @@ class FilterableProductTable extends React.Component<
       this.state.products.splice(Number(index), 1);
       this.setState({ isLoaded: true, products: this.state.products });
     });
+  }
+
+  handleDeleteAllClick(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    alert('この機能はまだ実装されていません。');
   }
 
   componentDidMount() {
@@ -75,6 +80,7 @@ class FilterableProductTable extends React.Component<
           inStockOnly={this.state.inStockOnly}
           onFilterTextChange={this.handleFilterTextChange}
           onInStockOnlyChange={this.handleInStockOnlyChange}
+          onDeleteAllClick={this.handleDeleteAllClick}
         />
         {!this.state.isLoaded ? (
           <div>Loading...</div>

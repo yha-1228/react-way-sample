@@ -2,6 +2,7 @@ import React from 'react';
 import Box from '@material-ui/core/Box';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
 import { makeStyles } from '@material-ui/styles';
 
@@ -10,6 +11,9 @@ type TopBarProps = {
   inStockOnly: boolean;
   onFilterTextChange: (filterText: string) => void;
   onInStockOnlyChange: (checked: boolean) => void;
+  onDeleteAllClick: (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => void;
 };
 
 export default function TopBar({
@@ -17,6 +21,7 @@ export default function TopBar({
   inStockOnly,
   onFilterTextChange,
   onInStockOnlyChange,
+  onDeleteAllClick,
 }: TopBarProps) {
   const handleFilterTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onFilterTextChange(e.target.value);
@@ -41,17 +46,22 @@ export default function TopBar({
             onChange={handleFilterTextChange}
           />
         </Box>
-        <FormControlLabel
-          control={
-            <Checkbox
-              color="primary"
-              id="checkInStockOnly"
-              checked={inStockOnly}
-              onChange={handleInStockOnlyChange}
-            />
-          }
-          label="Only show products in stock"
-        />
+        <Box display="inline" pr={2}>
+          <FormControlLabel
+            control={
+              <Checkbox
+                color="primary"
+                id="checkInStockOnly"
+                checked={inStockOnly}
+                onChange={handleInStockOnlyChange}
+              />
+            }
+            label="Only show products in stock"
+          />
+        </Box>
+        <Button variant="contained" color="primary" onClick={onDeleteAllClick}>
+          Delete all
+        </Button>
       </form>
     </Box>
   );
