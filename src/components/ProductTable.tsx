@@ -67,7 +67,7 @@ export default function ProductTable({
           <TableHead>
             <TableRow className="table-row">
               <TableCell align="center">
-                <input type="checkbox" onChange={onCheckedAllChange} />
+                <Checkbox color="primary" onChange={onCheckedAllChange} />
               </TableCell>
               <TableCell align="right">ID</TableCell>
               <TableCell align="left">Brand</TableCell>
@@ -89,6 +89,7 @@ export default function ProductTable({
                       align="center"
                     >
                       <Checkbox
+                        color="primary"
                         checked={product.checked}
                         onChange={(event) => handleCheckedChange(event, id)}
                       />
