@@ -11,7 +11,7 @@ type TopBarProps = {
   inStockOnly: boolean;
   onFilterTextChange: (filterText: string) => void;
   onInStockOnlyChange: (checked: boolean) => void;
-  onDeleteAllClick: () => void;
+  onDeleteClick: () => void;
 };
 
 export default function TopBar({
@@ -19,7 +19,7 @@ export default function TopBar({
   inStockOnly,
   onFilterTextChange,
   onInStockOnlyChange,
-  onDeleteAllClick,
+  onDeleteClick,
 }: TopBarProps) {
   const handleFilterTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onFilterTextChange(e.target.value);
@@ -57,7 +57,7 @@ export default function TopBar({
             label="Only show products in stock"
           />
         </Box>
-        <Button variant="contained" color="primary" onClick={onDeleteAllClick}>
+        <Button variant="contained" color="primary" onClick={onDeleteClick}>
           Delete all
         </Button>
       </form>

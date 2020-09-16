@@ -1,5 +1,5 @@
 import React from 'react';
-import { Products } from './data';
+import { Product, Products } from './data';
 import TopBar from './TopBar';
 import ProductTable from './ProductTable';
 import axios from 'axios';
@@ -30,7 +30,7 @@ class FilterableProductTable extends React.Component<
     this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
     this.handleInStockOnlyChange = this.handleInStockOnlyChange.bind(this);
     this.handleDeleteClick = this.handleDeleteClick.bind(this);
-    this.handleDeleteAllClick = this.handleDeleteAllClick.bind(this);
+    this.handleCheckedChange = this.handleCheckedChange.bind(this);
     this.url = 'https://5e6736691937020016fed762.mockapi.io/products';
   }
 
@@ -42,18 +42,7 @@ class FilterableProductTable extends React.Component<
     this.setState({ inStockOnly: inStockOnly });
   }
 
-  handleDeleteClick(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
-    const id = event.currentTarget.dataset.id;
-    axios.delete(`${this.url}/${id}`).then((result) => {
-      console.log(`Deleted: id = ${result.data.id}`);
-      const products = [...this.state.products].filter(
-        (product) => product.id !== id
-      );
-      this.setState({ isLoaded: true, products: products });
-    });
-  }
-
-  handleDeleteAllClick() {
+  handleDeleteClick() {
     const deleteBy = (id: string) => {
       axios.delete(`${this.url}/${id}`).then((result) => {
         console.log(`Deleted: id = ${result.data.id}`);
@@ -66,6 +55,22 @@ class FilterableProductTable extends React.Component<
     });
   }
 
+  handleCheckedChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const id = event.currentTarget.dataset.id;
+    const checked = event.currentTarget.checked;
+
+    const products: Products = [...this.state.products];
+    if (!products) return;
+
+    const product = products.find((product) => product.id === id);
+    if (!product) return;
+
+    product.checked = checked === true ? true : false;
+
+    this.setState({ products: products });
+    console.log(this.state.products);
+  }
+
   componentDidMount() {
     this.loadProducts(this.url);
   }
@@ -74,7 +79,11 @@ class FilterableProductTable extends React.Component<
     axios
       .get(url)
       .then((result) => {
-        this.setState({ isLoaded: true, products: result.data });
+        const products = result.data.map((product: Product) => ({
+          ...product,
+          checked: false,
+        }));
+        this.setState({ isLoaded: true, products: products });
       })
       .catch((result) => {
         this.setState({ isLoaded: true, error: 'Error!' });
@@ -90,7 +99,7 @@ class FilterableProductTable extends React.Component<
           inStockOnly={this.state.inStockOnly}
           onFilterTextChange={this.handleFilterTextChange}
           onInStockOnlyChange={this.handleInStockOnlyChange}
-          onDeleteAllClick={this.handleDeleteAllClick}
+          onDeleteClick={this.handleDeleteClick}
         />
         {!this.state.isLoaded ? (
           <div>Loading...</div>
@@ -99,7 +108,7 @@ class FilterableProductTable extends React.Component<
             filterText={this.state.filterText}
             inStockOnly={this.state.inStockOnly}
             products={this.state.products}
-            onDeleteClick={this.handleDeleteClick}
+            onCheckedChange={this.handleCheckedChange}
           />
         )}
       </div>

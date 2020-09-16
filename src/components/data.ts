@@ -11,7 +11,7 @@ export type Product = {
   image: string;
   made_by: string;
   color: string;
+  checked: boolean;
 };
 
 export type Products = Product[];
-

@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import classNames from 'classnames';
 import { Products, Product } from './data';
 import Button from '@material-ui/core/Button';
+import Checkbox from '@material-ui/core/Checkbox';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -15,16 +16,14 @@ type ProductTableProps = {
   filterText: string;
   inStockOnly: boolean;
   products: Products;
-  onDeleteClick: (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => void;
+  onCheckedChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 export default function ProductTable({
   filterText,
   inStockOnly,
   products,
-  onDeleteClick,
+  onCheckedChange,
 }: ProductTableProps) {
   const isFilterTextValid = (product: Product) => {
     const capsName = product.name.toUpperCase();
@@ -51,56 +50,71 @@ export default function ProductTable({
   };
 
   return (
-    <TableContainer component={Paper}>
-      <Table>
-        <TableHead>
-          <TableRow className="table-row">
-            <TableCell align="center"></TableCell>
-            <TableCell align="right">ID</TableCell>
-            <TableCell align="left">Brand</TableCell>
-            <TableCell align="left">Category</TableCell>
-            <TableCell align="left">Name</TableCell>
-            <TableCell align="right">Price</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {products
-            .filter(isFilterTextValid)
-            .filter(isInStockOnlyValid)
-            .map((product, index) => (
-              <TableRow key={product.id}>
-                <TableCell
-                  className={getTableCellStyle(product)}
-                  align="center"
-                >
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    data-id={product.id}
-                    onClick={onDeleteClick}
+    <div>
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow className="table-row">
+              <TableCell align="center"></TableCell>
+              <TableCell align="right">ID</TableCell>
+              <TableCell align="left">Brand</TableCell>
+              <TableCell align="left">Category</TableCell>
+              <TableCell align="left">Name</TableCell>
+              <TableCell align="right">Price</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {products
+              .filter(isFilterTextValid)
+              .filter(isInStockOnlyValid)
+              .map((product) => (
+                <TableRow key={product.id}>
+                  <TableCell
+                    className={getTableCellStyle(product)}
+                    align="center"
                   >
-                    Delete
-                  </Button>
-                </TableCell>
-                <TableCell className={getTableCellStyle(product)} align="right">
-                  {product.id}
-                </TableCell>
-                <TableCell className={getTableCellStyle(product)} align="left">
-                  {product.brand}
-                </TableCell>
-                <TableCell className={getTableCellStyle(product)} align="left">
-                  {product.category}
-                </TableCell>
-                <TableCell className={getTableCellStyle(product)} align="left">
-                  {product.name}
-                </TableCell>
-                <TableCell className={getTableCellStyle(product)} align="right">
-                  {product.price}
-                </TableCell>
-              </TableRow>
-            ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+                    <input
+                      type="checkbox"
+                      data-id={product.id}
+                      checked={product.checked}
+                      onChange={onCheckedChange}
+                    />
+                  </TableCell>
+                  <TableCell
+                    className={getTableCellStyle(product)}
+                    align="right"
+                  >
+                    {product.id}
+                  </TableCell>
+                  <TableCell
+                    className={getTableCellStyle(product)}
+                    align="left"
+                  >
+                    {product.brand}
+                  </TableCell>
+                  <TableCell
+                    className={getTableCellStyle(product)}
+                    align="left"
+                  >
+                    {product.category}
+                  </TableCell>
+                  <TableCell
+                    className={getTableCellStyle(product)}
+                    align="left"
+                  >
+                    {product.name}
+                  </TableCell>
+                  <TableCell
+                    className={getTableCellStyle(product)}
+                    align="right"
+                  >
+                    {product.price}
+                  </TableCell>
+                </TableRow>
+              ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </div>
   );
 }
