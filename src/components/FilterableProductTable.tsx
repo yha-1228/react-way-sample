@@ -45,11 +45,16 @@ class FilterableProductTable extends React.Component<
   handleDeleteClick() {
     const deleteBy = (id: string) => {
       axios.delete(`${this.url}/${id}`).then((result) => {
-        console.log(`Deleted: id = ${result.data.id}`);
+        const products: Products = [...this.state.products].filter(
+          (product) => product.id !== id
+        );
+        this.setState({ products: products });
       });
     };
 
-    const ids = this.state.products.map((product) => product.id);
+    const products = this.state.products.filter((product) => product.checked);
+    const ids = products.map((product) => product.id);
+
     ids.forEach((id) => {
       deleteBy(id);
     });
@@ -68,7 +73,6 @@ class FilterableProductTable extends React.Component<
     product.checked = checked === true ? true : false;
 
     this.setState({ products: products });
-    console.log(this.state.products);
   }
 
   componentDidMount() {
@@ -97,6 +101,7 @@ class FilterableProductTable extends React.Component<
         <TopBar
           filterText={this.state.filterText}
           inStockOnly={this.state.inStockOnly}
+          products={this.state.products}
           onFilterTextChange={this.handleFilterTextChange}
           onInStockOnlyChange={this.handleInStockOnlyChange}
           onDeleteClick={this.handleDeleteClick}

@@ -5,10 +5,12 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
 import { makeStyles } from '@material-ui/styles';
+import { Products } from './data';
 
 type TopBarProps = {
   filterText: string;
   inStockOnly: boolean;
+  products: Products;
   onFilterTextChange: (filterText: string) => void;
   onInStockOnlyChange: (checked: boolean) => void;
   onDeleteClick: () => void;
@@ -17,6 +19,7 @@ type TopBarProps = {
 export default function TopBar({
   filterText,
   inStockOnly,
+  products,
   onFilterTextChange,
   onInStockOnlyChange,
   onDeleteClick,
@@ -57,8 +60,13 @@ export default function TopBar({
             label="Only show products in stock"
           />
         </Box>
-        <Button variant="contained" color="primary" onClick={onDeleteClick}>
-          Delete all
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={onDeleteClick}
+          disabled={!products.filter((product) => product.checked).length}
+        >
+          Delete
         </Button>
       </form>
     </Box>
