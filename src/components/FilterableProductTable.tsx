@@ -44,11 +44,12 @@ class FilterableProductTable extends React.Component<
 
   handleDeleteClick(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     const id = event.currentTarget.dataset.id;
-    const index = event.currentTarget.dataset.index;
     axios.delete(`${this.url}/${id}`).then((result) => {
       console.log(`Deleted: id = ${result.data.id}`);
-      this.state.products.splice(Number(index), 1);
-      this.setState({ isLoaded: true, products: this.state.products });
+      const products = [...this.state.products].filter(
+        (product) => product.id !== id
+      );
+      this.setState({ isLoaded: true, products: products });
     });
   }
 

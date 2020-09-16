@@ -83,7 +83,6 @@ export default function ProductTable({
                     variant="contained"
                     color="primary"
                     data-id={product.id}
-                    data-index={index}
                     onClick={handleDeleteClick}
                   >
                     Delete
