@@ -27,6 +27,7 @@ export default function TopBar({
   const handleFilterTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onFilterTextChange(e.target.value);
   };
+
   const handleInStockOnlyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onInStockOnlyChange(e.target.checked);
   };
