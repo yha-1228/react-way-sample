@@ -26,12 +26,6 @@ export default function ProductTable({
   products,
   onDeleteClick,
 }: ProductTableProps) {
-  const handleDeleteClick = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
-    onDeleteClick(event);
-  };
-
   const isFilterTextValid = (product: Product) => {
     const capsName = product.name.toUpperCase();
     const capsFilterText = filterText.toUpperCase();
@@ -83,7 +77,7 @@ export default function ProductTable({
                     variant="contained"
                     color="primary"
                     data-id={product.id}
-                    onClick={handleDeleteClick}
+                    onClick={onDeleteClick}
                   >
                     Delete
                   </Button>
