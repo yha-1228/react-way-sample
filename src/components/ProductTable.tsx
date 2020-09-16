@@ -17,6 +17,7 @@ type ProductTableProps = {
   inStockOnly: boolean;
   products: Products;
   onCheckedChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onCheckedAllChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 export default function ProductTable({
@@ -24,6 +25,7 @@ export default function ProductTable({
   inStockOnly,
   products,
   onCheckedChange,
+  onCheckedAllChange,
 }: ProductTableProps) {
   const isFilterTextValid = (product: Product) => {
     const nameToUpperCase = product.name.toUpperCase();
@@ -55,7 +57,9 @@ export default function ProductTable({
         <Table>
           <TableHead>
             <TableRow className="table-row">
-              <TableCell align="center"></TableCell>
+              <TableCell align="center">
+                <input type="checkbox" onChange={onCheckedAllChange} />
+              </TableCell>
               <TableCell align="right">ID</TableCell>
               <TableCell align="left">Brand</TableCell>
               <TableCell align="left">Category</TableCell>

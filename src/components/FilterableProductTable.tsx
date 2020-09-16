@@ -10,6 +10,7 @@ type FilterableProductTableState = {
   products: Products;
   filterText: string;
   inStockOnly: boolean;
+  isCheckedAll: boolean;
 };
 
 class FilterableProductTable extends React.Component<
@@ -26,10 +27,12 @@ class FilterableProductTable extends React.Component<
       products: [],
       filterText: '',
       inStockOnly: false,
+      isCheckedAll: false,
     };
     this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
     this.handleInStockOnlyChange = this.handleInStockOnlyChange.bind(this);
     this.handleDeleteClick = this.handleDeleteClick.bind(this);
+    this.toggleCheckedAllChange = this.toggleCheckedAllChange.bind(this);
     this.handleCheckedChange = this.handleCheckedChange.bind(this);
     this.url = 'https://5e6736691937020016fed762.mockapi.io/products';
   }
@@ -75,6 +78,23 @@ class FilterableProductTable extends React.Component<
     this.setState({ products: products });
   }
 
+  toggleCheckedAllChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const products: Products = [...this.state.products];
+    const isCheckedAll = products.every((product) => product.checked === true);
+
+    if (!isCheckedAll) {
+      products.forEach((product) => {
+        product.checked = true;
+      });
+      this.setState({ isCheckedAll: false });
+    } else {
+      products.forEach((product) => {
+        product.checked = false;
+      });
+      this.setState({ isCheckedAll: true });
+    }
+  }
+
   componentDidMount() {
     this.loadProducts(this.url);
   }
@@ -113,6 +133,7 @@ class FilterableProductTable extends React.Component<
             filterText={this.state.filterText}
             inStockOnly={this.state.inStockOnly}
             products={this.state.products}
+            onCheckedAllChange={this.toggleCheckedAllChange}
             onCheckedChange={this.handleCheckedChange}
           />
         )}
