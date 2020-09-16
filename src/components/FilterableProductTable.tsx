@@ -63,8 +63,7 @@ class FilterableProductTable extends React.Component<
     });
   }
 
-  handleCheckedChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const id = event.currentTarget.dataset.id;
+  handleCheckedChange(event: React.ChangeEvent<HTMLInputElement>, id: string) {
     const checked = event.currentTarget.checked;
 
     const products: Products = [...this.state.products];
