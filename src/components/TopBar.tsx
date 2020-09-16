@@ -11,9 +11,7 @@ type TopBarProps = {
   inStockOnly: boolean;
   onFilterTextChange: (filterText: string) => void;
   onInStockOnlyChange: (checked: boolean) => void;
-  onDeleteAllClick: (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => void;
+  onDeleteAllClick: () => void;
 };
 
 export default function TopBar({

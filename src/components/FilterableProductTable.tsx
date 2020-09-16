@@ -53,8 +53,17 @@ class FilterableProductTable extends React.Component<
     });
   }
 
-  handleDeleteAllClick(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
-    alert('この機能はまだ実装されていません。');
+  handleDeleteAllClick() {
+    const deleteBy = (id: string) => {
+      axios.delete(`${this.url}/${id}`).then((result) => {
+        console.log(`Deleted: id = ${result.data.id}`);
+      });
+    };
+
+    const ids = this.state.products.map((product) => product.id);
+    ids.forEach((id) => {
+      deleteBy(id);
+    });
   }
 
   componentDidMount() {
