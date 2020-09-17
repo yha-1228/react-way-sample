@@ -10,7 +10,7 @@ type FilterableProductTableState = {
   products: Products;
   filterText: string;
   inStockOnly: boolean;
-  checkedAll: { checked: boolean; indeterminate: boolean };
+  multipleCheckbox: { checked: boolean; indeterminate: boolean };
 };
 
 class FilterableProductTable extends React.Component<
@@ -27,13 +27,15 @@ class FilterableProductTable extends React.Component<
       products: [],
       filterText: '',
       inStockOnly: false,
-      checkedAll: { checked: false, indeterminate: false },
+      multipleCheckbox: { checked: false, indeterminate: false },
     };
     this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
     this.handleInStockOnlyChange = this.handleInStockOnlyChange.bind(this);
     this.handleDeleteClick = this.handleDeleteClick.bind(this);
-    this.toggleCheckedAllChange = this.toggleCheckedAllChange.bind(this);
-    this.handleCheckedChange = this.handleCheckedChange.bind(this);
+    this.handleMultipleCheckboxChange = this.handleMultipleCheckboxChange.bind(
+      this
+    );
+    this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
     this.url = 'https://5e6736691937020016fed762.mockapi.io/products';
   }
 
@@ -60,10 +62,12 @@ class FilterableProductTable extends React.Component<
       });
     });
 
-    this.setState({ checkedAll: { checked: false, indeterminate: false } });
+    this.setState({
+      multipleCheckbox: { checked: false, indeterminate: false },
+    });
   }
 
-  handleCheckedChange(event: React.ChangeEvent<HTMLInputElement>, id: string) {
+  handleCheckboxChange(event: React.ChangeEvent<HTMLInputElement>, id: string) {
     const checked = event.currentTarget.checked;
 
     const products: Products = [...this.state.products];
@@ -81,26 +85,32 @@ class FilterableProductTable extends React.Component<
     const everyChecked = products.every((product) => product.checked === true);
 
     if (noChecked) {
-      this.setState({ checkedAll: { checked: false, indeterminate: false } });
+      this.setState({
+        multipleCheckbox: { checked: false, indeterminate: false },
+      });
       return;
     }
 
     if (someChecked && !everyChecked) {
-      this.setState({ checkedAll: { checked: true, indeterminate: true } });
+      this.setState({
+        multipleCheckbox: { checked: true, indeterminate: true },
+      });
       return;
     }
 
     if (everyChecked) {
-      this.setState({ checkedAll: { checked: true, indeterminate: false } });
+      this.setState({
+        multipleCheckbox: { checked: true, indeterminate: false },
+      });
       return;
     }
   }
 
-  toggleCheckedAllChange() {
+  handleMultipleCheckboxChange() {
     const products: Products = [...this.state.products];
     if (!products) return;
 
-    const { checked, indeterminate } = this.state.checkedAll;
+    const { checked, indeterminate } = this.state.multipleCheckbox;
 
     if (checked === false && indeterminate === false) {
       products.forEach((product) => {
@@ -108,7 +118,7 @@ class FilterableProductTable extends React.Component<
       });
       this.setState({
         products: products,
-        checkedAll: { checked: true, indeterminate: false },
+        multipleCheckbox: { checked: true, indeterminate: false },
       });
       return;
     }
@@ -119,7 +129,7 @@ class FilterableProductTable extends React.Component<
       });
       this.setState({
         products: products,
-        checkedAll: { checked: false, indeterminate: false },
+        multipleCheckbox: { checked: false, indeterminate: false },
       });
       return;
     }
@@ -130,7 +140,7 @@ class FilterableProductTable extends React.Component<
       });
       this.setState({
         products: products,
-        checkedAll: { checked: false, indeterminate: false },
+        multipleCheckbox: { checked: false, indeterminate: false },
       });
       return;
     }
@@ -171,13 +181,15 @@ class FilterableProductTable extends React.Component<
           <div>Loading...</div>
         ) : (
           <ProductTable
-            checkedAllindeterminate={this.state.checkedAll.indeterminate}
-            checkedAllchecked={this.state.checkedAll.checked}
+            multipleCheckboxIndeterminate={
+              this.state.multipleCheckbox.indeterminate
+            }
+            multipleCheckboxChecked={this.state.multipleCheckbox.checked}
             filterText={this.state.filterText}
             inStockOnly={this.state.inStockOnly}
             products={this.state.products}
-            onCheckedAllChange={this.toggleCheckedAllChange}
-            onCheckedChange={this.handleCheckedChange}
+            onMultipleCheckboxChange={this.handleMultipleCheckboxChange}
+            onCheckboxChange={this.handleCheckboxChange}
           />
         )}
       </div>

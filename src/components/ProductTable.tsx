@@ -12,26 +12,28 @@ import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/styles';
 
 type ProductTableProps = {
-  checkedAllindeterminate: boolean;
-  checkedAllchecked: boolean;
+  multipleCheckboxIndeterminate: boolean;
+  multipleCheckboxChecked: boolean;
   filterText: string;
   inStockOnly: boolean;
   products: Products;
-  onCheckedChange: (
+  onCheckboxChange: (
     event: React.ChangeEvent<HTMLInputElement>,
     id: string
   ) => void;
-  onCheckedAllChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onMultipleCheckboxChange: (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => void;
 };
 
 export default function ProductTable({
-  checkedAllindeterminate,
-  checkedAllchecked,
+  multipleCheckboxIndeterminate,
+  multipleCheckboxChecked,
   filterText,
   inStockOnly,
   products,
-  onCheckedChange,
-  onCheckedAllChange,
+  onCheckboxChange,
+  onMultipleCheckboxChange,
 }: ProductTableProps) {
   const isFilterTextValid = (product: Product) => {
     const nameToUpperCase = product.name.toUpperCase();
@@ -43,11 +45,11 @@ export default function ProductTable({
     return inStockOnly ? product.stocked : !undefined;
   };
 
-  const handleCheckedChange = (
+  const handleCheckboxChange = (
     event: React.ChangeEvent<HTMLInputElement>,
     id: string
   ) => {
-    onCheckedChange(event, id);
+    onCheckboxChange(event, id);
   };
 
   const useStyles = makeStyles({
@@ -73,9 +75,9 @@ export default function ProductTable({
               <TableCell align="center">
                 <Checkbox
                   color="primary"
-                  checked={checkedAllchecked}
-                  indeterminate={checkedAllindeterminate}
-                  onChange={onCheckedAllChange}
+                  checked={multipleCheckboxChecked}
+                  indeterminate={multipleCheckboxIndeterminate}
+                  onChange={onMultipleCheckboxChange}
                 />
               </TableCell>
               <TableCell align="right">ID</TableCell>
@@ -100,7 +102,7 @@ export default function ProductTable({
                         color="primary"
                         checked={product.checked}
                         onChange={(event) =>
-                          handleCheckedChange(event, product.id)
+                          handleCheckboxChange(event, product.id)
                         }
                       />
                     </TableCell>
