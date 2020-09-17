@@ -61,6 +61,8 @@ class FilterableProductTable extends React.Component<
     ids.forEach((id) => {
       deleteBy(id);
     });
+
+    this.setState({ checkedAll: { checked: false, indeterminate: false } });
   }
 
   handleCheckedChange(event: React.ChangeEvent<HTMLInputElement>, id: string) {
@@ -96,7 +98,7 @@ class FilterableProductTable extends React.Component<
     }
   }
 
-  toggleCheckedAllChange(event: React.ChangeEvent<HTMLInputElement>) {
+  toggleCheckedAllChange() {
     const products: Products = [...this.state.products];
     if (!products) return;
 
