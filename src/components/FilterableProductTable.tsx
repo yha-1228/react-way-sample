@@ -108,14 +108,13 @@ class FilterableProductTable extends React.Component<
 
   handleMultipleCheckboxChange() {
     const products: Products = [...this.state.products];
-    if (!products) return;
-
     const { checked, indeterminate } = this.state.multipleCheckbox;
 
-    if (checked === false && indeterminate === false) {
+    if (!checked) {
       products.forEach((product) => {
         product.checked = true;
       });
+      
       this.setState({
         products: products,
         multipleCheckbox: { checked: true, indeterminate: false },
@@ -123,18 +122,7 @@ class FilterableProductTable extends React.Component<
       return;
     }
 
-    if (checked === true && indeterminate === true) {
-      products.forEach((product) => {
-        product.checked = false;
-      });
-      this.setState({
-        products: products,
-        multipleCheckbox: { checked: false, indeterminate: false },
-      });
-      return;
-    }
-
-    if (checked === true && indeterminate === false) {
+    if (checked) {
       products.forEach((product) => {
         product.checked = false;
       });
