@@ -36,6 +36,9 @@ export default function TopBar({
   const useStyles = makeStyles({ 'w-250': { width: '250px' } });
   const classes = useStyles();
 
+  const checkedProductCount = products.filter((product) => product.checked)
+    .length;
+
   return (
     <Box mb={2}>
       <form>
@@ -66,9 +69,9 @@ export default function TopBar({
           variant="contained"
           color="primary"
           onClick={onDeleteClick}
-          disabled={!products.filter((product) => product.checked).length}
+          disabled={!checkedProductCount}
         >
-          Delete
+          Delete{checkedProductCount ? ` (${checkedProductCount})` : ''}
         </Button>
       </form>
     </Box>
