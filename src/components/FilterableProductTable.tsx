@@ -46,15 +46,6 @@ class FilterableProductTable extends React.Component<
   }
 
   handleDeleteClick() {
-    // const deleteBy = (id: string) => {
-    //   axios.delete(`${this.url}/${id}`).then((result) => {
-    //     const products: Products = [...this.state.products].filter(
-    //       (product) => product.id !== id
-    //     );
-    //     this.setState({ products: products });
-    //   });
-    // };
-
     const deleteBy = (id: string) => axios.delete(`${this.url}/${id}`);
 
     const products = this.state.products.filter((product) => product.checked);
