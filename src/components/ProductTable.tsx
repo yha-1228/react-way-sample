@@ -12,6 +12,8 @@ import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/styles';
 
 type ProductTableProps = {
+  checkedAllindeterminate: boolean;
+  checkedAllchecked: boolean;
   filterText: string;
   inStockOnly: boolean;
   products: Products;
@@ -23,6 +25,8 @@ type ProductTableProps = {
 };
 
 export default function ProductTable({
+  checkedAllindeterminate,
+  checkedAllchecked,
   filterText,
   inStockOnly,
   products,
@@ -67,7 +71,12 @@ export default function ProductTable({
           <TableHead>
             <TableRow className="table-row">
               <TableCell align="center">
-                <Checkbox color="primary" onChange={onCheckedAllChange} />
+                <Checkbox
+                  color="primary"
+                  checked={checkedAllchecked}
+                  indeterminate={checkedAllindeterminate}
+                  onChange={onCheckedAllChange}
+                />
               </TableCell>
               <TableCell align="right">ID</TableCell>
               <TableCell align="left">Brand</TableCell>
@@ -81,9 +90,8 @@ export default function ProductTable({
               .filter(isFilterTextValid)
               .filter(isInStockOnlyValid)
               .map((product) => {
-                const id = product.id;
                 return (
-                  <TableRow key={id}>
+                  <TableRow key={product.id}>
                     <TableCell
                       className={getTableCellStyle(product)}
                       align="center"
@@ -91,14 +99,16 @@ export default function ProductTable({
                       <Checkbox
                         color="primary"
                         checked={product.checked}
-                        onChange={(event) => handleCheckedChange(event, id)}
+                        onChange={(event) =>
+                          handleCheckedChange(event, product.id)
+                        }
                       />
                     </TableCell>
                     <TableCell
                       className={getTableCellStyle(product)}
                       align="right"
                     >
-                      {id}
+                      {product.id}
                     </TableCell>
                     <TableCell
                       className={getTableCellStyle(product)}

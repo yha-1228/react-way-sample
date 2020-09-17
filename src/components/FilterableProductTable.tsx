@@ -10,7 +10,7 @@ type FilterableProductTableState = {
   products: Products;
   filterText: string;
   inStockOnly: boolean;
-  isCheckedAll: boolean;
+  checkedAll: { checked: boolean; indeterminate: boolean };
 };
 
 class FilterableProductTable extends React.Component<
@@ -27,7 +27,7 @@ class FilterableProductTable extends React.Component<
       products: [],
       filterText: '',
       inStockOnly: false,
-      isCheckedAll: false,
+      checkedAll: { checked: false, indeterminate: false },
     };
     this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
     this.handleInStockOnlyChange = this.handleInStockOnlyChange.bind(this);
@@ -72,25 +72,67 @@ class FilterableProductTable extends React.Component<
     const product = products.find((product) => product.id === id);
     if (!product) return;
 
-    product.checked = checked === true ? true : false;
+    product.checked = checked;
 
     this.setState({ products: products });
+
+    const noChecked = products.every((product) => product.checked === false);
+    const someChecked = products.some((product) => product.checked === true);
+    const everyChecked = products.every((product) => product.checked === true);
+
+    if (noChecked) {
+      this.setState({ checkedAll: { checked: false, indeterminate: false } });
+      return;
+    }
+
+    if (someChecked && !everyChecked) {
+      this.setState({ checkedAll: { checked: true, indeterminate: true } });
+      return;
+    }
+
+    if (everyChecked) {
+      this.setState({ checkedAll: { checked: true, indeterminate: false } });
+      return;
+    }
   }
 
   toggleCheckedAllChange(event: React.ChangeEvent<HTMLInputElement>) {
     const products: Products = [...this.state.products];
-    const isCheckedAll = products.every((product) => product.checked === true);
+    if (!products) return;
 
-    if (!isCheckedAll) {
+    const { checked, indeterminate } = this.state.checkedAll;
+
+    if (checked === false && indeterminate === false) {
       products.forEach((product) => {
         product.checked = true;
       });
-      this.setState({ isCheckedAll: false });
-    } else {
+      this.setState({
+        products: products,
+        checkedAll: { checked: true, indeterminate: false },
+      });
+      return;
+    }
+
+    if (checked === true && indeterminate === true) {
       products.forEach((product) => {
         product.checked = false;
       });
-      this.setState({ isCheckedAll: true });
+      this.setState({
+        products: products,
+        checkedAll: { checked: false, indeterminate: false },
+      });
+      return;
+    }
+
+    if (checked === true && indeterminate === false) {
+      products.forEach((product) => {
+        product.checked = false;
+      });
+      this.setState({
+        products: products,
+        checkedAll: { checked: false, indeterminate: false },
+      });
+      return;
     }
   }
 
@@ -129,6 +171,8 @@ class FilterableProductTable extends React.Component<
           <div>Loading...</div>
         ) : (
           <ProductTable
+            checkedAllindeterminate={this.state.checkedAll.indeterminate}
+            checkedAllchecked={this.state.checkedAll.checked}
             filterText={this.state.filterText}
             inStockOnly={this.state.inStockOnly}
             products={this.state.products}
