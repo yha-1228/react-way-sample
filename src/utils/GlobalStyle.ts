@@ -1,3 +1,10 @@
+import { createGlobalStyle } from 'styled-components/macro';
+import { fontFamily } from './style-config';
+
+const GlobalStyle = createGlobalStyle`
+
+/* Reset CSS */
+
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
@@ -46,3 +53,15 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
+
+/* Base */
+
+body {
+  font-family: ${fontFamily};
+  overflow-y: scroll;
+}
+
+`;
+
+export default GlobalStyle;

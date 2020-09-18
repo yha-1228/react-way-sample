@@ -1,8 +1,9 @@
-import React from 'react';
-import './Heading.scss';
+import styled from 'styled-components/macro';
 
-type HeadingProps = { children: React.ReactNode };
+const Heading = styled.h1`
+  font-size: 48px;
+  margin-bottom: 16px;
+  font-weight: bold;
+`;
 
-export default function Heading({ children }: HeadingProps) {
-  return <h1 className="heading">{children}</h1>;
-}
+export default Heading;
