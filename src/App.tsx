@@ -3,7 +3,7 @@ import './Reset.scss';
 import './App.scss';
 import Heading from './components/Heading';
 import FilterableProductTable from './components/FilterableProductTable';
-import { theme } from './mui-theme';
+import { theme } from './utils/mui-theme';
 import { ThemeProvider } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
 
