@@ -1,5 +1,5 @@
 export const colors = {
-  primary: '#496AF6',
+  primary: '#0167B8',
 };
 
 export const fontFamily = [
