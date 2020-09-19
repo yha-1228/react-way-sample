@@ -1,4 +1,7 @@
 export const colors = {
+  background: '#fff',
+  paper: '#fff',
+  foreground: '#1A202C',
   primary: '#0167B8',
 };
 

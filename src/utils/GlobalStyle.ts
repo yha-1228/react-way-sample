@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components/macro';
-import { fontFamily } from './style-config';
+import { colors, fontFamily } from './style-config';
 
 const GlobalStyle = createGlobalStyle`
 
@@ -58,6 +58,8 @@ table {
 /* Base */
 
 body {
+	background-color: ${colors.background};
+	color: ${colors.foreground};
   font-family: ${fontFamily};
   overflow-y: scroll;
 }
