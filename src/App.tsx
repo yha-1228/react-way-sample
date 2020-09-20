@@ -2,7 +2,7 @@ import React from 'react';
 import GlobalStyle from './utils/GlobalStyle';
 import Heading from './components/Heading';
 import Main from './components/Main';
-import FilterableProductTable from './components/FilterableProductTable';
+import ProductTableApp from './components/ProductTableApp';
 import { theme } from './utils/mui-theme';
 import { ThemeProvider } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
@@ -14,7 +14,7 @@ function App() {
       <Main>
         <Container>
           <Heading>Product</Heading>
-          <FilterableProductTable />
+          <ProductTableApp />
         </Container>
       </Main>
     </ThemeProvider>

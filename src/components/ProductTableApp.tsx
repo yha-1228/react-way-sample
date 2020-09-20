@@ -4,7 +4,7 @@ import TopBar from './TopBar';
 import ProductTable from './ProductTable';
 import axios from 'axios';
 
-type FilterableProductTableState = {
+type ProductTableAppState = {
   error: null | string;
   isLoaded: boolean;
   products: Products;
@@ -13,10 +13,7 @@ type FilterableProductTableState = {
   multipleCheckbox: { checked: boolean; indeterminate: boolean };
 };
 
-class FilterableProductTable extends React.Component<
-  {},
-  FilterableProductTableState
-> {
+class ProductTableApp extends React.Component<{}, ProductTableAppState> {
   url: string;
 
   constructor(props: Readonly<{}>) {
@@ -187,4 +184,4 @@ class FilterableProductTable extends React.Component<
   }
 }
 
-export default FilterableProductTable;
+export default ProductTableApp;
