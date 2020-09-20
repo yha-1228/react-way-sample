@@ -4,6 +4,8 @@ import TopBar from './TopBar';
 import ProductTable from './ProductTable';
 import axios from 'axios';
 
+type ProductTableAppProps = {};
+
 type ProductTableAppState = {
   error: null | string;
   isLoaded: boolean;
@@ -13,7 +15,10 @@ type ProductTableAppState = {
   multipleCheckbox: { checked: boolean; indeterminate: boolean };
 };
 
-class ProductTableApp extends React.Component<{}, ProductTableAppState> {
+class ProductTableApp extends React.Component<
+  ProductTableAppProps,
+  ProductTableAppState
+> {
   url: string;
 
   constructor(props: Readonly<{}>) {
