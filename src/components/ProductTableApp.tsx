@@ -1,5 +1,5 @@
 import React from 'react';
-import { Product, Products } from './data';
+import { Product, Products } from '../interfaces/index';
 import TopBar from './TopBar';
 import ProductTable from './ProductTable';
 import axios from 'axios';
