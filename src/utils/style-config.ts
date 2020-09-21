@@ -1,8 +1,8 @@
 export const colors = {
-  background: '#fff',
+  background: 'rgb(250, 250, 251)',
   paper: '#fff',
   foreground: '#1A202C',
-  primary: '#0167B8',
+  primary: '#004FC5',
 };
 
 export const fontFamily = [

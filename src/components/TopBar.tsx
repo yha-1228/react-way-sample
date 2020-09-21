@@ -31,7 +31,10 @@ export default function TopBar({
     onInStockOnlyChange(e.target.checked);
   };
 
-  const useStyles = makeStyles({ 'w-250': { width: '250px' } });
+  const useStyles = makeStyles({
+    w300: { width: '300px' },
+  });
+
   const classes = useStyles();
 
   const checkedProductCount = products.filter((product) => product.checked).length;
@@ -41,7 +44,7 @@ export default function TopBar({
       <form>
         <Box display="inline" pr={2}>
           <TextField
-            className={classes['w-250']}
+            className={classes.w300}
             color="primary"
             type="text"
             placeholder="Search name..."
@@ -62,14 +65,16 @@ export default function TopBar({
             label="Only show products in stock"
           />
         </Box>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={onDeleteClick}
-          disabled={!checkedProductCount}
-        >
-          Delete{checkedProductCount ? ` (${checkedProductCount})` : ''}
-        </Button>
+        <span style={{ cursor: 'not-allowed' }}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={onDeleteClick}
+            disabled={!checkedProductCount}
+          >
+            Delete{checkedProductCount ? ` (${checkedProductCount})` : ''}
+          </Button>
+        </span>
       </form>
     </Box>
   );
