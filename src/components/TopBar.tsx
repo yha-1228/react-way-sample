@@ -8,25 +8,23 @@ import { makeStyles } from '@material-ui/styles';
 import { Products } from '../interfaces/index';
 
 type TopBarProps = {
-  filterText: string;
-  inStockOnly: boolean;
+  filter: { name: string; inStockOnly: boolean };
   products: Products;
-  onFilterTextChange: (filterText: string) => void;
+  onNameChange: (name: string) => void;
   onInStockOnlyChange: (checked: boolean) => void;
   onDeleteClick: () => void;
 };
 
 export default function TopBar({
-  filterText,
-  inStockOnly,
+  filter,
   products,
-  onFilterTextChange,
+  onNameChange,
   onInStockOnlyChange,
   onDeleteClick,
 }: TopBarProps) {
-  const handleFilterTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const filterText: string = e.target.value;
-    onFilterTextChange(filterText);
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const name: string = e.target.value;
+    onNameChange(name);
   };
 
   const handleInStockOnlyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,8 +34,7 @@ export default function TopBar({
   const useStyles = makeStyles({ 'w-250': { width: '250px' } });
   const classes = useStyles();
 
-  const checkedProductCount = products.filter((product) => product.checked)
-    .length;
+  const checkedProductCount = products.filter((product) => product.checked).length;
 
   return (
     <Box mb={2}>
@@ -48,8 +45,8 @@ export default function TopBar({
             color="primary"
             type="text"
             placeholder="Search name..."
-            value={filterText}
-            onChange={handleFilterTextChange}
+            value={filter.name}
+            onChange={handleNameChange}
           />
         </Box>
         <Box display="inline" pr={2}>
@@ -58,7 +55,7 @@ export default function TopBar({
               <Checkbox
                 color="primary"
                 id="checkInStockOnly"
-                checked={inStockOnly}
+                checked={filter.inStockOnly}
                 onChange={handleInStockOnlyChange}
               />
             }

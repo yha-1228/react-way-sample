@@ -14,41 +14,35 @@ import { makeStyles } from '@material-ui/styles';
 type ProductTableProps = {
   multipleCheckboxIndeterminate: boolean;
   multipleCheckboxChecked: boolean;
-  filterText: string;
-  inStockOnly: boolean;
+  filter: { name: string; inStockOnly: boolean };
   products: Products;
-  onCheckboxChange: (
-    event: React.ChangeEvent<HTMLInputElement>,
-    id: string
-  ) => void;
-  onMultipleCheckboxChange: (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => void;
+  onCheckboxChange: (event: React.ChangeEvent<HTMLInputElement>, id: string) => void;
+  onMultipleCheckboxChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 export default function ProductTable({
   multipleCheckboxIndeterminate,
   multipleCheckboxChecked,
-  filterText,
-  inStockOnly,
+  filter,
   products,
   onCheckboxChange,
   onMultipleCheckboxChange,
 }: ProductTableProps) {
-  const isFilterTextValid = (product: Product) => {
-    const nameToUpperCase = product.name.toUpperCase();
-    const filterTextToUpperCase = filterText.toUpperCase().trim();
-    return nameToUpperCase.indexOf(filterTextToUpperCase) !== -1;
+  const isNameValid = (product: Product) => {
+    if (filter.name === undefined) return;
+
+    const name = product.name.toUpperCase();
+    const filterName = filter.name.toUpperCase().trim();
+    return name.indexOf(filterName) !== -1;
   };
 
   const isInStockOnlyValid = (product: Product) => {
-    return inStockOnly ? product.stocked : !undefined;
+    if (filter.inStockOnly === undefined) return;
+
+    return filter.inStockOnly ? product.stocked : !undefined;
   };
 
-  const handleCheckboxChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    id: string
-  ) => {
+  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>, id: string) => {
     onCheckboxChange(event, id);
   };
 
@@ -89,51 +83,31 @@ export default function ProductTable({
           </TableHead>
           <TableBody>
             {products
-              .filter(isFilterTextValid)
+              .filter(isNameValid)
               .filter(isInStockOnlyValid)
               .map((product) => {
                 return (
                   <TableRow key={product.id}>
-                    <TableCell
-                      className={getTableCellStyle(product)}
-                      align="center"
-                    >
+                    <TableCell className={getTableCellStyle(product)} align="center">
                       <Checkbox
                         color="primary"
                         checked={product.checked}
-                        onChange={(event) =>
-                          handleCheckboxChange(event, product.id)
-                        }
+                        onChange={(event) => handleCheckboxChange(event, product.id)}
                       />
                     </TableCell>
-                    <TableCell
-                      className={getTableCellStyle(product)}
-                      align="right"
-                    >
+                    <TableCell className={getTableCellStyle(product)} align="right">
                       {product.id}
                     </TableCell>
-                    <TableCell
-                      className={getTableCellStyle(product)}
-                      align="left"
-                    >
+                    <TableCell className={getTableCellStyle(product)} align="left">
                       {product.brand}
                     </TableCell>
-                    <TableCell
-                      className={getTableCellStyle(product)}
-                      align="left"
-                    >
+                    <TableCell className={getTableCellStyle(product)} align="left">
                       {product.category}
                     </TableCell>
-                    <TableCell
-                      className={getTableCellStyle(product)}
-                      align="left"
-                    >
+                    <TableCell className={getTableCellStyle(product)} align="left">
                       {product.name}
                     </TableCell>
-                    <TableCell
-                      className={getTableCellStyle(product)}
-                      align="right"
-                    >
+                    <TableCell className={getTableCellStyle(product)} align="right">
                       {product.price}
                     </TableCell>
                   </TableRow>

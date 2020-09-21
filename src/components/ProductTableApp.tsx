@@ -10,15 +10,11 @@ type ProductTableAppState = {
   error: null | string;
   isLoaded: boolean;
   products: Products;
-  filterText: string;
-  inStockOnly: boolean;
+  filter: { name: string; inStockOnly: boolean };
   multipleCheckbox: { checked: boolean; indeterminate: boolean };
 };
 
-class ProductTableApp extends React.Component<
-  ProductTableAppProps,
-  ProductTableAppState
-> {
+class ProductTableApp extends React.Component<ProductTableAppProps, ProductTableAppState> {
   url: string;
 
   constructor(props: Readonly<{}>) {
@@ -27,26 +23,33 @@ class ProductTableApp extends React.Component<
       error: null,
       isLoaded: false,
       products: [],
-      filterText: '',
-      inStockOnly: false,
+      filter: { name: '', inStockOnly: false },
       multipleCheckbox: { checked: false, indeterminate: false },
     };
-    this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
+    this.handleNameChange = this.handleNameChange.bind(this);
     this.handleInStockOnlyChange = this.handleInStockOnlyChange.bind(this);
     this.handleDeleteClick = this.handleDeleteClick.bind(this);
-    this.handleMultipleCheckboxChange = this.handleMultipleCheckboxChange.bind(
-      this
-    );
+    this.handleMultipleCheckboxChange = this.handleMultipleCheckboxChange.bind(this);
     this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
     this.url = 'https://5e6736691937020016fed762.mockapi.io/products';
   }
 
-  handleFilterTextChange(filterText: string) {
-    this.setState({ filterText: filterText });
+  handleNameChange(name: string) {
+    this.setState({
+      filter: {
+        name: name,
+        inStockOnly: this.state.filter.inStockOnly,
+      },
+    });
   }
 
   handleInStockOnlyChange(inStockOnly: boolean) {
-    this.setState({ inStockOnly: inStockOnly });
+    this.setState({
+      filter: {
+        name: this.state.filter.name,
+        inStockOnly: inStockOnly,
+      },
+    });
   }
 
   handleDeleteClick() {
@@ -57,9 +60,7 @@ class ProductTableApp extends React.Component<
 
     ids.forEach((id) => {
       deleteBy(id).then(() => {
-        const products: Products = [...this.state.products].filter(
-          (product) => product.id !== id
-        );
+        const products: Products = [...this.state.products].filter((product) => product.id !== id);
         this.setState({ products: products });
       });
     });
@@ -162,10 +163,9 @@ class ProductTableApp extends React.Component<
     return (
       <div>
         <TopBar
-          filterText={this.state.filterText}
-          inStockOnly={this.state.inStockOnly}
+          filter={this.state.filter}
           products={this.state.products}
-          onFilterTextChange={this.handleFilterTextChange}
+          onNameChange={this.handleNameChange}
           onInStockOnlyChange={this.handleInStockOnlyChange}
           onDeleteClick={this.handleDeleteClick}
         />
@@ -173,12 +173,9 @@ class ProductTableApp extends React.Component<
           <div>Loading...</div>
         ) : (
           <ProductTable
-            multipleCheckboxIndeterminate={
-              this.state.multipleCheckbox.indeterminate
-            }
+            multipleCheckboxIndeterminate={this.state.multipleCheckbox.indeterminate}
             multipleCheckboxChecked={this.state.multipleCheckbox.checked}
-            filterText={this.state.filterText}
-            inStockOnly={this.state.inStockOnly}
+            filter={this.state.filter}
             products={this.state.products}
             onMultipleCheckboxChange={this.handleMultipleCheckboxChange}
             onCheckboxChange={this.handleCheckboxChange}
