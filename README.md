@@ -1,22 +1,19 @@
-Table UI using React.
+# table-ui-react
 
-1. $ npm run json-server
-
-2. $ npm run start
-
+Table UI using React and Material UI.
 
 # Download
 
-git clone https://github.com/yha-1228/table-ui-react
+`git clone https://github.com/yha-1228/table-ui-react`
 
 # Enter the repo
 
-cd table-ui-react
+`cd table-ui-react`
 
 # See demo
 
-1. npm install
+```npm install```
 
-2. npm run json-server
+```npm run json-server```
 
-3. npm run start
+```npm run start```
