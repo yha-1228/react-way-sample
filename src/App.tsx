@@ -13,7 +13,7 @@ function App() {
       <GlobalStyle />
       <Main>
         <Container>
-          <Heading>Product</Heading>
+          <Heading>Product List</Heading>
           <ProductTableApp />
         </Container>
       </Main>
