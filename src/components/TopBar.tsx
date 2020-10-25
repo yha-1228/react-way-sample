@@ -5,7 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
 import { makeStyles } from '@material-ui/styles';
-import { Products } from '../interfaces/index';
+import { Products } from '../types/index';
 
 type TopBarProps = {
   filter: { name: string; inStockOnly: boolean };

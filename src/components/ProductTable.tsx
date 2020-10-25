@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { Products, Product } from '../interfaces/index';
+import { Products, Product } from '../types/index';
 import Checkbox from '@material-ui/core/Checkbox';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';

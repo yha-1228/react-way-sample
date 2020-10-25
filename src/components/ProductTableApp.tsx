@@ -1,5 +1,5 @@
 import React from 'react';
-import { Product, Products } from '../interfaces/index';
+import { Product, Products } from '../types/index';
 import TopBar from './TopBar';
 import ProductTable from './ProductTable';
 import axios from 'axios';
@@ -32,7 +32,8 @@ class ProductTableApp extends React.Component<ProductTableAppProps, ProductTable
     this.handleDeleteClick = this.handleDeleteClick.bind(this);
     this.handleMultipleCheckboxChange = this.handleMultipleCheckboxChange.bind(this);
     this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
-    this.url = 'https://5e6736691937020016fed762.mockapi.io/products';
+    // this.url = 'https://5e6736691937020016fed762.mockapi.io/products';
+    this.url = 'http://localhost:3004/products';
   }
 
   handleNameChange(name: string) {
