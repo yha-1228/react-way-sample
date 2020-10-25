@@ -3,6 +3,7 @@ import { Product, Products } from '../interfaces/index';
 import TopBar from './TopBar';
 import ProductTable from './ProductTable';
 import axios from 'axios';
+import _ from 'lodash';
 
 type ProductTableAppProps = {};
 
@@ -54,20 +55,19 @@ class ProductTableApp extends React.Component<ProductTableAppProps, ProductTable
 
   handleDeleteClick() {
     const deleteBy = (id: string) => axios.delete(`${this.url}/${id}`);
-
     const products = this.state.products.filter((product) => product.checked);
     const ids = products.map((product) => product.id);
 
-    ids.forEach((id) => {
-      deleteBy(id).then(() => {
-        const products: Products = [...this.state.products].filter((product) => product.id !== id);
-        this.setState({ products: products });
-      });
-    });
+    const deleteAll = async () => {
+      console.log(await Promise.all(ids.map(deleteBy)));
+      const isNotDeleted = (product: Product) => !ids.includes(product.id);
+      const products: Products = [...this.state.products].filter(isNotDeleted);
+      this.setState({ products: products });
+    };
 
-    this.setState({
-      multipleCheckbox: { checked: false, indeterminate: false },
-    });
+    deleteAll();
+
+    this.setState({ multipleCheckbox: { checked: false, indeterminate: false } });
   }
 
   handleCheckboxChange(event: React.ChangeEvent<HTMLInputElement>, id: string) {
