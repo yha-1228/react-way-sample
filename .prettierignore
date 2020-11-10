@@ -1,0 +1,6 @@
+*.min.js
+*.min.jsx
+*.min.ts
+*.min.tsx
+*.min.css
+*.min.scss

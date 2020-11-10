@@ -36,19 +36,13 @@ class ProductTableApp extends Component<ProductTableAppProps, ProductTableAppSta
 
   handleNameChange(name: string) {
     this.setState({
-      filter: {
-        name: name,
-        inStockOnly: this.state.filter.inStockOnly,
-      },
+      filter: { name: name, inStockOnly: this.state.filter.inStockOnly },
     });
   }
 
   handleInStockOnlyChange(inStockOnly: boolean) {
     this.setState({
-      filter: {
-        name: this.state.filter.name,
-        inStockOnly: inStockOnly,
-      },
+      filter: { name: this.state.filter.name, inStockOnly: inStockOnly },
     });
   }
 
@@ -87,23 +81,17 @@ class ProductTableApp extends Component<ProductTableAppProps, ProductTableAppSta
     const everyChecked = products.every((product) => product.checked === true);
 
     if (noChecked) {
-      this.setState({
-        multipleCheckbox: { checked: false, indeterminate: false },
-      });
+      this.setState({ multipleCheckbox: { checked: false, indeterminate: false } });
       return;
     }
 
     if (someChecked && !everyChecked) {
-      this.setState({
-        multipleCheckbox: { checked: true, indeterminate: true },
-      });
+      this.setState({ multipleCheckbox: { checked: true, indeterminate: true } });
       return;
     }
 
     if (everyChecked) {
-      this.setState({
-        multipleCheckbox: { checked: true, indeterminate: false },
-      });
+      this.setState({ multipleCheckbox: { checked: true, indeterminate: false } });
       return;
     }
   }
@@ -146,10 +134,7 @@ class ProductTableApp extends Component<ProductTableAppProps, ProductTableAppSta
     axios
       .get(url)
       .then((result) => {
-        const products = result.data.map((product: Product) => ({
-          ...product,
-          checked: false,
-        }));
+        const products = result.data.map((product: Product) => ({ ...product, checked: false }));
         this.setState({ isLoaded: true, products: products });
       })
       .catch((result) => {
