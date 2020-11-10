@@ -13,6 +13,7 @@ type TopBarProps = {
   onNameChange: (name: string) => void;
   onInStockOnlyChange: (checked: boolean) => void;
   onDeleteClick: () => void;
+  isDeleteLoading: boolean;
 };
 
 export default function TopBar({
@@ -21,6 +22,7 @@ export default function TopBar({
   onNameChange,
   onInStockOnlyChange,
   onDeleteClick,
+  isDeleteLoading,
 }: TopBarProps) {
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name: string = e.target.value;
@@ -31,9 +33,7 @@ export default function TopBar({
     onInStockOnlyChange(e.target.checked);
   };
 
-  const useStyles = makeStyles({
-    w300: { width: '300px' },
-  });
+  const useStyles = makeStyles({ w300: { width: '300px' } });
 
   const classes = useStyles();
 
@@ -70,7 +70,7 @@ export default function TopBar({
             variant="contained"
             color="primary"
             onClick={onDeleteClick}
-            disabled={!checkedProductCount}
+            disabled={!checkedProductCount || isDeleteLoading}
           >
             Delete{checkedProductCount ? ` (${checkedProductCount})` : ''}
           </Button>

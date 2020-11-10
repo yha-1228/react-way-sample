@@ -3,7 +3,7 @@ import { Product, Products } from '../types/index';
 import TopBar from './TopBar';
 import ProductTable from './ProductTable';
 import axios from 'axios';
-import { PRODUCTS_URL } from '../constants';
+import { PRODUCTS_URL, wait } from '../constants';
 
 type ProductTableAppProps = {};
 
@@ -13,6 +13,7 @@ type ProductTableAppState = {
   products: Products;
   filter: { name: string; inStockOnly: boolean };
   multipleCheckbox: { checked: boolean; indeterminate: boolean };
+  isDeleteLoading: boolean;
 };
 
 class ProductTableApp extends Component<ProductTableAppProps, ProductTableAppState> {
@@ -24,6 +25,7 @@ class ProductTableApp extends Component<ProductTableAppProps, ProductTableAppSta
       products: [],
       filter: { name: '', inStockOnly: false },
       multipleCheckbox: { checked: false, indeterminate: false },
+      isDeleteLoading: false,
     };
     this.handleNameChange = this.handleNameChange.bind(this);
     this.handleInStockOnlyChange = this.handleInStockOnlyChange.bind(this);
@@ -45,14 +47,22 @@ class ProductTableApp extends Component<ProductTableAppProps, ProductTableAppSta
   }
 
   handleDeleteClick() {
+    this.setState({ isDeleteLoading: true });
+
     const deleteBy = (id: string) => axios.delete(`${PRODUCTS_URL}/${id}`);
     const products = this.state.products.filter((product) => product.checked);
     const ids = products.map((product) => product.id);
 
     const deleteAll = async () => {
+      await wait(3000);
       await Promise.all(ids.map(deleteBy));
+
       const isNotDeleted = (product: Product) => !ids.includes(product.id);
-      this.setState({ products: [...this.state.products].filter(isNotDeleted) });
+
+      this.setState({
+        products: [...this.state.products].filter(isNotDeleted),
+        isDeleteLoading: false,
+      });
     };
 
     deleteAll();
@@ -74,9 +84,7 @@ class ProductTableApp extends Component<ProductTableAppProps, ProductTableAppSta
     this.setState({ products: products });
 
     const noChecked = products.every((product) => product.checked === false);
-
     const someChecked = products.some((product) => product.checked === true);
-
     const everyChecked = products.every((product) => product.checked === true);
 
     if (noChecked) {
@@ -97,13 +105,8 @@ class ProductTableApp extends Component<ProductTableAppProps, ProductTableAppSta
 
   handleMultipleCheckboxChange() {
     if (!this.state.multipleCheckbox.checked) {
-      const products: Products = [...this.state.products].map((product) => ({
-        ...product,
-        checked: true,
-      }));
-
       this.setState({
-        products: products,
+        products: [...this.state.products].map((product) => ({ ...product, checked: true })),
         multipleCheckbox: { checked: true, indeterminate: false },
       });
 
@@ -111,13 +114,8 @@ class ProductTableApp extends Component<ProductTableAppProps, ProductTableAppSta
     }
 
     if (this.state.multipleCheckbox.checked) {
-      const products: Products = [...this.state.products].map((product) => ({
-        ...product,
-        checked: false,
-      }));
-
       this.setState({
-        products: products,
+        products: [...this.state.products].map((product) => ({ ...product, checked: false })),
         multipleCheckbox: { checked: false, indeterminate: false },
       });
 
@@ -151,6 +149,7 @@ class ProductTableApp extends Component<ProductTableAppProps, ProductTableAppSta
           onNameChange={this.handleNameChange}
           onInStockOnlyChange={this.handleInStockOnlyChange}
           onDeleteClick={this.handleDeleteClick}
+          isDeleteLoading={this.state.isDeleteLoading}
         />
         {!this.state.isLoaded ? (
           <div>Loading...</div>
