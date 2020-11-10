@@ -52,8 +52,7 @@ class ProductTableApp extends Component<ProductTableAppProps, ProductTableAppSta
     const deleteAll = async () => {
       console.log(await Promise.all(ids.map(deleteBy)));
       const isNotDeleted = (product: Product) => !ids.includes(product.id);
-      const products: Products = [...this.state.products].filter(isNotDeleted);
-      this.setState({ products: products });
+      this.setState({ products: [...this.state.products].filter(isNotDeleted) });
     };
 
     deleteAll();

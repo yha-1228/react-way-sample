@@ -4,7 +4,7 @@ faker.locale = 'en';
 
 module.exports = () => {
   const db = { products: [] };
-  const size = 50;
+  const size = 100;
 
   for (let index = 1; index <= size; index++) {
     const product = {
