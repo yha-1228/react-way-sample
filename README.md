@@ -12,8 +12,8 @@ Table UI using React and Material UI.
 
 # See demo
 
-```npm install```
+`npm install`
 
-```npm run json-server```
+`npm run json-server`
 
-```npm run start```
+`npm run start`
