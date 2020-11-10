@@ -3,6 +3,7 @@ import { Product, Products } from '../types/index';
 import TopBar from './TopBar';
 import ProductTable from './ProductTable';
 import axios from 'axios';
+import { PRODUCTS_URL } from '../constants';
 
 type ProductTableAppProps = {};
 
@@ -15,8 +16,6 @@ type ProductTableAppState = {
 };
 
 class ProductTableApp extends Component<ProductTableAppProps, ProductTableAppState> {
-  url: string;
-
   constructor(props: Readonly<{}>) {
     super(props);
     this.state = {
@@ -31,7 +30,6 @@ class ProductTableApp extends Component<ProductTableAppProps, ProductTableAppSta
     this.handleDeleteClick = this.handleDeleteClick.bind(this);
     this.handleMultipleCheckboxChange = this.handleMultipleCheckboxChange.bind(this);
     this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
-    this.url = 'http://localhost:3004/products';
   }
 
   handleNameChange(name: string) {
@@ -47,7 +45,7 @@ class ProductTableApp extends Component<ProductTableAppProps, ProductTableAppSta
   }
 
   handleDeleteClick() {
-    const deleteBy = (id: string) => axios.delete(`${this.url}/${id}`);
+    const deleteBy = (id: string) => axios.delete(`${PRODUCTS_URL}/${id}`);
     const products = this.state.products.filter((product) => product.checked);
     const ids = products.map((product) => product.id);
 
@@ -127,7 +125,7 @@ class ProductTableApp extends Component<ProductTableAppProps, ProductTableAppSta
   }
 
   componentDidMount() {
-    this.loadProducts(this.url);
+    this.loadProducts(PRODUCTS_URL);
   }
 
   loadProducts(url: string) {
