@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Product, Products } from '../types/index';
 import TopBar from './TopBar';
 import ProductTable from './ProductTable';
 import axios from 'axios';
-import _ from 'lodash';
 
 type ProductTableAppProps = {};
 
@@ -15,7 +14,7 @@ type ProductTableAppState = {
   multipleCheckbox: { checked: boolean; indeterminate: boolean };
 };
 
-class ProductTableApp extends React.Component<ProductTableAppProps, ProductTableAppState> {
+class ProductTableApp extends Component<ProductTableAppProps, ProductTableAppState> {
   url: string;
 
   constructor(props: Readonly<{}>) {
@@ -32,7 +31,6 @@ class ProductTableApp extends React.Component<ProductTableAppProps, ProductTable
     this.handleDeleteClick = this.handleDeleteClick.bind(this);
     this.handleMultipleCheckboxChange = this.handleMultipleCheckboxChange.bind(this);
     this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
-    // this.url = 'https://5e6736691937020016fed762.mockapi.io/products';
     this.url = 'http://localhost:3004/products';
   }
 
