@@ -50,7 +50,7 @@ class ProductTableApp extends Component<ProductTableAppProps, ProductTableAppSta
     const ids = products.map((product) => product.id);
 
     const deleteAll = async () => {
-      console.log(await Promise.all(ids.map(deleteBy)));
+      await Promise.all(ids.map(deleteBy));
       const isNotDeleted = (product: Product) => !ids.includes(product.id);
       this.setState({ products: [...this.state.products].filter(isNotDeleted) });
     };
@@ -74,7 +74,9 @@ class ProductTableApp extends Component<ProductTableAppProps, ProductTableAppSta
     this.setState({ products: products });
 
     const noChecked = products.every((product) => product.checked === false);
+
     const someChecked = products.some((product) => product.checked === true);
+
     const everyChecked = products.every((product) => product.checked === true);
 
     if (noChecked) {
