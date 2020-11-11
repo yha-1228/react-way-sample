@@ -81,9 +81,9 @@ class ProductTableApp extends Component<ProductTableAppProps, ProductTableAppSta
 
     this.setState({ products: products });
 
-    const noChecked = products.every((product) => product.checked === false);
-    const someChecked = products.some((product) => product.checked === true);
-    const everyChecked = products.every((product) => product.checked === true);
+    const noChecked = products.every((product) => !product.checked);
+    const someChecked = products.some((product) => product.checked);
+    const everyChecked = products.every((product) => product.checked);
 
     if (noChecked) {
       this.setState({ multipleCheckbox: { checked: false, indeterminate: false } });
@@ -140,7 +140,7 @@ class ProductTableApp extends Component<ProductTableAppProps, ProductTableAppSta
 
   render() {
     return (
-      <div>
+      <>
         <TopBar
           filter={this.state.filter}
           products={this.state.products}
@@ -161,7 +161,7 @@ class ProductTableApp extends Component<ProductTableAppProps, ProductTableAppSta
             onCheckboxChange={this.handleCheckboxChange}
           />
         )}
-      </div>
+      </>
     );
   }
 }

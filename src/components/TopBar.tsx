@@ -33,7 +33,10 @@ export default function TopBar({
     onInStockOnlyChange(e.target.checked);
   };
 
-  const useStyles = makeStyles({ w300: { width: '300px' } });
+  const useStyles = makeStyles({
+    w240: { width: '240px' },
+    textTransformNone: { textTransform: 'none' },
+  });
 
   const classes = useStyles();
 
@@ -44,7 +47,7 @@ export default function TopBar({
       <form>
         <Box display="inline" pr={2}>
           <TextField
-            className={classes.w300}
+            className={classes.w240}
             color="primary"
             type="text"
             placeholder="Search name..."
@@ -52,6 +55,7 @@ export default function TopBar({
             onChange={handleNameChange}
           />
         </Box>
+
         <Box display="inline" pr={2}>
           <FormControlLabel
             control={
@@ -65,8 +69,10 @@ export default function TopBar({
             label="Only show products in stock"
           />
         </Box>
+
         <span style={{ cursor: 'not-allowed' }}>
           <Button
+            className={classes.textTransformNone}
             variant="contained"
             color="primary"
             onClick={onDeleteClick}
