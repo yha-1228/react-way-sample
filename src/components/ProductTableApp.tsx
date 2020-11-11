@@ -36,13 +36,19 @@ class ProductTableApp extends Component<ProductTableAppProps, ProductTableAppSta
 
   handleNameChange(name: string) {
     this.setState({
-      filter: { name: name, inStockOnly: this.state.filter.inStockOnly },
+      filter: {
+        name: name,
+        inStockOnly: this.state.filter.inStockOnly,
+      },
     });
   }
 
   handleInStockOnlyChange(inStockOnly: boolean) {
     this.setState({
-      filter: { name: this.state.filter.name, inStockOnly: inStockOnly },
+      filter: {
+        name: this.state.filter.name,
+        inStockOnly: inStockOnly,
+      },
     });
   }
 

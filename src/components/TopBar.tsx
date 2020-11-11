@@ -24,6 +24,8 @@ export default function TopBar({
   onDeleteClick,
   isDeleteLoading,
 }: TopBarProps) {
+  // lojics
+
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name: string = e.target.value;
     onNameChange(name);
@@ -33,6 +35,10 @@ export default function TopBar({
     onInStockOnlyChange(e.target.checked);
   };
 
+  const checkedProductCount = products.filter((product) => product.checked).length;
+
+  // styles
+
   const useStyles = makeStyles({
     w240: { width: '240px' },
     textTransformNone: { textTransform: 'none' },
@@ -40,7 +46,7 @@ export default function TopBar({
 
   const classes = useStyles();
 
-  const checkedProductCount = products.filter((product) => product.checked).length;
+  // return
 
   return (
     <Box mb={2}>
