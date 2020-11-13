@@ -59,11 +59,10 @@ class ProductTableApp extends Component<ProductTableAppProps, ProductTableAppSta
     const checkedIds = checkedProducts.map((product) => product.id);
 
     (async () => {
-      await wait(3000);
       await Promise.all(checkedIds.map((id) => axios.delete(`${PRODUCTS_URL}/${id}`)));
+      await wait(2500);
 
       const isNotDeleted = (product: Product) => !checkedIds.includes(product.id);
-
       this.setState({
         products: [...this.state.products].filter(isNotDeleted),
         isDeleteLoading: false,
