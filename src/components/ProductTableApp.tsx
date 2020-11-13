@@ -55,15 +55,14 @@ class ProductTableApp extends Component<ProductTableAppProps, ProductTableAppSta
   handleDeleteClick() {
     this.setState({ isDeleteLoading: true });
 
-    const deleteBy = (id: string) => axios.delete(`${PRODUCTS_URL}/${id}`);
-    const products = this.state.products.filter((product) => product.checked);
-    const ids = products.map((product) => product.id);
+    const checkedProducts = this.state.products.filter((product) => product.checked);
+    const checkedIds = checkedProducts.map((product) => product.id);
 
     (async () => {
       await wait(3000);
-      await Promise.all(ids.map(deleteBy));
+      await Promise.all(checkedIds.map((id) => axios.delete(`${PRODUCTS_URL}/${id}`)));
 
-      const isNotDeleted = (product: Product) => !ids.includes(product.id);
+      const isNotDeleted = (product: Product) => !checkedIds.includes(product.id);
 
       this.setState({
         products: [...this.state.products].filter(isNotDeleted),
