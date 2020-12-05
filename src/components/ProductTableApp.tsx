@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Product, Products } from '../types/index';
 import TopBar from './TopBar';
 import ProductTable from './ProductTable';
-import axios from 'axios';
 import { PRODUCTS_URL, wait } from '../constants';
 
 type ProductTableAppProps = {};
@@ -59,7 +58,15 @@ class ProductTableApp extends Component<ProductTableAppProps, ProductTableAppSta
     const checkedIds = checkedProducts.map((product) => product.id);
 
     (async () => {
-      await Promise.all(checkedIds.map((id) => axios.delete(`${PRODUCTS_URL}/${id}`)));
+      await Promise.all(
+        checkedIds.map((checkedId) =>
+          fetch(`${PRODUCTS_URL}/${checkedId}`, {
+            method: 'DELETE',
+            headers: { 'Content-type': 'application/json' },
+          }).then((res) => res.json())
+        )
+      );
+
       await wait(2500);
 
       const isNotDeleted = (product: Product) => !checkedIds.includes(product.id);
@@ -130,16 +137,29 @@ class ProductTableApp extends Component<ProductTableAppProps, ProductTableAppSta
   }
 
   loadProducts(url: string) {
-    axios
-      .get(url)
-      .then((result) => {
-        const products = result.data.map((product: Product) => ({ ...product, checked: false }));
-        this.setState({ isLoaded: true, products: products });
-      })
-      .catch((result) => {
-        this.setState({ isLoaded: true, error: 'Error!' });
-        console.log({ ...result.response });
-      });
+    fetch(url)
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          const products = result.map((product: Product) => ({ ...product, checked: false }));
+          this.setState({ isLoaded: true, products: products });
+        },
+        (error) => {
+          this.setState({ isLoaded: true, error: 'Error!' });
+          console.log(error);
+        }
+      );
+
+    // axios
+    //   .get(url)
+    //   .then((result) => {
+    //     const products = result.data.map((product: Product) => ({ ...product, checked: false }));
+    //     this.setState({ isLoaded: true, products: products });
+    //   })
+    //   .catch((result) => {
+    //     this.setState({ isLoaded: true, error: 'Error!' });
+    //     console.log({ ...result.response });
+    //   });
   }
 
   render() {
