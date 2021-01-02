@@ -67,7 +67,7 @@ class ProductTableApp extends Component<ProductTableAppProps, ProductTableAppSta
         )
       );
 
-      await wait(2500);
+      await wait(500);
 
       const isNotDeleted = (product: Product) => !checkedIds.includes(product.id);
       this.setState({
