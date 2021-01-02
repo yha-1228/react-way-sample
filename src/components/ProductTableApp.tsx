@@ -149,17 +149,6 @@ class ProductTableApp extends Component<ProductTableAppProps, ProductTableAppSta
           console.log(error);
         }
       );
-
-    // axios
-    //   .get(url)
-    //   .then((result) => {
-    //     const products = result.data.map((product: Product) => ({ ...product, checked: false }));
-    //     this.setState({ isLoaded: true, products: products });
-    //   })
-    //   .catch((result) => {
-    //     this.setState({ isLoaded: true, error: 'Error!' });
-    //     console.log({ ...result.response });
-    //   });
   }
 
   render() {
