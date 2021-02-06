@@ -21,7 +21,12 @@ type TopBarProps = {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      border: `2px solid ${theme.palette.primary.main}`,
+      backgroundColor: 'rgb(245, 245, 247)',
+      borderRadius: '4px',
+      padding: 24,
+      '&:hover': {
+        backgroundColor: 'rgb(231, 237, 250)',
+      },
     },
     textField: {
       width: '240px',
