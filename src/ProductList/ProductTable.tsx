@@ -86,7 +86,7 @@ export default function ProductTable(props: ProductTableProps) {
             .filter(isNameValid)
             .filter(isInStockOnlyValid)
             .map((product) => (
-              <TableRow key={product.id} className={classes.tdTextDarkgray}>
+              <TableRow key={product.id} className={product.stocked ? classes.tdTextDarkgray : ''}>
                 <TableCell align="center">
                   <Checkbox
                     color="primary"
