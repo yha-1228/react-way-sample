@@ -91,10 +91,7 @@ class ProductTableApp extends Component<ProductTableAppProps, ProductTableAppSta
 
     this.setState({
       products: products,
-      bulkCheckbox: {
-        checked: someChecked,
-        indeterminate: someChecked && !everyChecked,
-      },
+      bulkCheckbox: { checked: someChecked, indeterminate: someChecked && !everyChecked },
     });
   }
 
