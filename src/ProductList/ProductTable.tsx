@@ -26,8 +26,10 @@ const useStyles = makeStyles({
       fontSize: '16px',
     },
   },
-  textDarkgray: {
-    color: 'darkgray',
+  tdTextDarkgray: {
+    '& > td': {
+      color: 'darkgray',
+    },
   },
 });
 
@@ -84,7 +86,7 @@ export default function ProductTable(props: ProductTableProps) {
             .filter(isNameValid)
             .filter(isInStockOnlyValid)
             .map((product) => (
-              <TableRow key={product.id}>
+              <TableRow key={product.id} className={classes.tdTextDarkgray}>
                 <TableCell align="center">
                   <Checkbox
                     color="primary"
