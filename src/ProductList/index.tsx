@@ -31,14 +31,14 @@ export default function ProductList() {
   const handleNameChange = (name: string) => {
     setState({
       ...state,
-      filter: { name: name, inStockOnly: state.filter.inStockOnly },
+      filter: { ...state.filter, name: name },
     });
   };
 
   const handleInStockOnlyChange = (inStockOnly: boolean) => {
     setState({
       ...state,
-      filter: { name: state.filter.name, inStockOnly: inStockOnly },
+      filter: { ...state.filter, inStockOnly: inStockOnly },
     });
   };
 
