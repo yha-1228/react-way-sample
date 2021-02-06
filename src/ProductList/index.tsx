@@ -87,7 +87,7 @@ export default function ProductList() {
     });
   };
 
-  const handleMultipleCheckboxChange = (event: React.ChangeEvent<any>) => {
+  const handleBulkCheckboxChange = (event: React.ChangeEvent<any>) => {
     setState({
       ...state,
       products: [...state.products].map((product) => ({
@@ -141,7 +141,7 @@ export default function ProductList() {
           multipleCheckboxChecked={state.bulkCheckbox.checked}
           filter={state.filter}
           products={state.products}
-          onMultipleCheckboxChange={handleMultipleCheckboxChange}
+          onMultipleCheckboxChange={handleBulkCheckboxChange}
           onCheckboxChange={handleCheckboxChange}
         />
       )}
