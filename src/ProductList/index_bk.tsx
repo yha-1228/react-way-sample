@@ -5,6 +5,7 @@ import { Product, Products } from '../types/index';
 import TopBar from './Header';
 import ProductTable from './ProductTable';
 import { PRODUCTS_URL } from '../constants';
+import { wait } from '../functions';
 
 type ProductListState = {
   error: null | string;
@@ -88,7 +89,8 @@ export default function ProductListBk() {
     fetch(url)
       .then((res) => res.json())
       .then(
-        (result) => {
+        async (result) => {
+          await wait(900);
           const products = result.map((product: Product) => ({ ...product, checked: false }));
           setState({ ...state, isLoaded: true, products: products });
         },
