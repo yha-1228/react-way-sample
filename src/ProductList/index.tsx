@@ -80,13 +80,9 @@ class ProductTableApp extends Component<ProductTableAppProps, ProductTableAppSta
   }
 
   handleCheckboxChange(event: React.ChangeEvent<HTMLInputElement>, id: string) {
-    const checked = event.currentTarget.checked;
-
+    const checked = event.target.checked;
     const products: Products = [...this.state.products];
-    if (!products) return;
-
-    const product = products.find((product) => product.id === id);
-    if (!product) return;
+    const product = products.find((product) => product.id === id) as Product;
 
     product.checked = checked;
 
