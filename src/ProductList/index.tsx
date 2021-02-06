@@ -58,7 +58,7 @@ export default function ProductList() {
 
   const handleCheckboxChange = (event: React.ChangeEvent<any>, id: string) => {
     const checked = event.target.checked;
-    const products: Products = [...state.products];
+    const products = [...state.products];
     const product = products.find((product) => product.id === id) as Product;
 
     product.checked = checked;
