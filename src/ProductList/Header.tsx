@@ -17,8 +17,12 @@ type TopBarProps = {
 };
 
 const useStyles = makeStyles({
-  w240: { width: '240px' },
-  textTransformNone: { textTransform: 'none' },
+  textField: {
+    width: '240px',
+  },
+  textTransformNone: {
+    textTransform: 'none',
+  },
 });
 
 export default function TopBar({
@@ -47,7 +51,7 @@ export default function TopBar({
       <form>
         <Box display="inline-block">
           <TextField
-            // className={classes.w240}
+            className={classes.textField}
             color="primary"
             type="text"
             placeholder="Search name..."
