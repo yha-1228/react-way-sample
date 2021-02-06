@@ -82,19 +82,19 @@ export default function TopBar(props: TopBarProps) {
               label="Only show products in stock"
             />
           </Box>
-        </HStack>
 
-        <span style={{ cursor: 'not-allowed' }}>
-          <Button
-            className={classes.textTransformNone}
-            variant="contained"
-            color="primary"
-            onClick={onDeleteClick}
-            disabled={!checkedProductCount || isDeleteLoading}
-          >
-            Delete{checkedProductCount ? ` (${checkedProductCount})` : ''}
-          </Button>
-        </span>
+          <span style={{ cursor: 'not-allowed' }}>
+            <Button
+              className={classes.textTransformNone}
+              variant="contained"
+              color="primary"
+              onClick={onDeleteClick}
+              disabled={!checkedProductCount || isDeleteLoading}
+            >
+              Delete{checkedProductCount ? ` (${checkedProductCount})` : ''}
+            </Button>
+          </span>
+        </HStack>
       </form>
     </Box>
   );
