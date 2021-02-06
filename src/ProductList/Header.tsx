@@ -42,14 +42,12 @@ export default function TopBar({
 
   const classes = useStyles();
 
-  // return
-
   return (
     <Box mb={2}>
       <form>
-        <Box display="inline" pr={2}>
+        <Box display="inline-block">
           <TextField
-            className={classes.w240}
+            // className={classes.w240}
             color="primary"
             type="text"
             placeholder="Search name..."
@@ -58,7 +56,7 @@ export default function TopBar({
           />
         </Box>
 
-        <Box display="inline" pr={2}>
+        <Box display="inline-block">
           <FormControlLabel
             control={
               <Checkbox

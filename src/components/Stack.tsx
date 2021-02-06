@@ -1,12 +1,12 @@
 import React from 'react';
 import { css } from '@emotion/css';
 
-type VStackProps = {
+type StackProps = {
   spacing: number;
   children: React.ReactNode;
 };
 
-export default function VStack({ spacing, children }: VStackProps) {
+export function VStack({ spacing, children }: StackProps) {
   return (
     <div
       className={css`

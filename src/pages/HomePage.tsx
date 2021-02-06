@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
-import VStack from '../components/Stack';
+import { VStack } from '../components/Stack';
 import ProductList from '../ProductList';
 
 export default function HomePage() {
