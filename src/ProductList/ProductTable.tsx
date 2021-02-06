@@ -21,9 +21,13 @@ type ProductTableProps = {
 };
 
 const useStyles = makeStyles({
-  lh26: { lineHeight: '26px' },
-  textMiddleSize: { fontSize: '16px' },
-  textDarkgray: { color: 'darkgray' },
+  tableCell: {
+    lineHeight: '26px',
+    fontSize: '16px',
+  },
+  textDarkgray: {
+    color: 'darkgray',
+  },
 });
 
 export default function ProductTable({
@@ -55,7 +59,7 @@ export default function ProductTable({
   const classes = useStyles();
 
   const getTableCellStyle = (product: Product) => {
-    return classnames(classes.lh26, classes.textMiddleSize, {
+    return classnames(classes.tableCell, {
       [classes.textDarkgray]: !product.stocked,
     });
   };
