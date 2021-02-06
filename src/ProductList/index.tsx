@@ -3,6 +3,7 @@ import { Product, Products } from '../types/index';
 import TopBar from './Header';
 import ProductTable from './Table';
 import { PRODUCTS_URL, wait } from '../constants';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 type ProductTableAppProps = {};
 
@@ -119,7 +120,7 @@ class ProductTableApp extends Component<ProductTableAppProps, ProductTableAppSta
         },
         (error) => {
           this.setState({ isLoaded: true, error: 'Error!' });
-          console.log(error);
+          console.log(error.message);
         }
       );
   }
@@ -136,7 +137,9 @@ class ProductTableApp extends Component<ProductTableAppProps, ProductTableAppSta
           isDeleteLoading={this.state.isDeleteLoading}
         />
         {!this.state.isLoaded ? (
-          <div>Loading...</div>
+          <div>
+            <CircularProgress color="primary" />
+          </div>
         ) : (
           <ProductTable
             multipleCheckboxIndeterminate={this.state.bulkCheckbox.indeterminate}
