@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import classnames from 'classnames';
 import { Products, Product } from '../types/index';
 import Checkbox from '@material-ui/core/Checkbox';
 import Table from '@material-ui/core/Table';
@@ -55,7 +55,7 @@ export default function ProductTable({
   const classes = useStyles();
 
   const getTableCellStyle = (product: Product) => {
-    return classNames(classes.lh26, classes.textMiddleSize, {
+    return classnames(classes.lh26, classes.textMiddleSize, {
       [classes.textDarkgray]: !product.stocked,
     });
   };
