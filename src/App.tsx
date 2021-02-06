@@ -1,23 +1,22 @@
 import React from 'react';
 import GlobalStyle from './utils/GlobalStyle';
-import Heading from './components/Heading';
-import Main from './components/Main';
-import ProductTableApp from './components/ProductTableApp';
 import './App.css';
 import { theme } from './utils/mui-theme';
 import { ThemeProvider } from '@material-ui/core';
-import Container from '@material-ui/core/Container';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import HomePage from './pages/HomePage';
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
-      <Main>
-        <Container>
-          <Heading>Product List</Heading>
-          <ProductTableApp />
-        </Container>
-      </Main>
+      <Router>
+        <Switch>
+          <Route path="/" exact>
+            <HomePage />
+          </Route>
+        </Switch>
+      </Router>
     </ThemeProvider>
   );
 }
