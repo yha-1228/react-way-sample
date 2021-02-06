@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Product, Products } from '../types/index';
-import TopBar from './TopBar';
-import ProductTable from './ProductTable';
+import TopBar from './Header';
+import ProductTable from './Table';
 import { PRODUCTS_URL, wait } from '../constants';
 
 type ProductTableAppProps = {};
