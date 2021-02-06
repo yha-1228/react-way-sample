@@ -85,34 +85,32 @@ export default function ProductTable({
             {products
               .filter(isNameValid)
               .filter(isInStockOnlyValid)
-              .map((product) => {
-                return (
-                  <TableRow key={product.id}>
-                    <TableCell className={getTableCellStyle(product)} align="center">
-                      <Checkbox
-                        color="primary"
-                        checked={product.checked}
-                        onChange={(event) => handleCheckboxChange(event, product.id)}
-                      />
-                    </TableCell>
-                    <TableCell className={getTableCellStyle(product)} align="right">
-                      {product.id}
-                    </TableCell>
-                    <TableCell className={getTableCellStyle(product)} align="left">
-                      {product.brand}
-                    </TableCell>
-                    <TableCell className={getTableCellStyle(product)} align="left">
-                      {product.category}
-                    </TableCell>
-                    <TableCell className={getTableCellStyle(product)} align="left">
-                      {product.name}
-                    </TableCell>
-                    <TableCell className={getTableCellStyle(product)} align="right">
-                      {product.price}
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
+              .map((product) => (
+                <TableRow key={product.id}>
+                  <TableCell className={getTableCellStyle(product)} align="center">
+                    <Checkbox
+                      color="primary"
+                      checked={product.checked}
+                      onChange={(event) => handleCheckboxChange(event, product.id)}
+                    />
+                  </TableCell>
+                  <TableCell className={getTableCellStyle(product)} align="right">
+                    {product.id}
+                  </TableCell>
+                  <TableCell className={getTableCellStyle(product)} align="left">
+                    {product.brand}
+                  </TableCell>
+                  <TableCell className={getTableCellStyle(product)} align="left">
+                    {product.category}
+                  </TableCell>
+                  <TableCell className={getTableCellStyle(product)} align="left">
+                    {product.name}
+                  </TableCell>
+                  <TableCell className={getTableCellStyle(product)} align="right">
+                    {product.price}
+                  </TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </TableContainer>
