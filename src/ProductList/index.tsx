@@ -86,26 +86,16 @@ class ProductTableApp extends Component<ProductTableAppProps, ProductTableAppSta
 
     product.checked = checked;
 
-    this.setState({ products: products });
-
-    const noChecked = products.every((product) => !product.checked);
     const someChecked = products.some((product) => product.checked);
     const everyChecked = products.every((product) => product.checked);
 
-    if (noChecked) {
-      this.setState({ multipleCheckbox: { checked: false, indeterminate: false } });
-      return;
-    }
-
-    if (someChecked && !everyChecked) {
-      this.setState({ multipleCheckbox: { checked: true, indeterminate: true } });
-      return;
-    }
-
-    if (everyChecked) {
-      this.setState({ multipleCheckbox: { checked: true, indeterminate: false } });
-      return;
-    }
+    this.setState({
+      products: products,
+      multipleCheckbox: {
+        checked: someChecked,
+        indeterminate: someChecked && !everyChecked,
+      },
+    });
   }
 
   handleMultipleCheckboxChange() {
