@@ -59,9 +59,7 @@ export default function ProductTable({
   const classes = useStyles();
 
   const getTableCellStyle = (product: Product) => {
-    return classnames(classes.tableCell, {
-      [classes.textDarkgray]: !product.stocked,
-    });
+    return classnames(classes.tableCell, !product.stocked && classes.textDarkgray);
   };
 
   return (
