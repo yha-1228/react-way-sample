@@ -6,7 +6,6 @@ export const colors = {
 };
 
 export const fontFamily = [
-  'Inter',
   '-apple-system',
   'BlinkMacSystemFont',
   '"Segoe UI"',
