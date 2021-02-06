@@ -4,8 +4,9 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
-import { makeStyles } from '@material-ui/styles';
+import { createStyles, makeStyles } from '@material-ui/styles';
 import { Products } from '../types/index';
+import { Theme } from '@material-ui/core';
 
 type TopBarProps = {
   filter: { name: string; inStockOnly: boolean };
@@ -16,14 +17,16 @@ type TopBarProps = {
   isDeleteLoading: boolean;
 };
 
-const useStyles = makeStyles({
-  textField: {
-    width: '240px',
-  },
-  textTransformNone: {
-    textTransform: 'none',
-  },
-});
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    textField: {
+      width: '240px',
+    },
+    textTransformNone: {
+      textTransform: 'none',
+    },
+  })
+);
 
 export default function TopBar(props: TopBarProps) {
   const {
