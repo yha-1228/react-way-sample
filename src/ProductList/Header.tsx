@@ -29,14 +29,12 @@ export default function TopBar({
   onDeleteClick,
   isDeleteLoading,
 }: TopBarProps) {
-  // lojics
-
-  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleNameChange = (e: React.ChangeEvent<any>) => {
     const name: string = e.target.value;
     onNameChange(name);
   };
 
-  const handleInStockOnlyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInStockOnlyChange = (e: React.ChangeEvent<any>) => {
     onInStockOnlyChange(e.target.checked);
   };
 
