@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components/macro';
-import { colors, fontFamily } from './style-config';
+import { colors, fontFamily } from './configs';
 
 const GlobalStyle = createGlobalStyle`
 

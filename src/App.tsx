@@ -1,6 +1,6 @@
 import React from 'react';
-import GlobalStyle from './utils/GlobalStyle';
-import { theme } from './utils/mui-theme';
+import GlobalStyle from './styles/GlobalStyle';
+import { theme } from './styles/theme';
 import { ThemeProvider } from '@material-ui/core';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
