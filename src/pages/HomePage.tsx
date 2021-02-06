@@ -1,7 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import Container from '@material-ui/core/Container';
-import ProductTableApp from '../ProductList';
+import ProductList from '../ProductList';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 
@@ -17,7 +17,7 @@ export default function HomePage() {
           <Typography component="h1" variant="h2">
             Product List
           </Typography>
-          <ProductTableApp />
+          <ProductList />
         </Container>
       </Box>
     </>

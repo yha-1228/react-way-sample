@@ -8,9 +8,9 @@ import { wait } from '../functions';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 
-type ProductTableAppProps = {};
+type ProductListProps = {};
 
-type ProductTableAppState = {
+type ProductListState = {
   error: null | string;
   isLoaded: boolean;
   products: Products;
@@ -19,7 +19,7 @@ type ProductTableAppState = {
   isDeleteLoading: boolean;
 };
 
-class ProductTableApp extends Component<ProductTableAppProps, ProductTableAppState> {
+class ProductList extends Component<ProductListProps, ProductListState> {
   constructor(props: Readonly<{}>) {
     super(props);
     this.state = {
@@ -160,4 +160,4 @@ class ProductTableApp extends Component<ProductTableAppProps, ProductTableAppSta
   }
 }
 
-export default ProductTableApp;
+export default ProductList;
