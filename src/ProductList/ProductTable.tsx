@@ -30,14 +30,16 @@ const useStyles = makeStyles({
   },
 });
 
-export default function ProductTable({
-  bulkCheckboxIndeterminate,
-  bulkCheckboxChecked,
-  filter,
-  products,
-  onCheckboxChange,
-  onBlukCheckboxChange,
-}: ProductTableProps) {
+export default function ProductTable(props: ProductTableProps) {
+  const {
+    bulkCheckboxIndeterminate,
+    bulkCheckboxChecked,
+    filter,
+    products,
+    onCheckboxChange,
+    onBlukCheckboxChange,
+  } = props;
+
   const isNameValid = (product: Product) => {
     if (filter.name === undefined) return;
 
