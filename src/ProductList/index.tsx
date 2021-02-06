@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import { Product, Products } from '../types/index';
 import TopBar from './Header';
 import ProductTable from './Table';
-import { PRODUCTS_URL, wait } from '../constants';
+import { PRODUCTS_URL } from '../constants';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { wait } from '../functions';
+import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
 
 type ProductTableAppProps = {};
 
@@ -136,10 +139,12 @@ class ProductTableApp extends Component<ProductTableAppProps, ProductTableAppSta
           onDeleteClick={this.handleDeleteClick}
           isDeleteLoading={this.state.isDeleteLoading}
         />
-        {!this.state.isLoaded ? (
-          <div>
+        {/* {!this.state.isLoaded ? ( */}
+        {true ? (
+          <Box textAlign="center" pt="40px">
             <CircularProgress color="primary" />
-          </div>
+            <Typography component="p">Loading...</Typography>
+          </Box>
         ) : (
           <ProductTable
             multipleCheckboxIndeterminate={this.state.bulkCheckbox.indeterminate}
