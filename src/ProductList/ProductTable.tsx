@@ -41,6 +41,8 @@ export default function ProductTable(props: ProductTableProps) {
     onBlukCheckboxChange,
   } = props;
 
+  const classes = useStyles();
+
   const isNameValid = (product: Product) => {
     if (filter.name === undefined) return;
 
@@ -56,8 +58,6 @@ export default function ProductTable(props: ProductTableProps) {
   const handleCheckboxChange = (event: React.ChangeEvent<any>, id: string) => {
     onCheckboxChange(event, id);
   };
-
-  const classes = useStyles();
 
   return (
     <TableContainer component={Paper} className={classes.root}>
