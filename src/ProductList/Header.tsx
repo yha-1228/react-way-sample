@@ -19,6 +19,9 @@ type TopBarProps = {
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    topBar: {
+      border: `2px solid ${theme.palette.primary.main}`,
+    },
     textField: {
       width: '240px',
     },
@@ -51,7 +54,7 @@ export default function TopBar(props: TopBarProps) {
   const classes = useStyles();
 
   return (
-    <Box mb={2}>
+    <Box mb={2} className={classes.topBar}>
       <form>
         <Box display="inline-block">
           <TextField
