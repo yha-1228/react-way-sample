@@ -88,17 +88,15 @@ export default function TopBar(props: TopBarProps) {
             />
           </Box>
 
-          <span style={{ cursor: 'not-allowed' }}>
-            <Button
-              className={classes.textTransformNone}
-              variant="contained"
-              color="primary"
-              onClick={onDeleteClick}
-              disabled={!checkedProductCount || isDeleteLoading}
-            >
-              Delete{checkedProductCount ? ` (${checkedProductCount})` : ''}
-            </Button>
-          </span>
+          <Button
+            className={classes.textTransformNone}
+            variant="contained"
+            color="primary"
+            onClick={onDeleteClick}
+            disabled={!checkedProductCount || isDeleteLoading}
+          >
+            Delete{checkedProductCount ? ` (${checkedProductCount})` : ''}
+          </Button>
         </HStack>
       </form>
     </Box>
