@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import produce from 'immer';
 import Box from '@material-ui/core/Box';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Product, Products } from '../types/index';
@@ -30,27 +29,15 @@ export default function ProductList() {
   const [state, setState] = useState<ProductListState>(initialState);
 
   const handleNameChange = (name: string) => {
-    setState(
-      produce(state, (draftState) => {
-        draftState.filter.name = name;
-      })
-    );
+    setState({ ...state, filter: { ...state.filter, name: name } });
   };
 
   const handleInStockOnlyChange = (inStockOnly: boolean) => {
-    setState(
-      produce(state, (draftState) => {
-        draftState.filter.inStockOnly = inStockOnly;
-      })
-    );
+    setState({ ...state, filter: { ...state.filter, inStockOnly: inStockOnly } });
   };
 
   const handleDeleteClick = () => {
-    setState(
-      produce(state, (draftState) => {
-        draftState.isDeleteLoading = true;
-      })
-    );
+    setState({ ...state, isDeleteLoading: true });
 
     const checkedProducts = state.products.filter((product) => product.checked);
     const checkedIds = checkedProducts.map((product) => product.id);
@@ -61,13 +48,12 @@ export default function ProductList() {
       )
     ).then(() => {
       const isNotDeleted = (product: Product) => !checkedIds.includes(product.id);
-      setState(
-        produce(state, (draftState) => {
-          draftState.products = [...state.products].filter(isNotDeleted);
-          draftState.bulkCheckbox = { checked: false, indeterminate: false };
-          draftState.isDeleteLoading = false;
-        })
-      );
+      setState({
+        ...state,
+        products: [...state.products].filter(isNotDeleted),
+        bulkCheckbox: { checked: false, indeterminate: false },
+        isDeleteLoading: false,
+      });
     });
   };
 
@@ -86,26 +72,17 @@ export default function ProductList() {
       products: products,
       bulkCheckbox: { checked: someChecked, indeterminate: someChecked && !everyChecked },
     });
-
-    // produce(state, (draftState) => {
-    //   draftState.products = products;
-    //   draftState.bulkCheckbox = {
-    //     checked: someChecked,
-    //     indeterminate: someChecked && !everyChecked,
-    //   };
-    // })
   };
 
   const handleBulkCheckboxChange = (event: React.ChangeEvent<any>) => {
-    setState(
-      produce(state, (draftState) => {
-        draftState.products = [...state.products].map((product) => ({
-          ...product,
-          checked: event.target.checked,
-        }));
-        draftState.bulkCheckbox = { checked: event.target.checked, indeterminate: false };
-      })
-    );
+    setState({
+      ...state,
+      products: [...state.products].map((product) => ({
+        ...product,
+        checked: event.target.checked,
+      })),
+      bulkCheckbox: { checked: event.target.checked, indeterminate: false },
+    });
   };
 
   const loadProducts = (url: string) => {
@@ -114,25 +91,12 @@ export default function ProductList() {
       .then(
         async (result) => {
           await wait(1500);
-
           const products = result.map((product: Product) => ({ ...product, checked: false }));
-
-          setState(
-            { ...state, isLoaded: true, products: products }
-            // produce(state, (draftState) => {
-            //   draftState.isLoaded = true;
-            //   draftState.products = products;
-            // })
-          );
+          setState({ ...state, isLoaded: true, products: products });
         },
         (error) => {
-          setState(
-            { ...state, isLoaded: true, error: 'Error!' }
-            // produce(state, (draftState) => {
-            //   draftState.isLoaded = true;
-            //   draftState.error = error;
-            // })
-          );
+          setState({ ...state, isLoaded: true, error: 'Error!' });
+          console.log(error.message);
         }
       );
   };
