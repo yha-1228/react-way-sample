@@ -16,8 +16,8 @@ type ProductTableProps = {
   multipleCheckboxChecked: boolean;
   filter: { name: string; inStockOnly: boolean };
   products: Products;
-  onCheckboxChange: (event: React.ChangeEvent<HTMLInputElement>, id: string) => void;
-  onMultipleCheckboxChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onCheckboxChange: (event: React.ChangeEvent<any>, id: string) => void;
+  onMultipleCheckboxChange: (event: React.ChangeEvent<any>) => void;
 };
 
 const useStyles = makeStyles({
@@ -48,7 +48,7 @@ export default function ProductTable({
     return filter.inStockOnly ? product.stocked : !undefined;
   };
 
-  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>, id: string) => {
+  const handleCheckboxChange = (event: React.ChangeEvent<any>, id: string) => {
     onCheckboxChange(event, id);
   };
 
