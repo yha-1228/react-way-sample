@@ -22,3 +22,20 @@ export function VStack({ spacing, children }: StackProps) {
     </div>
   );
 }
+
+export function HStack({ spacing, children }: StackProps) {
+  return (
+    <div
+      className={css`
+        & > * {
+          margin-right: ${spacing}px;
+        }
+        & > *:last-child {
+          margin-right: 0;
+        }
+      `}
+    >
+      {children}
+    </div>
+  );
+}
