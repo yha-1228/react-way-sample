@@ -12,7 +12,7 @@ export default function HomePage() {
         <title>Demo - Products</title>
       </Helmet>
 
-      <Box pt="32px">
+      <Box pt="16px">
         <Container>
           <Typography component="h1" variant="h2">
             Product List
