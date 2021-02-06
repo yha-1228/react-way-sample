@@ -17,7 +17,7 @@ type ProductTableProps = {
   filter: { name: string; inStockOnly: boolean };
   products: Products;
   onCheckboxChange: (event: React.ChangeEvent<any>, id: string) => void;
-  onMultipleCheckboxChange: (event: React.ChangeEvent<any>) => void;
+  onBlukCheckboxChange: (event: React.ChangeEvent<any>) => void;
 };
 
 const useStyles = makeStyles({
@@ -36,7 +36,7 @@ export default function ProductTable({
   filter,
   products,
   onCheckboxChange,
-  onMultipleCheckboxChange,
+  onBlukCheckboxChange,
 }: ProductTableProps) {
   const isNameValid = (product: Product) => {
     if (filter.name === undefined) return;
@@ -72,7 +72,7 @@ export default function ProductTable({
                 color="primary"
                 checked={bulkCheckboxChecked}
                 indeterminate={bulkCheckboxIndeterminate}
-                onChange={onMultipleCheckboxChange}
+                onChange={onBlukCheckboxChange}
               />
             </TableCell>
             <TableCell align="right">ID</TableCell>

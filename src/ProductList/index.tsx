@@ -135,7 +135,7 @@ export default function ProductList() {
           bulkCheckboxChecked={state.bulkCheckbox.checked}
           filter={state.filter}
           products={state.products}
-          onMultipleCheckboxChange={handleBulkCheckboxChange}
+          onBlukCheckboxChange={handleBulkCheckboxChange}
           onCheckboxChange={handleCheckboxChange}
         />
       )}
