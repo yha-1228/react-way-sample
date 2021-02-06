@@ -1,12 +1,11 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import { Product, Products } from '../types/index';
 import TopBar from './Header';
-import ProductTable from './Table';
+import ProductTable from './ProductTable';
 import { PRODUCTS_URL } from '../constants';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { wait } from '../functions';
 import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
 
 type ProductListProps = {};
 
@@ -30,41 +29,25 @@ const initialState = {
 
 export function ProductListFunc() {
   const [state, setState] = useState<ProductListState>(initialState);
-}
 
-class ProductList extends Component<ProductListProps, ProductListState> {
-  constructor(props: Readonly<{}>) {
-    super(props);
-    this.state = initialState;
-    this.handleNameChange = this.handleNameChange.bind(this);
-    this.handleInStockOnlyChange = this.handleInStockOnlyChange.bind(this);
-    this.handleDeleteClick = this.handleDeleteClick.bind(this);
-    this.handleMultipleCheckboxChange = this.handleMultipleCheckboxChange.bind(this);
-    this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
-  }
-
-  handleNameChange(name: string) {
-    this.setState({
-      filter: {
-        name: name,
-        inStockOnly: this.state.filter.inStockOnly,
-      },
+  const handleNameChange = (name: string) => {
+    setState({
+      ...state,
+      filter: { name: name, inStockOnly: state.filter.inStockOnly },
     });
-  }
+  };
 
-  handleInStockOnlyChange(inStockOnly: boolean) {
-    this.setState({
-      filter: {
-        name: this.state.filter.name,
-        inStockOnly: inStockOnly,
-      },
+  const handleInStockOnlyChange = (inStockOnly: boolean) => {
+    setState({
+      ...state,
+      filter: { name: state.filter.name, inStockOnly: inStockOnly },
     });
-  }
+  };
 
-  handleDeleteClick() {
-    this.setState({ isDeleteLoading: true });
+  const handleDeleteClick = () => {
+    setState({ ...state, isDeleteLoading: true });
 
-    const checkedProducts = this.state.products.filter((product) => product.checked);
+    const checkedProducts = state.products.filter((product) => product.checked);
     const checkedIds = checkedProducts.map((product) => product.id);
 
     (async () => {
@@ -80,18 +63,18 @@ class ProductList extends Component<ProductListProps, ProductListState> {
       await wait(500);
 
       const isNotDeleted = (product: Product) => !checkedIds.includes(product.id);
-      this.setState({
-        products: [...this.state.products].filter(isNotDeleted),
+      setState({
+        ...state,
+        products: [...state.products].filter(isNotDeleted),
+        bulkCheckbox: { checked: false, indeterminate: false },
         isDeleteLoading: false,
       });
     })();
+  };
 
-    this.setState({ bulkCheckbox: { checked: false, indeterminate: false } });
-  }
-
-  handleCheckboxChange(event: React.ChangeEvent<any>, id: string) {
+  const handleCheckboxChange = (event: React.ChangeEvent<any>, id: string) => {
     const checked = event.target.checked;
-    const products: Products = [...this.state.products];
+    const products: Products = [...state.products];
     const product = products.find((product) => product.id === id) as Product;
 
     product.checked = checked;
@@ -99,72 +82,71 @@ class ProductList extends Component<ProductListProps, ProductListState> {
     const someChecked = products.some((product) => product.checked);
     const everyChecked = products.every((product) => product.checked);
 
-    this.setState({
+    setState({
+      ...state,
       products: products,
       bulkCheckbox: { checked: someChecked, indeterminate: someChecked && !everyChecked },
     });
-  }
+  };
 
-  handleMultipleCheckboxChange(event: React.ChangeEvent<any>) {
-    this.setState({
-      products: [...this.state.products].map((product) => ({
+  const handleMultipleCheckboxChange = (event: React.ChangeEvent<any>) => {
+    setState({
+      ...state,
+      products: [...state.products].map((product) => ({
         ...product,
         checked: event.target.checked,
       })),
       bulkCheckbox: { checked: event.target.checked, indeterminate: false },
     });
-  }
+  };
 
-  componentDidMount() {
-    this.loadProducts(PRODUCTS_URL);
-  }
-
-  loadProducts(url: string) {
+  const loadProducts = (url: string) => {
     fetch(url)
       .then((res) => res.json())
       .then(
         (result) => {
           const products = result.map((product: Product) => ({ ...product, checked: false }));
-          this.setState({ isLoaded: true, products: products });
+          setState({ ...state, isLoaded: true, products: products });
         },
         (error) => {
-          this.setState({ isLoaded: true, error: 'Error!' });
+          setState({ ...state, isLoaded: true, error: 'Error!' });
           console.log(error.message);
         }
       );
-  }
+  };
 
-  render() {
-    return (
-      <>
-        <TopBar
-          filter={this.state.filter}
-          products={this.state.products}
-          onNameChange={this.handleNameChange}
-          onInStockOnlyChange={this.handleInStockOnlyChange}
-          onDeleteClick={this.handleDeleteClick}
-          isDeleteLoading={this.state.isDeleteLoading}
-        />
-        {!this.state.isLoaded ? (
-          <Box textAlign="center" pt="40px">
-            <CircularProgress color="primary" />
-            <Box component="p" fontWeight="bold" fontSize="18px">
-              Loading...
-            </Box>
+  useEffect(() => {
+    loadProducts(PRODUCTS_URL);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return (
+    <>
+      <TopBar
+        filter={state.filter}
+        products={state.products}
+        onNameChange={handleNameChange}
+        onInStockOnlyChange={handleInStockOnlyChange}
+        onDeleteClick={handleDeleteClick}
+        isDeleteLoading={state.isDeleteLoading}
+      />
+      {!state.isLoaded ? (
+        <Box textAlign="center" pt="40px">
+          <CircularProgress color="primary" />
+          <Box component="p" fontWeight="bold" fontSize="18px">
+            Loading...
           </Box>
-        ) : (
-          <ProductTable
-            multipleCheckboxIndeterminate={this.state.bulkCheckbox.indeterminate}
-            multipleCheckboxChecked={this.state.bulkCheckbox.checked}
-            filter={this.state.filter}
-            products={this.state.products}
-            onMultipleCheckboxChange={this.handleMultipleCheckboxChange}
-            onCheckboxChange={this.handleCheckboxChange}
-          />
-        )}
-      </>
-    );
-  }
+        </Box>
+      ) : (
+        <ProductTable
+          multipleCheckboxIndeterminate={state.bulkCheckbox.indeterminate}
+          multipleCheckboxChecked={state.bulkCheckbox.checked}
+          filter={state.filter}
+          products={state.products}
+          onMultipleCheckboxChange={handleMultipleCheckboxChange}
+          onCheckboxChange={handleCheckboxChange}
+        />
+      )}
+    </>
+  );
 }
-
-export default ProductList;

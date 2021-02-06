@@ -1,7 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import Container from '@material-ui/core/Container';
-import ProductList from '../ProductList';
+import { ProductListFunc } from '../ProductList';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import VStack from '../components/Stack';
@@ -19,7 +19,7 @@ export default function HomePage() {
             <Typography component="h1" variant="h3">
               Product List
             </Typography>
-            <ProductList />
+            <ProductListFunc />
           </VStack>
         </Container>
       </Box>
