@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import { Product, Products } from '../types/index';
 import TopBar from './Header';
 import ProductTable from './Table';
@@ -19,17 +19,23 @@ type ProductListState = {
   isDeleteLoading: boolean;
 };
 
+const initialState = {
+  error: null,
+  isLoaded: false,
+  products: [],
+  filter: { name: '', inStockOnly: false },
+  bulkCheckbox: { checked: false, indeterminate: false },
+  isDeleteLoading: false,
+};
+
+export function ProductListFunc() {
+  const [state, setState] = useState<ProductListState>(initialState);
+}
+
 class ProductList extends Component<ProductListProps, ProductListState> {
   constructor(props: Readonly<{}>) {
     super(props);
-    this.state = {
-      error: null,
-      isLoaded: false,
-      products: [],
-      filter: { name: '', inStockOnly: false },
-      bulkCheckbox: { checked: false, indeterminate: false },
-      isDeleteLoading: false,
-    };
+    this.state = initialState;
     this.handleNameChange = this.handleNameChange.bind(this);
     this.handleInStockOnlyChange = this.handleInStockOnlyChange.bind(this);
     this.handleDeleteClick = this.handleDeleteClick.bind(this);
@@ -139,11 +145,12 @@ class ProductList extends Component<ProductListProps, ProductListState> {
           onDeleteClick={this.handleDeleteClick}
           isDeleteLoading={this.state.isDeleteLoading}
         />
-        {/* {!this.state.isLoaded ? ( */}
-        {true ? (
+        {!this.state.isLoaded ? (
           <Box textAlign="center" pt="40px">
             <CircularProgress color="primary" />
-            <Typography component="p">Loading...</Typography>
+            <Box component="p" fontWeight="bold" fontSize="18px">
+              Loading...
+            </Box>
           </Box>
         ) : (
           <ProductTable
