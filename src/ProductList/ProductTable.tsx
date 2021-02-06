@@ -60,8 +60,8 @@ export default function ProductTable(props: ProductTableProps) {
   const classes = useStyles();
 
   return (
-    <TableContainer component={Paper}>
-      <Table className={classes.root}>
+    <TableContainer component={Paper} className={classes.root}>
+      <Table>
         <TableHead>
           <TableRow>
             <TableCell align="center">
