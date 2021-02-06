@@ -131,8 +131,8 @@ export default function ProductList() {
         </Box>
       ) : (
         <ProductTable
-          multipleCheckboxIndeterminate={state.bulkCheckbox.indeterminate}
-          multipleCheckboxChecked={state.bulkCheckbox.checked}
+          bulkCheckboxIndeterminate={state.bulkCheckbox.indeterminate}
+          bulkCheckboxChecked={state.bulkCheckbox.checked}
           filter={state.filter}
           products={state.products}
           onMultipleCheckboxChange={handleBulkCheckboxChange}

@@ -12,8 +12,8 @@ import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/styles';
 
 type ProductTableProps = {
-  multipleCheckboxIndeterminate: boolean;
-  multipleCheckboxChecked: boolean;
+  bulkCheckboxIndeterminate: boolean;
+  bulkCheckboxChecked: boolean;
   filter: { name: string; inStockOnly: boolean };
   products: Products;
   onCheckboxChange: (event: React.ChangeEvent<any>, id: string) => void;
@@ -31,8 +31,8 @@ const useStyles = makeStyles({
 });
 
 export default function ProductTable({
-  multipleCheckboxIndeterminate,
-  multipleCheckboxChecked,
+  bulkCheckboxIndeterminate,
+  bulkCheckboxChecked,
   filter,
   products,
   onCheckboxChange,
@@ -70,8 +70,8 @@ export default function ProductTable({
             <TableCell align="center">
               <Checkbox
                 color="primary"
-                checked={multipleCheckboxChecked}
-                indeterminate={multipleCheckboxIndeterminate}
+                checked={bulkCheckboxChecked}
+                indeterminate={bulkCheckboxIndeterminate}
                 onChange={onMultipleCheckboxChange}
               />
             </TableCell>
