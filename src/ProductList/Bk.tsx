@@ -86,7 +86,12 @@ export default function Bk() {
 
   const loadProducts = (url: string) => {
     fetch(url)
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error('error');
+        }
+        return res.json();
+      })
       .then(
         async (result) => {
           await wait(1500);

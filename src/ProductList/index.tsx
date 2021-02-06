@@ -25,6 +25,28 @@ const initialState = {
   isDeleteLoading: false,
 };
 
+type Action = {
+  type: 'PENDING' | 'FULFILLED' | 'REJECTED' | 'CHECKED';
+  payload?: any;
+};
+
+function reducer(state: ProductListState, action: Action) {
+  switch (action.type) {
+    case 'PENDING':
+      return { ...state, isLoaded: true };
+    case 'FULFILLED':
+      return { ...state, isLoaded: true, products: action.payload.products };
+    case 'REJECTED':
+      return { ...state, isLoaded: true, error: action.payload.error };
+    case 'CHECKED':
+      return {
+        ...state,
+        products: action.payload.products,
+        bulkCheckbox: { checked: someChecked, indeterminate: someChecked && !everyChecked },
+      };
+  }
+}
+
 export default function ProductList() {
   const [state, setState] = useState<ProductListState>(initialState);
 
