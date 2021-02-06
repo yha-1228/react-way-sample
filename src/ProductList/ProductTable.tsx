@@ -50,9 +50,7 @@ export default function ProductTable(props: ProductTableProps) {
   };
 
   const isInStockOnlyValid = (product: Product) => {
-    if (filter.inStockOnly === undefined) return;
-
-    return filter.inStockOnly ? product.stocked : !undefined;
+    return filter.inStockOnly ? product.stocked : product;
   };
 
   const handleCheckboxChange = (event: React.ChangeEvent<any>, id: string) => {

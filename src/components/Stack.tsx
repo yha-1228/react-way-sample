@@ -6,7 +6,8 @@ type StackProps = {
   children: React.ReactNode;
 };
 
-export function VStack({ spacing, children }: StackProps) {
+export function VStack(props: StackProps) {
+  const { spacing, children } = props;
   return (
     <div
       className={css`
@@ -23,7 +24,8 @@ export function VStack({ spacing, children }: StackProps) {
   );
 }
 
-export function HStack({ spacing, children }: StackProps) {
+export function HStack(props: StackProps) {
+  const { spacing, children } = props;
   return (
     <div
       className={css`
