@@ -5,7 +5,6 @@ import { Product, Products } from '../types/index';
 import TopBar from './Header';
 import ProductTable from './ProductTable';
 import { PRODUCTS_URL } from '../constants';
-import { wait } from '../functions';
 
 type ProductListState = {
   error: null | string;
