@@ -16,6 +16,11 @@ type TopBarProps = {
   isDeleteLoading: boolean;
 };
 
+const useStyles = makeStyles({
+  w240: { width: '240px' },
+  textTransformNone: { textTransform: 'none' },
+});
+
 export default function TopBar({
   filter,
   products,
@@ -36,13 +41,6 @@ export default function TopBar({
   };
 
   const checkedProductCount = products.filter((product) => product.checked).length;
-
-  // styles
-
-  const useStyles = makeStyles({
-    w240: { width: '240px' },
-    textTransformNone: { textTransform: 'none' },
-  });
 
   const classes = useStyles();
 
