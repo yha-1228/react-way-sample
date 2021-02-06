@@ -25,7 +25,7 @@ const initialState = {
   isDeleteLoading: false,
 };
 
-export function ProductListFunc() {
+export default function ProductList() {
   const [state, setState] = useState<ProductListState>(initialState);
 
   const handleNameChange = (name: string) => {
