@@ -42,15 +42,11 @@ export default function ProductList() {
     const checkedProducts = state.products.filter((product) => product.checked);
     const checkedIds = checkedProducts.map((product) => product.id);
 
-    (async () => {
-      await Promise.all(
-        checkedIds.map((checkedId) =>
-          fetch(`${PRODUCTS_URL}/${checkedId}`, { method: 'DELETE' }).then((res) => res.json())
-        )
-      );
-
-      await wait(500);
-
+    Promise.all(
+      checkedIds.map((checkedId) =>
+        fetch(`${PRODUCTS_URL}/${checkedId}`, { method: 'DELETE' }).then((res) => res.json())
+      )
+    ).then(() => {
       const isNotDeleted = (product: Product) => !checkedIds.includes(product.id);
       setState({
         ...state,
@@ -58,7 +54,7 @@ export default function ProductList() {
         bulkCheckbox: { checked: false, indeterminate: false },
         isDeleteLoading: false,
       });
-    })();
+    });
   };
 
   const handleCheckboxChange = (event: React.ChangeEvent<any>, id: string) => {
