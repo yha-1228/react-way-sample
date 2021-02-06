@@ -25,14 +25,16 @@ const useStyles = makeStyles({
   },
 });
 
-export default function TopBar({
-  filter,
-  products,
-  onNameChange,
-  onInStockOnlyChange,
-  onDeleteClick,
-  isDeleteLoading,
-}: TopBarProps) {
+export default function TopBar(props: TopBarProps) {
+  const {
+    filter,
+    products,
+    onNameChange,
+    onInStockOnlyChange,
+    onDeleteClick,
+    isDeleteLoading,
+  } = props;
+
   const handleNameChange = (e: React.ChangeEvent<any>) => {
     onNameChange(e.target.value);
   };
