@@ -76,14 +76,14 @@ export default function ProductList() {
     const products = [...state.products];
     const product = products.find((product) => product.id === id) as Product;
 
-    // product.checked = checked;
+    product.checked = checked;
 
     const someChecked = products.some((product) => product.checked);
     const everyChecked = products.every((product) => product.checked);
 
     setState(
       produce(state, (draftState) => {
-        // draftState.products = products;
+        draftState.products = products;
         draftState.bulkCheckbox = {
           checked: someChecked,
           indeterminate: someChecked && !everyChecked,
