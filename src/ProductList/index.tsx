@@ -45,10 +45,7 @@ export default function ProductList() {
     (async () => {
       await Promise.all(
         checkedIds.map((checkedId) =>
-          fetch(`${PRODUCTS_URL}/${checkedId}`, {
-            method: 'DELETE',
-            headers: { 'Content-type': 'application/json' },
-          }).then((res) => res.json())
+          fetch(`${PRODUCTS_URL}/${checkedId}`, { method: 'DELETE' }).then((res) => res.json())
         )
       );
 
