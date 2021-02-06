@@ -79,7 +79,7 @@ class ProductTableApp extends Component<ProductTableAppProps, ProductTableAppSta
     this.setState({ bulkCheckbox: { checked: false, indeterminate: false } });
   }
 
-  handleCheckboxChange(event: React.ChangeEvent<HTMLInputElement>, id: string) {
+  handleCheckboxChange(event: React.ChangeEvent<any>, id: string) {
     const checked = event.target.checked;
     const products: Products = [...this.state.products];
     const product = products.find((product) => product.id === id) as Product;
@@ -95,24 +95,14 @@ class ProductTableApp extends Component<ProductTableAppProps, ProductTableAppSta
     });
   }
 
-  handleMultipleCheckboxChange() {
-    if (!this.state.bulkCheckbox.checked) {
-      this.setState({
-        products: [...this.state.products].map((product) => ({ ...product, checked: true })),
-        bulkCheckbox: { checked: true, indeterminate: false },
-      });
-
-      return;
-    }
-
-    if (this.state.bulkCheckbox.checked) {
-      this.setState({
-        products: [...this.state.products].map((product) => ({ ...product, checked: false })),
-        bulkCheckbox: { checked: false, indeterminate: false },
-      });
-
-      return;
-    }
+  handleMultipleCheckboxChange(event: React.ChangeEvent<any>) {
+    this.setState({
+      products: [...this.state.products].map((product) => ({
+        ...product,
+        checked: event.target.checked,
+      })),
+      bulkCheckbox: { checked: event.target.checked, indeterminate: false },
+    });
   }
 
   componentDidMount() {
