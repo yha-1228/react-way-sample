@@ -21,9 +21,10 @@ type ProductTableProps = {
 };
 
 const useStyles = makeStyles({
-  tableCell: {
-    lineHeight: '26px',
-    fontSize: '16px',
+  root: {
+    '& th, & td': {
+      fontSize: '16px',
+    },
   },
   textDarkgray: {
     color: 'darkgray',
@@ -60,13 +61,9 @@ export default function ProductTable(props: ProductTableProps) {
 
   const classes = useStyles();
 
-  const getTableCellStyle = (product: Product) => {
-    return classnames(classes.tableCell, !product.stocked && classes.textDarkgray);
-  };
-
   return (
     <TableContainer component={Paper}>
-      <Table>
+      <Table className={classes.root}>
         <TableHead>
           <TableRow>
             <TableCell align="center">
@@ -90,28 +87,18 @@ export default function ProductTable(props: ProductTableProps) {
             .filter(isInStockOnlyValid)
             .map((product) => (
               <TableRow key={product.id}>
-                <TableCell className={getTableCellStyle(product)} align="center">
+                <TableCell align="center">
                   <Checkbox
                     color="primary"
                     checked={product.checked}
                     onChange={(event) => handleCheckboxChange(event, product.id)}
                   />
                 </TableCell>
-                <TableCell className={getTableCellStyle(product)} align="right">
-                  {product.id}
-                </TableCell>
-                <TableCell className={getTableCellStyle(product)} align="left">
-                  {product.brand}
-                </TableCell>
-                <TableCell className={getTableCellStyle(product)} align="left">
-                  {product.category}
-                </TableCell>
-                <TableCell className={getTableCellStyle(product)} align="left">
-                  {product.name}
-                </TableCell>
-                <TableCell className={getTableCellStyle(product)} align="right">
-                  {product.price}
-                </TableCell>
+                <TableCell align="right">{product.id}</TableCell>
+                <TableCell align="left">{product.brand}</TableCell>
+                <TableCell align="left">{product.category}</TableCell>
+                <TableCell align="left">{product.name}</TableCell>
+                <TableCell align="right">{product.price}</TableCell>
               </TableRow>
             ))}
         </TableBody>
