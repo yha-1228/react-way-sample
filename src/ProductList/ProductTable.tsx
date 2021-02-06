@@ -20,6 +20,12 @@ type ProductTableProps = {
   onMultipleCheckboxChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
+const useStyles = makeStyles({
+  lh26: { lineHeight: '26px' },
+  textMiddleSize: { fontSize: '16px' },
+  textDarkgray: { color: 'darkgray' },
+});
+
 export default function ProductTable({
   multipleCheckboxIndeterminate,
   multipleCheckboxChecked,
@@ -45,12 +51,6 @@ export default function ProductTable({
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>, id: string) => {
     onCheckboxChange(event, id);
   };
-
-  const useStyles = makeStyles({
-    lh26: { lineHeight: '26px' },
-    textMiddleSize: { fontSize: '16px' },
-    textDarkgray: { color: 'darkgray' },
-  });
 
   const classes = useStyles();
 
