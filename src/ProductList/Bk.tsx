@@ -57,19 +57,23 @@ export default function Bk() {
     });
   };
 
+  const isSomeChecked = (products: Products) => products.some((product) => product.checked);
+
+  const isEveryChecked = (products: Products) => products.every((product) => product.checked);
+
   const handleCheckboxChange = (event: React.ChangeEvent<any>, id: string) => {
     const products = [...state.products].map((product) => ({
       ...product,
       checked: product.id === id ? event.target.checked : product.checked,
     }));
 
-    const someChecked = products.some((product) => product.checked);
-    const everyChecked = products.every((product) => product.checked);
-
     setState({
       ...state,
       products: products,
-      bulkCheckbox: { checked: someChecked, indeterminate: someChecked && !everyChecked },
+      bulkCheckbox: {
+        checked: isSomeChecked(products),
+        indeterminate: isSomeChecked(products) && !isEveryChecked(products),
+      },
     });
   };
 
