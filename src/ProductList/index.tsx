@@ -29,17 +29,11 @@ export default function ProductList() {
   const [state, setState] = useState<ProductListState>(initialState);
 
   const handleNameChange = (name: string) => {
-    setState({
-      ...state,
-      filter: { ...state.filter, name: name },
-    });
+    setState({ ...state, filter: { ...state.filter, name: name } });
   };
 
   const handleInStockOnlyChange = (inStockOnly: boolean) => {
-    setState({
-      ...state,
-      filter: { ...state.filter, inStockOnly: inStockOnly },
-    });
+    setState({ ...state, filter: { ...state.filter, inStockOnly: inStockOnly } });
   };
 
   const handleDeleteClick = () => {
