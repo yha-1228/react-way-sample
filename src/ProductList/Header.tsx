@@ -34,8 +34,7 @@ export default function TopBar({
   isDeleteLoading,
 }: TopBarProps) {
   const handleNameChange = (e: React.ChangeEvent<any>) => {
-    const name: string = e.target.value;
-    onNameChange(name);
+    onNameChange(e.target.value);
   };
 
   const handleInStockOnlyChange = (e: React.ChangeEvent<any>) => {
