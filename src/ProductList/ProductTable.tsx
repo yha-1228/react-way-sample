@@ -65,7 +65,7 @@ export default function ProductTable({
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
-            <TableRow className="table-row">
+            <TableRow>
               <TableCell align="center">
                 <Checkbox
                   color="primary"
