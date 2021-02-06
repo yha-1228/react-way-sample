@@ -5,19 +5,22 @@ import { theme } from './utils/mui-theme';
 import { ThemeProvider } from '@material-ui/core';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
+import { HelmetProvider } from 'react-helmet-async';
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <GlobalStyle />
-      <Router>
-        <Switch>
-          <Route path="/" exact>
-            <HomePage />
-          </Route>
-        </Switch>
-      </Router>
-    </ThemeProvider>
+    <HelmetProvider>
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        <Router>
+          <Switch>
+            <Route path="/" exact>
+              <HomePage />
+            </Route>
+          </Switch>
+        </Router>
+      </ThemeProvider>
+    </HelmetProvider>
   );
 }
 
