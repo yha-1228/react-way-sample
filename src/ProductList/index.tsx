@@ -118,18 +118,20 @@ export default function ProductList() {
           const products = result.map((product: Product) => ({ ...product, checked: false }));
 
           setState(
-            produce(state, (draftState) => {
-              draftState.isLoaded = true;
-              draftState.products = products;
-            })
+            { ...state, isLoaded: true, products: products }
+            // produce(state, (draftState) => {
+            //   draftState.isLoaded = true;
+            //   draftState.products = products;
+            // })
           );
         },
         (error) => {
           setState(
-            produce(state, (draftState) => {
-              draftState.isLoaded = true;
-              draftState.error = error;
-            })
+            { ...state, isLoaded: true, error: 'Error!' }
+            // produce(state, (draftState) => {
+            //   draftState.isLoaded = true;
+            //   draftState.error = error;
+            // })
           );
         }
       );
