@@ -1,5 +1,4 @@
 import React from 'react';
-import GlobalStyle from './styles/GlobalStyle';
 import { theme } from './styles/theme';
 import { ThemeProvider } from '@material-ui/core';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
@@ -10,7 +9,6 @@ function App() {
   return (
     <HelmetProvider>
       <ThemeProvider theme={theme}>
-        <GlobalStyle />
         <Router>
           <Switch>
             <Route path="/" exact>

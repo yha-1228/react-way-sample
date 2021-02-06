@@ -1,23 +1,25 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import Container from '@material-ui/core/Container';
-import Heading from '../components/Heading';
-import Main from '../components/Main';
 import ProductTableApp from '../ProductList';
+import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
 
 export default function HomePage() {
   return (
-    <div>
+    <>
       <Helmet>
         <title>Demo - Products</title>
       </Helmet>
 
-      <Main>
+      <Box pt="32px">
         <Container>
-          <Heading>Product List</Heading>
+          <Typography component="h1" variant="h2">
+            Product List
+          </Typography>
           <ProductTableApp />
         </Container>
-      </Main>
-    </div>
+      </Box>
+    </>
   );
 }
