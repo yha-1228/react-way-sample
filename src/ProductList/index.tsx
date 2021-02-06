@@ -109,7 +109,7 @@ export default function ProductList() {
       .then((res) => res.json())
       .then(
         async (result) => {
-          await wait(900);
+          await wait(1500);
 
           const products = result.map((product: Product) => ({ ...product, checked: false }));
 
