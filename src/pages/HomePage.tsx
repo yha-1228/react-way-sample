@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import Container from '@material-ui/core/Container';
 import Heading from '../components/Heading';
 import Main from '../components/Main';
-import ProductTableApp from '../components/ProductTableApp';
+import ProductTableApp from '../ProductList';
 
 export default function HomePage() {
   return (
