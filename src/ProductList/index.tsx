@@ -11,7 +11,7 @@ type ProductTableAppState = {
   isLoaded: boolean;
   products: Products;
   filter: { name: string; inStockOnly: boolean };
-  multipleCheckbox: { checked: boolean; indeterminate: boolean };
+  bulkCheckbox: { checked: boolean; indeterminate: boolean };
   isDeleteLoading: boolean;
 };
 
@@ -23,7 +23,7 @@ class ProductTableApp extends Component<ProductTableAppProps, ProductTableAppSta
       isLoaded: false,
       products: [],
       filter: { name: '', inStockOnly: false },
-      multipleCheckbox: { checked: false, indeterminate: false },
+      bulkCheckbox: { checked: false, indeterminate: false },
       isDeleteLoading: false,
     };
     this.handleNameChange = this.handleNameChange.bind(this);
@@ -76,7 +76,7 @@ class ProductTableApp extends Component<ProductTableAppProps, ProductTableAppSta
       });
     })();
 
-    this.setState({ multipleCheckbox: { checked: false, indeterminate: false } });
+    this.setState({ bulkCheckbox: { checked: false, indeterminate: false } });
   }
 
   handleCheckboxChange(event: React.ChangeEvent<HTMLInputElement>, id: string) {
@@ -91,7 +91,7 @@ class ProductTableApp extends Component<ProductTableAppProps, ProductTableAppSta
 
     this.setState({
       products: products,
-      multipleCheckbox: {
+      bulkCheckbox: {
         checked: someChecked,
         indeterminate: someChecked && !everyChecked,
       },
@@ -99,19 +99,19 @@ class ProductTableApp extends Component<ProductTableAppProps, ProductTableAppSta
   }
 
   handleMultipleCheckboxChange() {
-    if (!this.state.multipleCheckbox.checked) {
+    if (!this.state.bulkCheckbox.checked) {
       this.setState({
         products: [...this.state.products].map((product) => ({ ...product, checked: true })),
-        multipleCheckbox: { checked: true, indeterminate: false },
+        bulkCheckbox: { checked: true, indeterminate: false },
       });
 
       return;
     }
 
-    if (this.state.multipleCheckbox.checked) {
+    if (this.state.bulkCheckbox.checked) {
       this.setState({
         products: [...this.state.products].map((product) => ({ ...product, checked: false })),
-        multipleCheckbox: { checked: false, indeterminate: false },
+        bulkCheckbox: { checked: false, indeterminate: false },
       });
 
       return;
@@ -152,8 +152,8 @@ class ProductTableApp extends Component<ProductTableAppProps, ProductTableAppSta
           <div>Loading...</div>
         ) : (
           <ProductTable
-            multipleCheckboxIndeterminate={this.state.multipleCheckbox.indeterminate}
-            multipleCheckboxChecked={this.state.multipleCheckbox.checked}
+            multipleCheckboxIndeterminate={this.state.bulkCheckbox.indeterminate}
+            multipleCheckboxChecked={this.state.bulkCheckbox.checked}
             filter={this.state.filter}
             products={this.state.products}
             onMultipleCheckboxChange={this.handleMultipleCheckboxChange}
