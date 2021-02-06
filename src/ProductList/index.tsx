@@ -81,15 +81,19 @@ export default function ProductList() {
     const someChecked = products.some((product) => product.checked);
     const everyChecked = products.every((product) => product.checked);
 
-    setState(
-      produce(state, (draftState) => {
-        draftState.products = products;
-        draftState.bulkCheckbox = {
-          checked: someChecked,
-          indeterminate: someChecked && !everyChecked,
-        };
-      })
-    );
+    setState({
+      ...state,
+      products: products,
+      bulkCheckbox: { checked: someChecked, indeterminate: someChecked && !everyChecked },
+    });
+
+    // produce(state, (draftState) => {
+    //   draftState.products = products;
+    //   draftState.bulkCheckbox = {
+    //     checked: someChecked,
+    //     indeterminate: someChecked && !everyChecked,
+    //   };
+    // })
   };
 
   const handleBulkCheckboxChange = (event: React.ChangeEvent<any>) => {
