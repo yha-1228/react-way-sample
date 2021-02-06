@@ -7,6 +7,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { createStyles, makeStyles } from '@material-ui/styles';
 import { Products } from '../types/index';
 import { Theme } from '@material-ui/core';
+import { HStack } from '../components/Stack';
 
 type TopBarProps = {
   filter: { name: string; inStockOnly: boolean };
@@ -19,7 +20,7 @@ type TopBarProps = {
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    topBar: {
+    root: {
       border: `2px solid ${theme.palette.primary.main}`,
     },
     textField: {
@@ -54,32 +55,34 @@ export default function TopBar(props: TopBarProps) {
   const classes = useStyles();
 
   return (
-    <Box mb={2} className={classes.topBar}>
+    <Box mb={2} className={classes.root}>
       <form>
-        <Box display="inline-block">
-          <TextField
-            className={classes.textField}
-            color="primary"
-            type="text"
-            placeholder="Search name..."
-            value={filter.name}
-            onChange={handleNameChange}
-          />
-        </Box>
+        <HStack spacing={16}>
+          <Box display="inline-block">
+            <TextField
+              className={classes.textField}
+              color="primary"
+              type="text"
+              placeholder="Search name..."
+              value={filter.name}
+              onChange={handleNameChange}
+            />
+          </Box>
 
-        <Box display="inline-block">
-          <FormControlLabel
-            control={
-              <Checkbox
-                color="primary"
-                id="checkInStockOnly"
-                checked={filter.inStockOnly}
-                onChange={handleInStockOnlyChange}
-              />
-            }
-            label="Only show products in stock"
-          />
-        </Box>
+          <Box display="inline-block">
+            <FormControlLabel
+              control={
+                <Checkbox
+                  color="primary"
+                  id="checkInStockOnly"
+                  checked={filter.inStockOnly}
+                  onChange={handleInStockOnlyChange}
+                />
+              }
+              label="Only show products in stock"
+            />
+          </Box>
+        </HStack>
 
         <span style={{ cursor: 'not-allowed' }}>
           <Button
