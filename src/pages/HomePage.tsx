@@ -9,7 +9,7 @@ export default function HomePage() {
   return (
     <div>
       <Helmet>
-        <title>Demo | Products</title>
+        <title>Demo - Products</title>
       </Helmet>
 
       <Main>
