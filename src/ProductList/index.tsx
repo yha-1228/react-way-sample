@@ -44,13 +44,13 @@ function reducer(state: ProductListState, action: Action) {
       return { ...state, isLoaded: true, error };
     }
     case 'CHANGE_CHECKBOX': {
+      const { products } = action.payload;
       return {
         ...state,
-        products: action.payload.products,
+        products,
         bulkCheckbox: {
-          checked: isSomeChecked(action.payload.products),
-          indeterminate:
-            isSomeChecked(action.payload.products) && !isEveryChecked(action.payload.products),
+          checked: isSomeChecked(products),
+          indeterminate: isSomeChecked(products) && !isEveryChecked(products),
         },
       };
     }
