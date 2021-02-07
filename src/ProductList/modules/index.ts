@@ -30,10 +30,12 @@ export default function reducer(state: ProductListState, action: Action): Produc
       const products = result.map((product: Product) => ({ ...product, checked: false }))
       return { ...initialState, isLoaded: true, products }
     }
+
     case 'REJECTED': {
       const { error } = action.payload
       return { ...state, isLoaded: true, error }
     }
+
     case 'CHANGE_CHECKBOX': {
       const { event, id } = action.payload
 
@@ -51,6 +53,7 @@ export default function reducer(state: ProductListState, action: Action): Produc
         },
       }
     }
+
     case 'CHANGE_BULK_CHECKBOX': {
       const { event } = action.payload
 
@@ -63,9 +66,11 @@ export default function reducer(state: ProductListState, action: Action): Produc
         bulkCheckbox: { checked: event.target.checked, indeterminate: false },
       }
     }
+
     case 'PENDING_DELETE': {
       return { ...state, isDeleteLoading: true }
     }
+
     case 'FULFILLED_DELETE': {
       const checkedIds = state.products
         .filter((product: Product) => product.checked)
@@ -80,14 +85,17 @@ export default function reducer(state: ProductListState, action: Action): Produc
         isDeleteLoading: false,
       }
     }
+
     case 'CHANGE_NAME': {
       const { name } = action.payload
       return { ...state, filter: { ...state.filter, name: name } }
     }
+
     case 'TOGGLE_IN_STOCK_ONLY': {
       const { inStockOnly } = action.payload
       return { ...state, filter: { ...state.filter, inStockOnly: inStockOnly } }
     }
+
     default: {
       return state
     }
