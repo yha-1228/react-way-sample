@@ -36,7 +36,8 @@ function reducer(state: ProductListState, action: Action): ProductListState {
       return { ...state, isLoaded: true };
     }
     case 'FULFILLED': {
-      const { products } = action.payload;
+      const { result } = action.payload;
+      const products = result.map((product: Product) => ({ ...product, checked: false }));
       return { ...state, isLoaded: true, products };
     }
     case 'REJECTED': {
@@ -116,7 +117,7 @@ export default function ProductList() {
     dispatch({ type: 'TOGGLE_IN_STOCK_ONLY', payload: { inStockOnly } });
   };
 
-  // const handleDeleteClick = async () => {};
+  const handleDeleteClick = () => {};
 
   const handleCheckboxChange = (event: React.ChangeEvent<any>, id: string) => {
     dispatch({ type: 'CHANGE_CHECKBOX', payload: { event, id } });
@@ -132,8 +133,7 @@ export default function ProductList() {
       .then(
         async (result) => {
           await wait(1500);
-          const products = result.map((product: Product) => ({ ...product, checked: false }));
-          dispatch({ type: 'FULFILLED', payload: { products } });
+          dispatch({ type: 'FULFILLED', payload: { result } });
         },
         (error) => {
           console.log(error.message);
