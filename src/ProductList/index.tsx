@@ -44,13 +44,7 @@ function reducer(state: ProductListState, action: Action) {
       return { ...state, isLoaded: true, error };
     }
     case 'CHANGE_CHECKBOX': {
-      const { products, event, id } = action.payload;
-
-      products.map((product: Product) => ({
-        ...product,
-        checked: product.id === id ? event.target.checked : product.checked,
-      }));
-
+      const { products } = action.payload;
       return {
         ...state,
         products,
