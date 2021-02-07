@@ -77,9 +77,7 @@ function reducer(state: ProductListState, action: Action): ProductListState {
       return { ...state, isDeleteLoading: true };
     }
     case 'FULFILLED_DELETE': {
-      const { products } = action.payload;
-
-      const checkedIds = products
+      const checkedIds = state.products
         .filter((product: Product) => product.checked)
         .map((product: Product) => product.id);
 
@@ -87,7 +85,7 @@ function reducer(state: ProductListState, action: Action): ProductListState {
 
       return {
         ...state,
-        products: products.filter(isNotDeleted),
+        products: state.products.filter(isNotDeleted),
         bulkCheckbox: { checked: false, indeterminate: false },
         isDeleteLoading: false,
       };
