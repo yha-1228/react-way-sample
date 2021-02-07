@@ -106,21 +106,21 @@ function reducer(state: ProductListState, action: Action): ProductListState {
 }
 
 export default function ProductList() {
-  const [state, dispatch] = useReducer<ProductListState, Action>(
-    reducer,
-    initialState,
-    (initialState) => ({ ...initialState })
-  );
+  const [state, dispatch] = useReducer(reducer, initialState);
 
-  const handleNameChange = (name: string) => {};
+  const handleNameChange = (name: string) => {
+    dispatch({ type: 'CHANGE_NAME', payload: name });
+  };
 
-  const handleInStockOnlyChange = (inStockOnly: boolean) => {};
+  const handleInStockOnlyChange = (inStockOnly: boolean) => {
+    dispatch({ type: 'TOGGLE_IN_STOCK_ONLY', payload: inStockOnly });
+  };
 
-  const handleDeleteClick = async () => {};
+  // const handleDeleteClick = async () => {};
 
-  const handleCheckboxChange = (event: React.ChangeEvent<any>, id: string) => {};
+  // const handleCheckboxChange = (event: React.ChangeEvent<any>, id: string) => {};
 
-  const handleBulkCheckboxChange = (event: React.ChangeEvent<any>) => {};
+  // const handleBulkCheckboxChange = (event: React.ChangeEvent<any>) => {};
 
   const loadProducts = (url: string) => {
     fetch(url)
@@ -128,6 +128,8 @@ export default function ProductList() {
       .then(
         async (result) => {
           await wait(1500);
+          const products = result.map((product: Product) => ({ ...product, checked: false }));
+          dispatch({ type: 'FULFILLED', payload: products });
         },
         (error) => {
           console.log(error.message);
@@ -135,10 +137,10 @@ export default function ProductList() {
       );
   };
 
-  useEffect(() => {
-    loadProducts(PRODUCTS_URL);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // useEffect(() => {
+  //   loadProducts(PRODUCTS_URL);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   return (
     <>
