@@ -28,7 +28,7 @@ export default function reducer(state: ProductListState, action: Action): Produc
     case 'FULFILLED': {
       const { result } = action.payload
       const products = result.map((product: Product) => ({ ...product, checked: false }))
-      return { ...state, isLoaded: true, products }
+      return { ...initialState, isLoaded: true, products }
     }
     case 'REJECTED': {
       const { error } = action.payload

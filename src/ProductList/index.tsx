@@ -6,6 +6,7 @@ import TopBar from './Header'
 import ProductTable from './ProductTable'
 import { PRODUCTS_URL } from '../constants'
 import { wait } from '../functions'
+import { Product } from '../types'
 
 export default function ProductList() {
   const [state, dispatch] = useReducer(reducer, initialState)
@@ -20,6 +21,19 @@ export default function ProductList() {
 
   const handleDeleteClick = () => {
     dispatch({ type: 'PENDING_DELETE' })
+
+    const checkedIds = state.products
+      .filter((product: Product) => product.checked)
+      .map((product: Product) => product.id)
+
+    Promise.all(
+      checkedIds.map((id) =>
+        fetch(`${PRODUCTS_URL}/${id}`, { method: 'DELETE' }).then((res) => res.json())
+      )
+    ).then(async () => {
+      await wait(2000)
+      loadProducts(PRODUCTS_URL)
+    })
   }
 
   const handleCheckboxChange = (event: React.ChangeEvent<any>, id: string) => {
