@@ -61,11 +61,11 @@ function reducer(state: ProductListState, action: Action): ProductListState {
       };
     }
     case 'CHANGE_BULK_CHECKBOX': {
-      const { products, event } = action.payload;
+      const { event } = action.payload;
 
       return {
         ...state,
-        products: products.map((product: Product) => ({
+        products: state.products.map((product: Product) => ({
           ...product,
           checked: event.target.checked,
         })),
@@ -123,7 +123,9 @@ export default function ProductList() {
     dispatch({ type: 'CHANGE_CHECKBOX', payload: { products, event, id } });
   };
 
-  const handleBulkCheckboxChange = (event: React.ChangeEvent<any>) => {};
+  const handleBulkCheckboxChange = (event: React.ChangeEvent<any>) => {
+    dispatch({ type: 'CHANGE_BULK_CHECKBOX', payload: { event } });
+  };
 
   const loadProducts = (url: string) => {
     fetch(url)
