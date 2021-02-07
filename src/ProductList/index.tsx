@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import Box from '@material-ui/core/Box';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Product, Products } from '../types/index';
@@ -61,7 +61,7 @@ function reducer(state: ProductListState, action: Action) {
       };
     }
     case 'CHANGE_BULK_CHECKBOX': {
-      const { products, event, id } = action.payload;
+      const { products, event } = action.payload;
 
       return {
         ...state,
@@ -72,67 +72,51 @@ function reducer(state: ProductListState, action: Action) {
         bulkCheckbox: { checked: event.target.checked, indeterminate: false },
       };
     }
+    case 'PENDING_DELETE': {
+      return { ...state, isDeleteLoading: true };
+    }
+    case 'FULFILLED_DELETE': {
+      const { products } = action.payload;
+
+      const checkedIds = products
+        .filter((product: Product) => product.checked)
+        .map((product: Product) => product.id);
+
+      const isNotDeleted = (product: Product) => !checkedIds.includes(product.id);
+
+      return {
+        ...state,
+        products: products.filter(isNotDeleted),
+        bulkCheckbox: { checked: false, indeterminate: false },
+        isDeleteLoading: false,
+      };
+    }
+    case 'CHANGE_NAME': {
+      const { name } = action.payload;
+      return { ...state, filter: { ...state.filter, name: name } };
+    }
+    case 'TOGGLE_IN_STOCK_ONLY': {
+      const { inStockOnly } = action.payload;
+      return { ...state, filter: { ...state.filter, inStockOnly: inStockOnly } };
+    }
+    default: {
+      return state;
+    }
   }
 }
 
 export default function ProductList() {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer<ProductListState, Action>(reducer, initialState);
 
-  const handleNameChange = (name: string) => {
-    setState({ ...state, filter: { ...state.filter, name: name } });
-  };
+  const handleNameChange = (name: string) => {};
 
-  const handleInStockOnlyChange = (inStockOnly: boolean) => {
-    setState({ ...state, filter: { ...state.filter, inStockOnly: inStockOnly } });
-  };
+  const handleInStockOnlyChange = (inStockOnly: boolean) => {};
 
-  const handleDeleteClick = () => {
-    setState({ ...state, isDeleteLoading: true });
+  const handleDeleteClick = async () => {};
 
-    const checkedProducts = state.products.filter((product) => product.checked);
-    const checkedIds = checkedProducts.map((product) => product.id);
+  const handleCheckboxChange = (event: React.ChangeEvent<any>, id: string) => {};
 
-    Promise.all(
-      checkedIds.map((checkedId) =>
-        fetch(`${PRODUCTS_URL}/${checkedId}`, { method: 'DELETE' }).then((res) => res.json())
-      )
-    ).then(() => {
-      const isNotDeleted = (product: Product) => !checkedIds.includes(product.id);
-      setState({
-        ...state,
-        products: [...state.products].filter(isNotDeleted),
-        bulkCheckbox: { checked: false, indeterminate: false },
-        isDeleteLoading: false,
-      });
-    });
-  };
-
-  const handleCheckboxChange = (event: React.ChangeEvent<any>, id: string) => {
-    const products = [...state.products].map((product) => ({
-      ...product,
-      checked: product.id === id ? event.target.checked : product.checked,
-    }));
-
-    const someChecked = products.some((product) => product.checked);
-    const everyChecked = products.every((product) => product.checked);
-
-    setState({
-      ...state,
-      products: products,
-      bulkCheckbox: { checked: someChecked, indeterminate: someChecked && !everyChecked },
-    });
-  };
-
-  const handleBulkCheckboxChange = (event: React.ChangeEvent<any>) => {
-    setState({
-      ...state,
-      products: [...state.products].map((product) => ({
-        ...product,
-        checked: event.target.checked,
-      })),
-      bulkCheckbox: { checked: event.target.checked, indeterminate: false },
-    });
-  };
+  const handleBulkCheckboxChange = (event: React.ChangeEvent<any>) => {};
 
   const loadProducts = (url: string) => {
     fetch(url)
@@ -140,11 +124,8 @@ export default function ProductList() {
       .then(
         async (result) => {
           await wait(1500);
-          const products = result.map((product: Product) => ({ ...product, checked: false }));
-          setState({ ...state, isLoaded: true, products: products });
         },
         (error) => {
-          setState({ ...state, isLoaded: true, error: 'Error!' });
           console.log(error.message);
         }
       );
