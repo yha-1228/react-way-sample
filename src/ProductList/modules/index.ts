@@ -39,10 +39,9 @@ export default function reducer(state: ProductListState, action: Action): Produc
     case 'CHANGE_CHECKBOX': {
       const { event, id } = action.payload
 
-      const products = state.products.map((product: Product) => ({
-        ...product,
-        checked: product.id === id ? event.target.checked : product.checked,
-      }))
+      const products = state.products.map((product: Product) =>
+        product.id === id ? { ...product, checked: event.target.checked } : product
+      )
 
       return {
         ...state,
