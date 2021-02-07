@@ -19,7 +19,7 @@ export default function ProductList() {
   }
 
   const handleDeleteClick = () => {
-    // dispatch({})
+    dispatch({ type: 'PENDING_DELETE' })
   }
 
   const handleCheckboxChange = (event: React.ChangeEvent<any>, id: string) => {
