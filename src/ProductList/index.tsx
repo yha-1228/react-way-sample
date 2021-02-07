@@ -18,7 +18,9 @@ export default function ProductList() {
     dispatch({ type: 'TOGGLE_IN_STOCK_ONLY', payload: { inStockOnly } })
   }
 
-  const handleDeleteClick = () => {}
+  const handleDeleteClick = () => {
+    // dispatch({})
+  }
 
   const handleCheckboxChange = (event: React.ChangeEvent<any>, id: string) => {
     dispatch({ type: 'CHANGE_CHECKBOX', payload: { event, id } })

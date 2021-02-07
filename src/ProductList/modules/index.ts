@@ -25,9 +25,6 @@ export type Action = {
 
 export default function reducer(state: ProductListState, action: Action): ProductListState {
   switch (action.type) {
-    case 'PENDING': {
-      return { ...state, isLoaded: true }
-    }
     case 'FULFILLED': {
       const { result } = action.payload
       const products = result.map((product: Product) => ({ ...product, checked: false }))
