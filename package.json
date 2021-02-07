@@ -27,6 +27,7 @@
     "typescript": "^4.0.2"
   },
   "scripts": {
+    "format": "prettier --write 'src/**/*.{css,js,jsx,ts,tsx}'",
     "mock": "npx json-server --watch api/db.js --port 3004",
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -52,6 +53,7 @@
     "@types/lodash": "^4.14.162",
     "babel-plugin-styled-components": "^1.11.1",
     "json-server": "^0.16.2",
-    "node-sass": "^4.14.1"
+    "node-sass": "^4.14.1",
+    "prettier": "^2.2.1"
   }
 }

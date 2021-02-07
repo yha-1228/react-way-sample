@@ -1,22 +1,22 @@
-import React from 'react';
-import Box from '@material-ui/core/Box';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import Checkbox from '@material-ui/core/Checkbox';
-import { createStyles, makeStyles } from '@material-ui/styles';
-import { Products } from '../types/index';
-import { Theme } from '@material-ui/core';
-import { HStack } from '../components/Stack';
+import React from 'react'
+import Box from '@material-ui/core/Box'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import TextField from '@material-ui/core/TextField'
+import Button from '@material-ui/core/Button'
+import Checkbox from '@material-ui/core/Checkbox'
+import { createStyles, makeStyles } from '@material-ui/styles'
+import { Products } from '../types/index'
+import { Theme } from '@material-ui/core'
+import { HStack } from '../components/Stack'
 
 type TopBarProps = {
-  filter: { name: string; inStockOnly: boolean };
-  products: Products;
-  onNameChange: (name: string) => void;
-  onInStockOnlyChange: (checked: boolean) => void;
-  onDeleteClick: () => void;
-  isDeleteLoading: boolean;
-};
+  filter: { name: string; inStockOnly: boolean }
+  products: Products
+  onNameChange: (name: string) => void
+  onInStockOnlyChange: (checked: boolean) => void
+  onDeleteClick: () => void
+  isDeleteLoading: boolean
+}
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
       textTransform: 'none',
     },
   })
-);
+)
 
 export default function TopBar(props: TopBarProps) {
   const {
@@ -45,19 +45,19 @@ export default function TopBar(props: TopBarProps) {
     onInStockOnlyChange,
     onDeleteClick,
     isDeleteLoading,
-  } = props;
+  } = props
 
   const handleNameChange = (e: React.ChangeEvent<any>) => {
-    onNameChange(e.target.value);
-  };
+    onNameChange(e.target.value)
+  }
 
   const handleInStockOnlyChange = (e: React.ChangeEvent<any>) => {
-    onInStockOnlyChange(e.target.checked);
-  };
+    onInStockOnlyChange(e.target.checked)
+  }
 
-  const checkedProductCount = products.filter((product) => product.checked).length;
+  const checkedProductCount = products.filter((product) => product.checked).length
 
-  const classes = useStyles();
+  const classes = useStyles()
 
   return (
     <Box mb={2} className={classes.root}>
@@ -100,5 +100,5 @@ export default function TopBar(props: TopBarProps) {
         </HStack>
       </form>
     </Box>
-  );
+  )
 }

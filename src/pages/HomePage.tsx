@@ -1,10 +1,10 @@
-import React from 'react';
-import { Helmet } from 'react-helmet-async';
-import Container from '@material-ui/core/Container';
-import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
-import { VStack } from '../components/Stack';
-import Bk from '../ProductList/Bk';
+import React from 'react'
+import { Helmet } from 'react-helmet-async'
+import Container from '@material-ui/core/Container'
+import Box from '@material-ui/core/Box'
+import Typography from '@material-ui/core/Typography'
+import { VStack } from '../components/Stack'
+import Bk from '../ProductList/Bk'
 
 export default function HomePage() {
   return (
@@ -24,5 +24,5 @@ export default function HomePage() {
         </Container>
       </Box>
     </>
-  );
+  )
 }

@@ -1,13 +1,13 @@
-import React from 'react';
-import { css } from '@emotion/css';
+import React from 'react'
+import { css } from '@emotion/css'
 
 type StackProps = {
-  spacing: number;
-  children: React.ReactNode;
-};
+  spacing: number
+  children: React.ReactNode
+}
 
 export function VStack(props: StackProps) {
-  const { spacing, children } = props;
+  const { spacing, children } = props
   return (
     <div
       className={css`
@@ -21,11 +21,11 @@ export function VStack(props: StackProps) {
     >
       {children}
     </div>
-  );
+  )
 }
 
 export function HStack(props: StackProps) {
-  const { spacing, children } = props;
+  const { spacing, children } = props
   return (
     <div
       className={css`
@@ -39,5 +39,5 @@ export function HStack(props: StackProps) {
     >
       {children}
     </div>
-  );
+  )
 }

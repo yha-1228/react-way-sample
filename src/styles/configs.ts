@@ -3,7 +3,7 @@ export const colors = {
   paper: '#fff',
   foreground: '#1A202C',
   primary: '#026FF3',
-};
+}
 
 export const fontFamily = [
   '-apple-system',
@@ -17,4 +17,4 @@ export const fontFamily = [
   '"Segoe UI Emoji"',
   '"Segoe UI Symbol"',
   'sans-serif',
-].join(',');
+].join(',')

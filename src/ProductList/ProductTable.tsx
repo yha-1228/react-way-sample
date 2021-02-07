@@ -1,23 +1,23 @@
-import React from 'react';
-import { Products, Product } from '../types/index';
-import Checkbox from '@material-ui/core/Checkbox';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import { makeStyles } from '@material-ui/styles';
+import React from 'react'
+import { Products, Product } from '../types/index'
+import Checkbox from '@material-ui/core/Checkbox'
+import Table from '@material-ui/core/Table'
+import TableBody from '@material-ui/core/TableBody'
+import TableCell from '@material-ui/core/TableCell'
+import TableContainer from '@material-ui/core/TableContainer'
+import TableHead from '@material-ui/core/TableHead'
+import TableRow from '@material-ui/core/TableRow'
+import Paper from '@material-ui/core/Paper'
+import { makeStyles } from '@material-ui/styles'
 
 type ProductTableProps = {
-  bulkCheckboxIndeterminate: boolean;
-  bulkCheckboxChecked: boolean;
-  filter: { name: string; inStockOnly: boolean };
-  products: Products;
-  onCheckboxChange: (event: React.ChangeEvent<any>, id: string) => void;
-  onBlukCheckboxChange: (event: React.ChangeEvent<any>) => void;
-};
+  bulkCheckboxIndeterminate: boolean
+  bulkCheckboxChecked: boolean
+  filter: { name: string; inStockOnly: boolean }
+  products: Products
+  onCheckboxChange: (event: React.ChangeEvent<any>, id: string) => void
+  onBlukCheckboxChange: (event: React.ChangeEvent<any>) => void
+}
 
 const useStyles = makeStyles({
   root: {
@@ -30,7 +30,7 @@ const useStyles = makeStyles({
       color: 'darkgray',
     },
   },
-});
+})
 
 export default function ProductTable(props: ProductTableProps) {
   const {
@@ -40,25 +40,25 @@ export default function ProductTable(props: ProductTableProps) {
     products,
     onCheckboxChange,
     onBlukCheckboxChange,
-  } = props;
+  } = props
 
-  const classes = useStyles();
+  const classes = useStyles()
 
   const isNameValid = (product: Product) => {
-    if (filter.name === undefined) return;
+    if (filter.name === undefined) return
 
-    const name = product.name.toUpperCase();
-    const filterName = filter.name.toUpperCase().trim();
-    return name.indexOf(filterName) !== -1;
-  };
+    const name = product.name.toUpperCase()
+    const filterName = filter.name.toUpperCase().trim()
+    return name.indexOf(filterName) !== -1
+  }
 
   const isInStockOnlyValid = (product: Product) => {
-    return filter.inStockOnly ? product.stocked : product;
-  };
+    return filter.inStockOnly ? product.stocked : product
+  }
 
   const handleCheckboxChange = (event: React.ChangeEvent<any>, id: string) => {
-    onCheckboxChange(event, id);
-  };
+    onCheckboxChange(event, id)
+  }
 
   return (
     <TableContainer component={Paper} className={classes.root}>
@@ -103,5 +103,5 @@ export default function ProductTable(props: ProductTableProps) {
         </TableBody>
       </Table>
     </TableContainer>
-  );
+  )
 }

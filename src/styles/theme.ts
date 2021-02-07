@@ -1,5 +1,5 @@
-import { createMuiTheme } from '@material-ui/core';
-import { colors, fontFamily } from './configs';
+import { createMuiTheme } from '@material-ui/core'
+import { colors, fontFamily } from './configs'
 
 export const theme = createMuiTheme({
   palette: {
@@ -17,4 +17,4 @@ export const theme = createMuiTheme({
   typography: {
     fontFamily: fontFamily,
   },
-});
+})
