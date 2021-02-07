@@ -44,7 +44,13 @@ function reducer(state: ProductListState, action: Action) {
       return { ...state, isLoaded: true, error };
     }
     case 'CHANGE_CHECKBOX': {
-      const { products } = action.payload;
+      const { products, event, id } = action.payload;
+
+      products.map((product: Product) => ({
+        ...product,
+        checked: product.id === id ? event.target.checked : product.checked,
+      }));
+
       return {
         ...state,
         products,
@@ -55,9 +61,11 @@ function reducer(state: ProductListState, action: Action) {
       };
     }
     case 'CHANGE_BULK_CHECKBOX': {
+      const { products, event, id } = action.payload;
+
       return {
         ...state,
-        products: [...state.products].map((product) => ({
+        products: products.map((product: Product) => ({
           ...product,
           checked: event.target.checked,
         })),
