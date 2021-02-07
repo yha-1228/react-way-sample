@@ -119,7 +119,8 @@ export default function ProductList() {
   // const handleDeleteClick = async () => {};
 
   const handleCheckboxChange = (event: React.ChangeEvent<any>, id: string) => {
-    dispatch({ type: 'CHANGE_CHECKBOX', payload: { products: state.products } });
+    const products = state.products;
+    dispatch({ type: 'CHANGE_CHECKBOX', payload: { products, event, id } });
   };
 
   const handleBulkCheckboxChange = (event: React.ChangeEvent<any>) => {};
