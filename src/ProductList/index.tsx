@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import Box from '@material-ui/core/Box';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Product, Products } from '../types/index';
@@ -26,29 +26,47 @@ const initialState = {
 };
 
 type Action = {
-  type: 'PENDING' | 'FULFILLED' | 'REJECTED' | 'CHECKED';
+  type: string;
   payload?: any;
 };
 
 function reducer(state: ProductListState, action: Action) {
   switch (action.type) {
-    case 'PENDING':
+    case 'PENDING': {
       return { ...state, isLoaded: true };
-    case 'FULFILLED':
+    }
+    case 'FULFILLED': {
       return { ...state, isLoaded: true, products: action.payload.products };
-    case 'REJECTED':
+    }
+    case 'REJECTED': {
       return { ...state, isLoaded: true, error: action.payload.error };
-    case 'CHECKED':
+    }
+    case 'CHANGE_CHECKBOX': {
       return {
         ...state,
         products: action.payload.products,
-        bulkCheckbox: { checked: someChecked, indeterminate: someChecked && !everyChecked },
+        bulkCheckbox: {
+          checked: isSomeChecked(action.payload.products),
+          indeterminate:
+            isSomeChecked(action.payload.products) && !isEveryChecked(action.payload.products),
+        },
       };
+    }
+    case 'CHANGE_BULK_CHECKBOX': {
+      return {
+        ...state,
+        products: [...state.products].map((product) => ({
+          ...product,
+          checked: event.target.checked,
+        })),
+        bulkCheckbox: { checked: event.target.checked, indeterminate: false },
+      };
+    }
   }
 }
 
 export default function ProductList() {
-  const [state, setState] = useState<ProductListState>(initialState);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   const handleNameChange = (name: string) => {
     setState({ ...state, filter: { ...state.filter, name: name } });
@@ -156,4 +174,12 @@ export default function ProductList() {
       )}
     </>
   );
+}
+
+function isSomeChecked(products: Products) {
+  return products.some((product) => product.checked);
+}
+
+function isEveryChecked(products: Products) {
+  return products.every((product) => product.checked);
 }
