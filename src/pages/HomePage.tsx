@@ -4,7 +4,7 @@ import Container from '@material-ui/core/Container'
 import Box from '@material-ui/core/Box'
 import Typography from '@material-ui/core/Typography'
 import { VStack } from '../components/Stack'
-import Bk from '../ProductList/Bk'
+import ProductList from '../ProductList'
 
 export default function HomePage() {
   return (
@@ -19,7 +19,7 @@ export default function HomePage() {
             <Typography component="h1" variant="h3">
               Product List
             </Typography>
-            <Bk />
+            <ProductList />
           </VStack>
         </Container>
       </Box>
