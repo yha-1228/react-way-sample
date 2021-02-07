@@ -30,7 +30,7 @@ type Action = {
   payload?: any;
 };
 
-function reducer(state: ProductListState, action: Action) {
+function reducer(state: ProductListState, action: Action): ProductListState {
   switch (action.type) {
     case 'PENDING': {
       return { ...state, isLoaded: true };
@@ -106,7 +106,11 @@ function reducer(state: ProductListState, action: Action) {
 }
 
 export default function ProductList() {
-  const [state, dispatch] = useReducer<ProductListState, Action>(reducer, initialState);
+  const [state, dispatch] = useReducer<ProductListState, Action>(
+    reducer,
+    initialState,
+    (initialState) => ({ ...initialState })
+  );
 
   const handleNameChange = (name: string) => {};
 
