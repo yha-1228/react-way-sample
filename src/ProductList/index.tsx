@@ -44,9 +44,9 @@ function reducer(state: ProductListState, action: Action): ProductListState {
       return { ...state, isLoaded: true, error };
     }
     case 'CHANGE_CHECKBOX': {
-      const { products, event, id } = action.payload;
+      const { event, id } = action.payload;
 
-      products.map((product: Product) => ({
+      const products = state.products.map((product: Product) => ({
         ...product,
         checked: product.id === id ? event.target.checked : product.checked,
       }));
@@ -119,8 +119,7 @@ export default function ProductList() {
   // const handleDeleteClick = async () => {};
 
   const handleCheckboxChange = (event: React.ChangeEvent<any>, id: string) => {
-    const products = state.products;
-    dispatch({ type: 'CHANGE_CHECKBOX', payload: { products, event, id } });
+    dispatch({ type: 'CHANGE_CHECKBOX', payload: { event, id } });
   };
 
   const handleBulkCheckboxChange = (event: React.ChangeEvent<any>) => {
