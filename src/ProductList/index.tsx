@@ -36,10 +36,12 @@ function reducer(state: ProductListState, action: Action) {
       return { ...state, isLoaded: true };
     }
     case 'FULFILLED': {
-      return { ...state, isLoaded: true, products: action.payload.products };
+      const { products } = action.payload;
+      return { ...state, isLoaded: true, products };
     }
     case 'REJECTED': {
-      return { ...state, isLoaded: true, error: action.payload.error };
+      const { error } = action.payload;
+      return { ...state, isLoaded: true, error };
     }
     case 'CHANGE_CHECKBOX': {
       return {
