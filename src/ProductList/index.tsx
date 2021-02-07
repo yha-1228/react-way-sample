@@ -1,11 +1,11 @@
 import React, { useEffect, useReducer } from 'react'
+import reducer, { initialState } from './modules'
 import Box from '@material-ui/core/Box'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import TopBar from './Header'
 import ProductTable from './ProductTable'
 import { PRODUCTS_URL } from '../constants'
 import { wait } from '../functions'
-import reducer, { initialState } from './modules'
 
 export default function ProductList() {
   const [state, dispatch] = useReducer(reducer, initialState)
